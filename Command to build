@@ -3,3 +3,9 @@ docker run --name some-nginx -d -p 8080:80 nginx-test-image
 
 docker build -t phpfpm-test-image PHP-FPM
 docker run --name some-phpfpm -p 9000:9000 phpfpm-test-image
+
+
+//TO DO
+1. Change IP address with env variable(Because this needs to be changed every time)
+	http://192.168.99.100:8080/page1.htm
+	http://192.168.99.100:8080/page2.php
