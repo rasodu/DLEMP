@@ -3,6 +3,10 @@ docker run --name some-nginx -d -p 8080:80 nginx-test-image
 
 docker build -t phpfpm-test-image PHP-FPM
 docker run --name some-phpfpm -p 9000:9000 phpfpm-test-image
+OR
+docker-machine ssh default //docker-machine ls  <- You need to ssh because opening '/bin/bash' from windows doesn't work
+docker run -i -t --name some-phpfpm  -p 9000:9000 phpfpm-test-image /bin/bash
+php-fpm -D
 
 
 //TO DO
