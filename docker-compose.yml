@@ -4,15 +4,15 @@ memcached:
         - "11211"
     command: memcached -p 11211 -m 64
 phpfpm:
-    build: PHP-FPM
-    dockerfile: Dockerfile
+    build: .
+    dockerfile: dlemp-phpfpm
     expose:
         - "9000"
     links:
         - memcached
 nginx:
-    build: NGINX
-    dockerfile: Dockerfile
+    build: .
+    dockerfile: dlemp-nginx
     ports:
         - "8080:80"
     links:

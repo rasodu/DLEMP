@@ -20,11 +20,13 @@ php-fpm -D
 
 
 //Using "docker-compose"
+  docker-compose build
   docker-compose up
   Ctrl + C
   docker-compose rm
 OR
-  docker-compose up
+  docker-compose build
+  docker-compose up -d
   docker-compose ps
   docker-compose stop
   docker-compose ps
