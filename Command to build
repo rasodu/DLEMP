@@ -17,3 +17,20 @@ php-fpm -D
 	http://192.168.99.100:8080/page1.htm
 	http://192.168.99.100:8080/page2.php
 2. Configure php session to use memcached.
+
+
+//Using "docker-compose"
+  docker-compose up
+  Ctrl + C
+  docker-compose rm
+OR
+  docker-compose up
+  docker-compose ps
+  docker-compose stop
+  docker-compose ps
+  docker-compose start
+  docker-compose ps
+  docker-compose stop
+  docker-compose ps
+  docker-compose rm
+  

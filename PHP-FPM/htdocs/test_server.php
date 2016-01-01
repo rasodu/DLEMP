@@ -15,7 +15,7 @@ else{
 
 	//start Test memcached is working
 $mem = new Memcached();
-$mem->addServer("192.168.99.100", 11211);
+$mem->addServer("memcached", 11211);
 
 $result = $mem->get($key);
 
