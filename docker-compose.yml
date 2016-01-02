@@ -1,3 +1,8 @@
+htdocs:
+    image: busybox
+    stdin_open: true
+    volumes:
+        - ./htdocs:/usr/share/nginx/mysite
 memcached:
     image: memcached:1.4.25
     expose:
@@ -6,6 +11,8 @@ memcached:
 phpfpm:
     build: .
     dockerfile: dlemp-phpfpm
+    volumes_from:
+        - htdocs
     expose:
         - "9000"
     links:
@@ -13,6 +20,8 @@ phpfpm:
 nginx:
     build: .
     dockerfile: dlemp-nginx
+    volumes_from:
+        - htdocs
     ports:
         - "8080:80"
     links:
