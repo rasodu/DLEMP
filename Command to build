@@ -1,0 +1,38 @@
+docker run --name some-memcache -d memcached:1.4.25 memcached -p 11211 -m 64
+
+docker build -t nginx-test-image NGINX
+docker run --name some-nginx -d -p 8080:80 nginx-test-image
+
+docker build -t phpfpm-test-image PHP-FPM
+docker run --name some-phpfpm -p 9000:9000 phpfpm-test-image
+OR
+docker-machine ssh default //docker-machine ls  <- You need to ssh because opening '/bin/bash' from windows doesn't work
+cd "/c/Users/bhawnaamin/DLEMP/"
+docker run -i -t --name some-phpfpm  -p 9000:9000 phpfpm-test-image /bin/bash
+php-fpm -D
+
+
+//TO DO
+1. Change IP address with env variable(Because this needs to be changed every time)
+	http://192.168.99.100:8080/page1.htm
+	http://192.168.99.100:8080/page2.php
+2. Configure php session to use memcached.
+
+
+//Using "docker-compose"
+  docker-compose build
+  docker-compose up
+  Ctrl + C
+  docker-compose rm
+OR
+  docker-compose build
+  docker-compose up -d
+  docker-compose ps
+  docker-compose stop
+  docker-compose ps
+  docker-compose start
+  docker-compose ps
+  docker-compose stop
+  docker-compose ps
+  docker-compose rm
+  

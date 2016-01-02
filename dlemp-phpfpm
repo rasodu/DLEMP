@@ -1,0 +1,19 @@
+FROM php:5.6.16-fpm
+
+#Installed by default: OpenSSL, PDO, Tokenizer, mysqlnd(Substitute for 'mysql')
+#Installed manually: Mbstring, phppdo_mysql, mcrypt, memcached
+RUN apt-get update && apt-get -y install wget \
+    && docker-php-ext-install mbstring \
+    && docker-php-ext-install pdo_mysql \
+	&& apt-get -y install libmcrypt-dev && docker-php-ext-install mcrypt \
+	&& apt-get -y install libmemcached-dev zlib1g-dev \
+	&& wget https://pecl.php.net/get/memcached-2.2.0.tgz --output-document=/usr/src/php/ext/memcached.tgz \
+	&& mkdir /usr/src/php/ext/memcached && tar xf /usr/src/php/ext/memcached.tgz -C /usr/src/php/ext/memcached --strip-components 1 && rm /usr/src/php/ext/memcached.tgz \
+	&& docker-php-ext-install memcached
+
+RUN mkdir -p /usr/share/nginx/mysite
+#COPY htdocs /usr/share/nginx/mysite
+#RUN chown -R www-data:www-data /usr/share/nginx/mysite && chmod -R 755 /usr/share/nginx/mysite
+COPY CONFIGS/php-fpm.conf /usr/local/etc/
+
+CMD ["php-fpm"]
