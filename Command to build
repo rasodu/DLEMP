@@ -35,4 +35,9 @@ OR
   docker-compose stop
   docker-compose ps
   docker-compose rm
-  
+
+
+//start temporary 'dlemp_cli' instance
+docker-machine ssh <machine-name> //docker-machine ssh default
+docker run -it --rm -v /c/Users/<username>/DLEMP/WEBAPP:/usr/share/nginx/WEBAPP dlemp_phpfpm /bin/bash
+docker run -it --rm -v /c/Users/bhawnaamin/DLEMP/WEBAPP:/usr/share/nginx/WEBAPP dlemp_phpfpm /bin/bash

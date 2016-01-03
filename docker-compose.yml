@@ -26,3 +26,8 @@ nginx:
         - "8080:80"
     links:
         - phpfpm
+cmd:
+    build: .
+    dockerfile: dlemp-cmd
+    volumes_from:
+        - htdocs
