@@ -13,11 +13,12 @@ php-fpm -D
 
 
 //TO DO
-- Change IP address with env variable(Because this needs to be changed every time)
-	http://192.168.99.100:8080/page1.htm
-	http://192.168.99.100:8080/page2.php
 - Configure php session to use memcached.
 - Figure out a way to start a container from 'dlemp_cli' image without needed to mount volume each time.
+
+//start test server
+	http://192.168.99.100/page1.htm
+	http://192.168.99.100/page2.php
 
 
 //Using "docker-compose"

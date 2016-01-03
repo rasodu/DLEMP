@@ -23,7 +23,7 @@ nginx:
     volumes_from:
         - htdocs
     ports:
-        - "8080:80"
+        - "80:80"
     links:
         - phpfpm
 cmd:
