@@ -42,3 +42,9 @@ OR
 docker-machine ssh <machine-name> //docker-machine ssh default
 docker run -it --rm -v /c/Users/<username>/DLEMP/WEBAPP:/usr/share/nginx/WEBAPP dlemp_cmd /bin/bash
 docker run -it --rm -v /c/Users/bhawnaamin/DLEMP/WEBAPP:/usr/share/nginx/WEBAPP dlemp_cmd /bin/bash
+
+
+//start new laravel install
+cd /usr/share/nginx/WEBAPP && ~/.composer/vendor/bin/laravel new temp-laravel && mv temp-laravel/{.,}* .
+ls temp-laravel -al //make sure this folder is empty
+rm -r temp-laravel //remove empty folder
