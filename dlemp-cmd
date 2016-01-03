@@ -16,7 +16,9 @@ RUN mkdir -p /usr/share/nginx/WEBAPP
 #RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP && chmod -R 755 /usr/share/nginx/WEBAPP
 COPY CONFIGS/php-fpm.conf /usr/local/etc/
 
-#start everything below this is specific to this file
-volumes:
+#start everything specific 'dlemp_cmd'
+RUN apt-get -y install curl git \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 CMD ["echo", "cli"]
+#end everything specific 'dlemp_cmd'
