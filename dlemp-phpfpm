@@ -11,9 +11,9 @@ RUN apt-get update && apt-get -y install wget \
 	&& mkdir /usr/src/php/ext/memcached && tar xf /usr/src/php/ext/memcached.tgz -C /usr/src/php/ext/memcached --strip-components 1 && rm /usr/src/php/ext/memcached.tgz \
 	&& docker-php-ext-install memcached
 
-RUN mkdir -p /usr/share/nginx/mysite
-#COPY htdocs /usr/share/nginx/mysite
-#RUN chown -R www-data:www-data /usr/share/nginx/mysite && chmod -R 755 /usr/share/nginx/mysite
+RUN mkdir -p /usr/share/nginx/WEBAPP
+#COPY htdocs /usr/share/nginx/WEBAPP
+#RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP && chmod -R 755 /usr/share/nginx/WEBAPP
 COPY CONFIGS/php-fpm.conf /usr/local/etc/
 
 CMD ["php-fpm"]
