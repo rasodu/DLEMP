@@ -52,3 +52,18 @@ docker run -it --rm -v /c/Users/bhawnaamin/DLEMP/WEBAPP:/usr/share/nginx/WEBAPP 
 	vendor/bin/phpunit --version
 	//end run laravel phpunit
 //end temporary 'dlemp_cli' instance
+
+
+//start create generic docker-machine
+mkdir ~/DLEMP-vagrant-test && vagrant init ubuntu/trusty64 && vagrant up
+ssh -L 8080:127.0.0.1:80 -L 2376:127.0.0.1:2376 vagrant@127.0.0.1 -p 2222
+sudo nano /etc/sudoers.d/AllowOthersToSudoWithPassword
+		User_Alias     EVERYONE = <user1>[,<user2>]...
+		EVERYONE       ALL = (ALL) NOPASSWD: ALL
+cp .vagrant/machines/default/virtualbox/private_key ~/.ssh/generic-machine-01-prv-key
+docker-machine create -d generic --generic-ip-address 127.0.0.1 --generic-ssh-key ~/.ssh/generic-machine-01-prv-key --generic-ssh-user vagrant --generic-ssh-port 2222 generic-machine-01
+eval $(docker-machine env generic-machine-01)
+docker-machine rm generic-machine-01
+*Note: Make sure port '2376' on generic host is open for the docker-client to connect.
+http://127.0.0.1:8080/page1.htm <- This doesn't work since volume can not be mounted to generic machine. But nginx will still display page not found error.
+//end create generic docker-machine
