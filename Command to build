@@ -14,7 +14,7 @@ php-fpm -D
 
 //TO DO
 - Configure php session to use memcached.
-- Figure out a way to start a container from 'dlemp_cli' image without needed to mount volume each time.
+- Make sure short laravel command works in dlemp_cmd container
 
 //start test server
 	http://192.168.99.100/page1.htm
@@ -41,8 +41,7 @@ OR
 
 //start temporary 'dlemp_cli' instance
 docker-machine ssh <machine-name> //docker-machine ssh default
-docker run -it --rm -v /c/Users/<username>/DLEMP/WEBAPP:/usr/share/nginx/WEBAPP dlemp_cmd /bin/bash
-docker run -it --rm -v /c/Users/bhawnaamin/DLEMP/WEBAPP:/usr/share/nginx/WEBAPP dlemp_cmd /bin/bash
+docker exec -it dlemp_cmd_1 /bin/bash OR docker run -it --rm -v /c/Users/<username>/DLEMP/WEBAPP:/usr/share/nginx/WEBAPP dlemp_cmd /bin/bash(Example: docker run -it --rm -v /c/Users/bhawnaamin/DLEMP/WEBAPP:/usr/share/nginx/WEBAPP dlemp_cmd /bin/bash)
 	//start new laravel install
 	cd /usr/share/nginx/WEBAPP && ~/.composer/vendor/bin/laravel new temp-laravel && mv temp-laravel/{.,}* .
 	ls temp-laravel -al //make sure this folder is empty
