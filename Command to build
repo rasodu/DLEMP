@@ -15,6 +15,7 @@ php-fpm -D
 //TO DO
 - Configure php session to use memcached.
 - Make sure short laravel command works in dlemp_cmd container
+- Stop dlemp_cmd and dlemp_htdocs containers correctly
 
 //start test server
 	http://192.168.99.100/page1.htm

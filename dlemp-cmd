@@ -22,6 +22,7 @@ RUN apt-get -y install curl git \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
 	&& composer global require "laravel/installer"
 
+STOPSIGNAL SIGKILL
 WORKDIR /usr/share/nginx/WEBAPP
 CMD /bin/bash -c "while true; do echo 1; sleep 1; done"
 #end everything specific 'dlemp_cmd' file
