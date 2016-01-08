@@ -17,6 +17,10 @@ php-fpm -D
 - Make sure short laravel command works in dlemp_cmd container
 - Stop dlemp_cmd and dlemp_htdocs containers correctly
 - Now this folder must be called 'DLEMP' otherwise common image will be generated with different name. Figure out a way to assign static permanent name to common image.
+- Add readme instruction on how to use this repository
+	-Copy all 'docker-*' files into Laravel folder(1 folder and 4 files)
+	-Write all docker commands to start all needed containers
+	-Commands to git to cmd on the container
 
 //start test server
 	http://192.168.99.100/page1.htm

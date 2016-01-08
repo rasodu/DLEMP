@@ -2,7 +2,7 @@ htdocs:
     image: busybox
     stdin_open: true
     volumes:
-        - ./WEBAPP:/usr/share/nginx/WEBAPP
+        - .:/usr/share/nginx/WEBAPP
 memcached:
     image: memcached:1.4.25
     expose:
