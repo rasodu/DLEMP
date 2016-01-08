@@ -10,7 +10,7 @@ memcached:
     command: memcached -p 11211 -m 64
 phpfpm:
     build: .
-    dockerfile: dlemp-phpfpm
+    dockerfile: docker-phpfpm
     volumes_from:
         - htdocs
     expose:
@@ -19,7 +19,7 @@ phpfpm:
         - memcached
 nginx:
     build: .
-    dockerfile: dlemp-nginx
+    dockerfile: docker-nginx
     volumes_from:
         - htdocs
     ports:
@@ -28,6 +28,6 @@ nginx:
         - phpfpm
 cmd:
     build: .
-    dockerfile: dlemp-cmd
+    dockerfile: docker-cmd
     volumes_from:
         - htdocs

@@ -16,6 +16,7 @@ php-fpm -D
 - Configure php session to use memcached.
 - Make sure short laravel command works in dlemp_cmd container
 - Stop dlemp_cmd and dlemp_htdocs containers correctly
+- Now this folder must be called 'DLEMP' otherwise common image will be generated with different name. Figure out a way to assign static permanent name to common image.
 
 //start test server
 	http://192.168.99.100/page1.htm
@@ -67,3 +68,9 @@ docker-machine rm generic-machine-01
 *Note: Make sure port '2376' on generic host is open for the docker-client to connect.
 http://127.0.0.1:8080/page1.htm <- This doesn't work since volume can not be mounted to generic machine. But nginx will still display page not found error.
 //end create generic docker-machine
+
+
+//start setting project name manually
+export COMPOSE_PROJECT_NAME=<project-name> (Example: export COMPOSE_PROJECT_NAME=PrjectName && echo $COMPOSE_PROJECT_NAME)
+unset COMPOSE_PROJECT_NAME
+//end setting project name manually
