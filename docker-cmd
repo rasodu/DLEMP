@@ -15,7 +15,7 @@ RUN apt-get update && apt-get -y install wget \
 RUN mkdir -p /usr/share/nginx/WEBAPP
 #COPY htdocs /usr/share/nginx/WEBAPP
 #RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP && chmod -R 755 /usr/share/nginx/WEBAPP
-COPY CONFIGS/php-fpm.conf /usr/local/etc/
+COPY docker-config/php-fpm.conf /usr/local/etc/
 
 #start everything specific 'dlemp_cmd' file
 RUN apt-get -y install curl git \
