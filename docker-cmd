@@ -1,0 +1,28 @@
+FROM php:5.6.16-fpm
+
+#Installed by default: OpenSSL, PDO, Tokenizer, mysqlnd(Substitute for 'mysql')
+#Installed manually: Mbstring, phppdo_mysql, mcrypt, zip(required for 'laravel/installer'), memcached
+RUN apt-get update && apt-get -y install wget \
+    && docker-php-ext-install mbstring \
+    && docker-php-ext-install pdo_mysql \
+	&& apt-get -y install libmcrypt-dev && docker-php-ext-install mcrypt \
+	&& apt-get -y install zlib1g zlib1g-dev && docker-php-ext-install zip \
+	&& apt-get -y install libmemcached-dev zlib1g-dev \
+	&& wget https://pecl.php.net/get/memcached-2.2.0.tgz --output-document=/usr/src/php/ext/memcached.tgz \
+	&& mkdir /usr/src/php/ext/memcached && tar xf /usr/src/php/ext/memcached.tgz -C /usr/src/php/ext/memcached --strip-components 1 && rm /usr/src/php/ext/memcached.tgz \
+	&& docker-php-ext-install memcached
+
+RUN mkdir -p /usr/share/nginx/WEBAPP
+#COPY . /usr/share/nginx/WEBAPP
+#RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP && chmod -R 755 /usr/share/nginx/WEBAPP
+COPY docker-config/php-fpm.conf /usr/local/etc/
+
+#start everything specific 'dlemp_cmd' file
+RUN apt-get -y install curl git \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+	&& composer global require "laravel/installer"
+
+STOPSIGNAL SIGKILL
+WORKDIR /usr/share/nginx/WEBAPP
+CMD /bin/bash -c "while true; do echo 1; sleep 1; done"
+#end everything specific 'dlemp_cmd' file

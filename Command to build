@@ -13,10 +13,18 @@ php-fpm -D
 
 
 //TO DO
-1. Change IP address with env variable(Because this needs to be changed every time)
-	http://192.168.99.100:8080/page1.htm
-	http://192.168.99.100:8080/page2.php
-2. Configure php session to use memcached.
+- Configure php session to use memcached.
+- Make sure short laravel command works in dlemp_cmd container
+- Stop dlemp_cmd and dlemp_htdocs containers correctly
+- Now this folder must be called 'DLEMP' otherwise common image will be generated with different name. Figure out a way to assign static permanent name to common image.
+- Add readme instruction on how to use this repository
+	-Copy all 'docker-*' files into Laravel folder(1 folder and 4 files)
+	-Write all docker commands to start all needed containers
+	-Commands to git to cmd on the container
+
+//start test server
+	http://192.168.99.100/page1.htm
+	http://192.168.99.100/page2.php
 
 
 //Using "docker-compose"
@@ -35,4 +43,38 @@ OR
   docker-compose stop
   docker-compose ps
   docker-compose rm
-  
+
+
+//start temporary 'dlemp_cli' instance
+docker-machine ssh <machine-name> //docker-machine ssh default
+docker exec -it dlemp_cmd_1 /bin/bash OR docker run -it --rm -v /c/Users/<username>/DLEMP/WEBAPP:/usr/share/nginx/WEBAPP dlemp_cmd /bin/bash(Example: docker run -it --rm -v /c/Users/bhawnaamin/DLEMP/WEBAPP:/usr/share/nginx/WEBAPP dlemp_cmd /bin/bash)
+	//start new laravel install
+	cd /usr/share/nginx/WEBAPP && ~/.composer/vendor/bin/laravel new temp-laravel && mv temp-laravel/{.,}* .
+	ls temp-laravel -al //make sure this folder is empty
+	rm -r temp-laravel //remove empty folder
+	//end new laravel install
+	//start run laravel phpunit
+	vendor/bin/phpunit --version
+	//end run laravel phpunit
+//end temporary 'dlemp_cli' instance
+
+
+//start create generic docker-machine
+mkdir ~/DLEMP-vagrant-test && vagrant init ubuntu/trusty64 && vagrant up
+ssh -L 8080:127.0.0.1:80 -L 2376:127.0.0.1:2376 vagrant@127.0.0.1 -p 2222
+sudo nano /etc/sudoers.d/AllowOthersToSudoWithPassword
+		User_Alias     EVERYONE = <user1>[,<user2>]...
+		EVERYONE       ALL = (ALL) NOPASSWD: ALL
+cp .vagrant/machines/default/virtualbox/private_key ~/.ssh/generic-machine-01-prv-key
+docker-machine create -d generic --generic-ip-address 127.0.0.1 --generic-ssh-key ~/.ssh/generic-machine-01-prv-key --generic-ssh-user vagrant --generic-ssh-port 2222 generic-machine-01
+eval $(docker-machine env generic-machine-01)
+docker-machine rm generic-machine-01
+*Note: Make sure port '2376' on generic host is open for the docker-client to connect.
+http://127.0.0.1:8080/page1.htm <- This doesn't work since volume can not be mounted to generic machine. But nginx will still display page not found error.
+//end create generic docker-machine
+
+
+//start setting project name manually
+export COMPOSE_PROJECT_NAME=<project-name> (Example: export COMPOSE_PROJECT_NAME=PrjectName && echo $COMPOSE_PROJECT_NAME)
+unset COMPOSE_PROJECT_NAME
+//end setting project name manually

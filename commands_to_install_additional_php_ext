@@ -1,0 +1,8 @@
+Thanks: https://github.com/docker-library/php/issues/75
+
+LDAP: apt-get install -y libldap2-dev && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && docker-php-ext-install ldap
+SOAP: apt-get install -y libxml2-dev && docker-php-ext-install soap (Need to be checked)
+FTP: apt-get install -y libssl-dev && docker-php-ext-install ftp (Need to be checked)
+intl: apt-get install -y libicu-dev && docker-php-ext-install intl (Need to be checked)
+xsl: apt-get install -y libxslt-dev && docker-php-ext-install xsl (Need to be checked)
+imap: apt-get install -y libc-client-dev libkrb5-dev && docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-php-ext-install imap (Need to be checked)
