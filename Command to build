@@ -14,7 +14,6 @@ php-fpm -D
 
 //TO DO
 - Configure php session to use memcached.
-- Make sure short laravel command works in dlemp_cmd container
 - Stop dlemp_cmd and dlemp_htdocs containers correctly
 - Now this folder must be called 'DLEMP' otherwise common image will be generated with different name. Figure out a way to assign static permanent name to common image.
 - Add readme instruction on how to use this repository
