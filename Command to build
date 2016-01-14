@@ -20,6 +20,8 @@ php-fpm -D
 	-Copy all 'docker-*' files into Laravel folder(1 folder and 4 files)
 	-Write all docker commands to start all needed containers
 	-Commands to git to cmd on the container
+-'storage/app' directory is created when production Docker is run. Try to sync subfolder in 'docker-config' instead.
+-Make sure permission 'WEBAPP' folder is correct on 'nginx' image. 
 
 //start test server
 	http://192.168.99.100/page1.htm
@@ -33,7 +35,9 @@ php-fpm -D
   docker-compose rm
 OR
   docker-compose build
-  docker-compose up -d
+  docker-compose up -d(This command will automatically read 'docker-compose.yml' and 'docker-compose.override.yml')
+    OR
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
   docker-compose ps
   docker-compose stop
   docker-compose ps

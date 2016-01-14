@@ -1,8 +1,3 @@
-htdocs:
-    image: busybox
-    stdin_open: true
-    volumes:
-        - .:/usr/share/nginx/WEBAPP
 memcached:
     image: memcached:1.4.25
     expose:
@@ -26,8 +21,3 @@ nginx:
         - "80:80"
     links:
         - phpfpm
-cmd:
-    build: .
-    dockerfile: docker-cmd
-    volumes_from:
-        - htdocs

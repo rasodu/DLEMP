@@ -1,0 +1,10 @@
+htdocs:
+    image: busybox
+    stdin_open: true
+    volumes:
+        - .:/usr/share/nginx/WEBAPP
+cmd:
+    build: .
+    dockerfile: docker-cmd
+    volumes_from:
+        - htdocs
