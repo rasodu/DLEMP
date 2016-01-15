@@ -2,4 +2,4 @@ htdocs:
     image: busybox
     stdin_open: true
     volumes:
-        - ./storage/app:/usr/share/nginx/WEBAPP/storage/app
+        - ./dockervolumesstorage0app:/usr/share/nginx/WEBAPP/storage/app

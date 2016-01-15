@@ -21,7 +21,7 @@ php-fpm -D
 	-Write all docker commands to start all needed containers
 	-Commands to git to cmd on the container
 -'storage/app' directory is created when production Docker is run. Try to sync subfolder in 'docker-config' instead.
--Make sure permission 'WEBAPP' folder is correct on 'nginx' image. 
+-Make sure permission 'WEBAPP' folder is correct on 'nginx' image.
 
 //start test server
 	http://192.168.99.100/page1.htm
@@ -81,3 +81,8 @@ http://127.0.0.1:8080/page1.htm <- This doesn't work since volume can not be mou
 export COMPOSE_PROJECT_NAME=<project-name> (Example: export COMPOSE_PROJECT_NAME=PrjectName && echo $COMPOSE_PROJECT_NAME)
 unset COMPOSE_PROJECT_NAME
 //end setting project name manually
+
+
+//Other notes:
+-Production volumes:  './dockervolumes<actual-path-to-volume-folder-with-slash-replaced-with-zero>'(Example: You will mount 'storage/app' to './dockervolumesstorage0app'.[Unfortunately this schema was chosen because '-' is not allowed in the volume path])
+	-This allow easily excluding all volume from being copied when building image for production(When building Docker image directly on production server from source code).
