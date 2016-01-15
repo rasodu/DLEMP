@@ -58,6 +58,7 @@ docker exec -it dlemp_cmd_1 /bin/bash OR docker run -it --rm -v /c/Users/<userna
 	//end new laravel install
 	//start run laravel phpunit
 	vendor/bin/phpunit --version
+	rm -r phpunit-coverage && mkdir phpunit-coverage && vendor/bin/phpunit --coverage-html phpunit-coverage
 	//end run laravel phpunit
 //end temporary 'dlemp_cli' instance
 

@@ -21,6 +21,7 @@ COPY docker-config/php-fpm.conf /usr/local/etc/
 #start everything specific 'dlemp_cmd' file
 RUN apt-get update \
     && apt-get -y install curl git \
+    && pecl install xdebug && docker-php-ext-enable xdebug && rm -rf /tmp/pear/* \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && mkdir -p ~/.composer/cache/ && chmod -R 777 ~/.composer/cache/ \
 	&& composer global require "laravel/installer" \
     && apt-get clean && rm -rf /var/lib/apt/list/*
