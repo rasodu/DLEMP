@@ -21,6 +21,7 @@ phpfpm:
         - "9000"
     links:
         - memcached
+        - mysql
 nginx:
     build: .
     dockerfile: docker-nginx

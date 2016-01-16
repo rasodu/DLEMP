@@ -6,3 +6,5 @@ cmd:
     dockerfile: docker-cmd
     volumes_from:
         - phpfpm
+    links:
+        - mysql
