@@ -13,9 +13,10 @@ RUN apt-get update && apt-get -y install wget \
 	&& docker-php-ext-install memcached \
     && apt-get clean && rm -rf /var/lib/apt/list/*
 
+COPY docker-config/php-fpm.conf /usr/local/etc/
+
 RUN mkdir -p /usr/share/nginx/WEBAPP
 COPY . /usr/share/nginx/WEBAPP
 RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP && chmod -R 755 /usr/share/nginx/WEBAPP
-COPY docker-config/php-fpm.conf /usr/local/etc/
 
 CMD ["php-fpm"]
