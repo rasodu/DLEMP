@@ -1,10 +1,8 @@
-htdocs:
-    image: busybox
-    stdin_open: true
+phpfpm:
     volumes:
         - .:/usr/share/nginx/WEBAPP
 cmd:
     build: .
     dockerfile: docker-cmd
     volumes_from:
-        - htdocs
+        - phpfpm

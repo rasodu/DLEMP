@@ -6,8 +6,6 @@ memcached:
 phpfpm:
     build: .
     dockerfile: docker-phpfpm
-    volumes_from:
-        - htdocs
     expose:
         - "9000"
     links:
@@ -16,7 +14,7 @@ nginx:
     build: .
     dockerfile: docker-nginx
     volumes_from:
-        - htdocs
+        - phpfpm
     ports:
         - "80:80"
     links:
