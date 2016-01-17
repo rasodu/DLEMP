@@ -61,6 +61,11 @@ docker exec -it dlemp_cmd_1 /bin/bash OR docker run -it --rm -v /c/Users/<userna
 	vendor/bin/phpunit --version
 	rm -r phpunit-coverage && mkdir phpunit-coverage && vendor/bin/phpunit --coverage-html phpunit-coverage
 	//end run laravel phpunit
+	//start change initial Laravel configurations
+	use memcached for caching: 'config/cache.php' => change default driver from 'file' to 'memcached' and change memcached host from '127.0.0.1' to 'memcached'.
+	use memcahed for sessions: 'config/session.php' => change default driver from 'file' to 'memcached', set 'expire_on_close' to 'true' and set 'encrypt' to 'true'.
+	change database settings: 'config/.env' and 'config/.env.example' => change DB_HOST from 'localhost' to 'mysql'.
+	//end change initial Laravel configurations
 //end temporary 'dlemp_cli' instance
 
 
@@ -78,6 +83,24 @@ docker-machine rm generic-machine-01
 http://127.0.0.1:8080/page1.htm <- This doesn't work since volume can not be mounted to generic machine. But nginx will still display page not found error.
 //end create generic docker-machine
 
+//start increase Docker machine RAM
+docker-machine stop default
+  Open VirtualBox GUI
+  Go to "Preferences > Memory" and increase it <= Need to be checked
+OR
+  docker-machine rm default
+  docker-machine create -d virtualbox --virtualbox-memory 2048 default
+docker-machine start default
+//start increase Docker machine RAM
+
+//start adding php.ini
+Go to: https://github.com/php/php-src/blob/php-5.6.16/php.ini-production
+Select correct tag for the version of php that you are using
+Click on 'Raw'
+Save file in 'docker-config' folder as 'php.ini'
+Make changes to this 'php.ini' according to your needs
+COPY the file to 'phpfpm' and 'cmd' image in directory '/usr/local/etc/php/' : Example 'COPY '
+//start adding php.ini
 
 //start setting project name manually
 export COMPOSE_PROJECT_NAME=<project-name> (Example: export COMPOSE_PROJECT_NAME=PrjectName && echo $COMPOSE_PROJECT_NAME)
