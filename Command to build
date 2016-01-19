@@ -24,6 +24,7 @@ php-fpm -D
 -Make sure permission 'WEBAPP' folder is correct on 'nginx' image.
 -MySQL port is exposed during production. It should only be exposed during development.
 -For generic machine only '127.0.0.1:8080' works 'locahost:8080' doesn't work.
+-Figure out a way to remove 'This Connection is Untrusted' warning when visiting 'https://webapp.dev/page1.htm' from FireFox without adding exception.
 
 //start test server
 	http://192.168.99.100/page1.htm
@@ -127,6 +128,11 @@ export COMPOSE_PROJECT_NAME=<project-name> (Example: export COMPOSE_PROJECT_NAME
 unset COMPOSE_PROJECT_NAME
 //end setting project name manually
 
+//start creating self-signed (wildcard) SSL certificate(Secure domain and all it subdomains)
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout docker-config/docker-ssl/docker-webapp.key -out docker-config/docker-ssl/docker-webapp.crt
+ 	-Enter '*.webapp.dev' for 'Common Name (e.g. server FQDN or YOUR name)'. All other inputs were left empty(Simply hit enter).
+Optional: Add '192.168.99.100       webapp.dev' to 'C:\Windows\System32\drivers\etc\hosts'.
+//end creating self-signed (wildcard) SSL certificate(Secure domain and all it subdomains)
 
 //Other notes:
 -Production volumes:  './dockervolumes<actual-path-to-volume-folder-with-slash-replaced-with-zero>'(Example: You will mount 'storage/app' to './dockervolumesstorage0app'.[Unfortunately this schema was chosen because '-' is not allowed in the volume path])
