@@ -10,11 +10,13 @@ RUN apt-get update && apt-get -y install wget \
 	&& apt-get -y install libmemcached-dev zlib1g-dev \
 	&& wget https://pecl.php.net/get/memcached-2.2.0.tgz --output-document=/usr/src/php/ext/memcached.tgz \
 	&& mkdir /usr/src/php/ext/memcached && tar xf /usr/src/php/ext/memcached.tgz -C /usr/src/php/ext/memcached --strip-components 1 && rm /usr/src/php/ext/memcached.tgz \
-	&& docker-php-ext-install memcached
+	&& docker-php-ext-install memcached \
+    && apt-get clean && rm -rf /var/lib/apt/list/*
+
+COPY docker-config/php-fpm.conf /usr/local/etc/
 
 RUN mkdir -p /usr/share/nginx/WEBAPP
-#COPY . /usr/share/nginx/WEBAPP
-#RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP && chmod -R 755 /usr/share/nginx/WEBAPP
-COPY docker-config/php-fpm.conf /usr/local/etc/
+COPY . /usr/share/nginx/WEBAPP
+RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP && chmod -R 755 /usr/share/nginx/WEBAPP
 
 CMD ["php-fpm"]

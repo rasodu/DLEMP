@@ -14,13 +14,16 @@ php-fpm -D
 
 //TO DO
 - Configure php session to use memcached.
-- Make sure short laravel command works in dlemp_cmd container
 - Stop dlemp_cmd and dlemp_htdocs containers correctly
 - Now this folder must be called 'DLEMP' otherwise common image will be generated with different name. Figure out a way to assign static permanent name to common image.
 - Add readme instruction on how to use this repository
 	-Copy all 'docker-*' files into Laravel folder(1 folder and 4 files)
 	-Write all docker commands to start all needed containers
 	-Commands to git to cmd on the container
+-'storage/app' directory is created when production Docker is run. Try to sync subfolder in 'docker-config' instead.
+-Make sure permission 'WEBAPP' folder is correct on 'nginx' image.
+-MySQL port is exposed during production. It should only be exposed during development.
+-For generic machine only '127.0.0.1:8080' works 'locahost:8080' doesn't work.
 
 //start test server
 	http://192.168.99.100/page1.htm
@@ -34,7 +37,9 @@ php-fpm -D
   docker-compose rm
 OR
   docker-compose build
-  docker-compose up -d
+  docker-compose up -d(This command will automatically read 'docker-compose.yml' and 'docker-compose.override.yml')
+    OR
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
   docker-compose ps
   docker-compose stop
   docker-compose ps
@@ -55,26 +60,74 @@ docker exec -it dlemp_cmd_1 /bin/bash OR docker run -it --rm -v /c/Users/<userna
 	//end new laravel install
 	//start run laravel phpunit
 	vendor/bin/phpunit --version
+	rm -r phpunit-coverage && mkdir phpunit-coverage && vendor/bin/phpunit --coverage-html phpunit-coverage
 	//end run laravel phpunit
+	//start change initial Laravel configurations
+	use memcached for caching: 'config/cache.php' => change default driver from 'file' to 'memcached' and change memcached host from '127.0.0.1' to 'memcached'.
+	use memcahed for sessions: 'config/session.php' => change default driver from 'file' to 'memcached', set 'expire_on_close' to 'true' and set 'encrypt' to 'true'.
+	change database settings: 'config/.env' and 'config/.env.example' => change DB_HOST from 'localhost' to 'mysql'.
+	//end change initial Laravel configurations
 //end temporary 'dlemp_cli' instance
 
 
 //start create generic docker-machine
-mkdir ~/DLEMP-vagrant-test && vagrant init ubuntu/trusty64 && vagrant up
-ssh -L 8080:127.0.0.1:80 -L 2376:127.0.0.1:2376 vagrant@127.0.0.1 -p 2222
+cd ~/.ssh && ssh-keygen -t rsa -C "Docker test machine key" //enter filename to 'docker_test' and don't set a passphrase
+
+mkdir docker-test && cd docker-test && vagrant init ubuntu/trusty64 && vagrant up
+
+ssh vagrant@127.0.0.1 -p 2222 //password is 'vagrant'
+sudo adduser dockeruser //set password to 'dockerpasswd'
+sudo gpasswd --add dockeruser sudo
 sudo nano /etc/sudoers.d/AllowOthersToSudoWithPassword
-		User_Alias     EVERYONE = <user1>[,<user2>]...
+		User_Alias     EVERYONE = dockeruser
 		EVERYONE       ALL = (ALL) NOPASSWD: ALL
-cp .vagrant/machines/default/virtualbox/private_key ~/.ssh/generic-machine-01-prv-key
-docker-machine create -d generic --generic-ip-address 127.0.0.1 --generic-ssh-key ~/.ssh/generic-machine-01-prv-key --generic-ssh-user vagrant --generic-ssh-port 2222 generic-machine-01
+
+su --login dockeruser
+mkdir ~/.ssh
+chmod 700 ~/.ssh
+nano ~/.ssh/authorized_keys // Copy your public key from '~/.ssh/docker_test.pub' file on your machine here. CTRL-X, then Y, then ENTER
+chmod 600 ~/.ssh/authorized_keys
+sudo service ssh restart
+ssh dockeruser@127.0.0.1 -p 2222 //Test this from new terminal then 'exit' if this success
+
+sudo nano /etc/ssh/sshd_config //Change 'PermitRootLogin yes' to 'PermitRootLogin no'
+sudo service ssh restart //Then exit to local machine
+
+ssh -L 8080:127.0.0.1:80 -L 2376:127.0.0.1:2376 dockeruser@127.0.0.1 -p 2222 //on a different terminal so Docker client can connect to the machine. Keep this terminal open.
+
+docker-machine create -d generic --generic-ip-address 127.0.0.1 --generic-ssh-key ~/.ssh/docker_test --generic-ssh-user dockeruser --generic-ssh-port 2222 generic-machine-01
 eval $(docker-machine env generic-machine-01)
+
 docker-machine rm generic-machine-01
 *Note: Make sure port '2376' on generic host is open for the docker-client to connect.
 http://127.0.0.1:8080/page1.htm <- This doesn't work since volume can not be mounted to generic machine. But nginx will still display page not found error.
 //end create generic docker-machine
 
+//start increase Docker machine RAM
+docker-machine stop default
+  Open VirtualBox GUI
+  Go to "Preferences > Memory" and increase it <= Need to be checked
+OR
+  docker-machine rm default
+  docker-machine create -d virtualbox --virtualbox-memory 2048 default
+docker-machine start default
+//start increase Docker machine RAM
+
+//start adding php.ini
+Go to: https://github.com/php/php-src/blob/php-5.6.16/php.ini-production
+Select correct tag for the version of php that you are using
+Click on 'Raw'
+Save file in 'docker-config' folder as 'php.ini'
+Make changes to this 'php.ini' according to your needs
+COPY the file to 'phpfpm' and 'cmd' image in directory '/usr/local/etc/php/' : Example 'COPY '
+//start adding php.ini
 
 //start setting project name manually
 export COMPOSE_PROJECT_NAME=<project-name> (Example: export COMPOSE_PROJECT_NAME=PrjectName && echo $COMPOSE_PROJECT_NAME)
 unset COMPOSE_PROJECT_NAME
 //end setting project name manually
+
+
+//Other notes:
+-Production volumes:  './dockervolumes<actual-path-to-volume-folder-with-slash-replaced-with-zero>'(Example: You will mount 'storage/app' to './dockervolumesstorage0app'.[Unfortunately this schema was chosen because '-' is not allowed in the volume path])
+	-This allow easily excluding all volume from being copied when building image for production(When building Docker image directly on production server from source code).

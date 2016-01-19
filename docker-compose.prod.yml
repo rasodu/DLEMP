@@ -1,0 +1,7 @@
+phpfpm:
+    volumes:
+        - ./dockervolumesstorage0app:/usr/share/nginx/WEBAPP/storage/app
+        - ./dockervolumesvar0lib0mysql:/var/lib/mysql
+mysql:
+    volumes_from:
+        - phpfpm
