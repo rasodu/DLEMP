@@ -1,9 +1,12 @@
 FROM nginx:1.9.8
+
 COPY docker-config/docker-ssl/docker-webapp.key /etc/nginx/ssl/WEBAPP/site.key
 COPY docker-config/docker-ssl/docker-webapp.crt /etc/nginx/ssl/WEBAPP/site.crt
+
+COPY docker-config/docker-custom-nginx.conf /etc/nginx/conf.d/custom.conf
+COPY docker-config/mysite.conf /etc/nginx/conf.d/mysite.conf
+
 #COPY htdocs /usr/share/nginx/html
 RUN mkdir -p /usr/share/nginx/WEBAPP
 COPY . /usr/share/nginx/WEBAPP
 #RUN chmod -R 777 /usr/share/nginx/WEBAPP
-COPY docker-config/nginx.conf /etc/nginx/nginx.conf
-COPY docker-config/mysite.conf /etc/nginx/conf.d/mysite.conf
