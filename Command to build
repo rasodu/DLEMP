@@ -99,6 +99,9 @@ ssh -L 8080:127.0.0.1:80 -L 2376:127.0.0.1:2376 dockeruser@127.0.0.1 -p 2222 //o
 docker-machine create -d generic --generic-ip-address 127.0.0.1 --generic-ssh-key ~/.ssh/docker_test --generic-ssh-user dockeruser --generic-ssh-port 2222 generic-machine-01
 eval $(docker-machine env generic-machine-01)
 
+docker-machine ssh generic-machine-01
+sudo passwd dockeruser -d //Login are allowed only allowed using SSH key. Password is disabled for the account. You may reset password for the account using command 'passwd dockeruser'
+
 docker-machine rm generic-machine-01
 *Note: Make sure port '2376' on generic host is open for the docker-client to connect.
 http://127.0.0.1:8080/page1.htm <- This doesn't work since volume can not be mounted to generic machine. But nginx will still display page not found error.
