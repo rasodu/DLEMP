@@ -98,7 +98,6 @@ ssh -L 8080:127.0.0.1:80 -L 2376:127.0.0.1:2376 dockeruser@127.0.0.1 -p 2222 //o
 
 docker-machine create -d generic --generic-ip-address 127.0.0.1 --generic-ssh-key ~/.ssh/docker_test --generic-ssh-user dockeruser --generic-ssh-port 2222 generic-machine-01
 eval $(docker-machine env generic-machine-01)
-
 docker-machine ssh generic-machine-01
 sudo passwd dockeruser -d //Login are allowed only allowed using SSH key. Password is disabled for the account. You may reset password for the account using command 'passwd dockeruser'
 
