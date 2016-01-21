@@ -1,2 +1,3 @@
 #Ignore volume folders during production
 dockervolumesstorage0app/*
+dockervolumesvar0lib0mysql/*
