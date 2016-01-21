@@ -14,6 +14,7 @@ RUN apt-get update && apt-get -y install wget \
     && apt-get clean && rm -rf /var/lib/apt/list/*
 
 COPY docker-config/php-fpm.conf /usr/local/etc/
+COPY docker-config/docker-custom-php.ini /usr/local/etc/php/conf.d/custom.ini
 
 #start everything specific 'dlemp_cmd' file
 RUN apt-get update \
