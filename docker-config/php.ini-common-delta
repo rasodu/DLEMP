@@ -14,12 +14,6 @@
 ; Memory limit for the script
 ;memory_limit = 128M
 
-; Error reporting. Preferred development(E_ALL) and production(E_ALL & ~E_DEPRECATED & ~E_STRICT) value
-error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
-; Turning this on could potentially leak out sensitive information such as database usernames and passwords or worse.
-display_errors = Off
-;display_startup_errors = Off
-
 ; Determines which super global arrays are registered when PHP starts up
 variables_order = "GPCS"
 request_order = "GP"
