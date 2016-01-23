@@ -20,7 +20,7 @@ php-fpm -D
 	-Copy all 'docker-*' files into Laravel folder(1 folder and 4 files)
 	-Write all docker commands to start all needed containers
 	-Commands to git to cmd on the container
--'storage/app' directory is created when production Docker is run. Try to sync subfolder in 'docker-config' instead.
+-'storage/app' directory is created when production Docker is run. Try to sync subfolder in 'docker/docker-config' instead.
 -Make sure permission 'WEBAPP' folder is correct on 'nginx' image.
 -MySQL port is exposed during production. It should only be exposed during development.
 -For generic machine only '127.0.0.1:8080' works 'locahost:8080' doesn't work.
@@ -120,7 +120,7 @@ docker-machine start default
 Go to: https://github.com/php/php-src/blob/php-5.6.16/php.ini-production
 Select correct tag for the version of php that you are using
 Click on 'Raw'
-Save file in 'docker-config' folder as 'php.ini'
+Save file in 'docker/docker-config' folder as 'php.ini'
 Make changes to this 'php.ini' according to your needs
 COPY the file to 'phpfpm' and 'cmd' image in directory '/usr/local/etc/php/' : Example 'COPY '
 //start adding php.ini
@@ -131,7 +131,7 @@ unset COMPOSE_PROJECT_NAME
 //end setting project name manually
 
 //start creating self-signed (wildcard) SSL certificate(Secure domain and all it subdomains)
-openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout docker-config/docker-ssl/docker-webapp.key -out docker-config/docker-ssl/docker-webapp.crt
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout docker/docker-config/docker-ssl/docker-webapp.key -out docker/docker-config/docker-ssl/docker-webapp.crt
  	-Enter '*.webapp.dev' for 'Common Name (e.g. server FQDN or YOUR name)'. All other inputs were left empty(Simply hit enter).
 Optional: Add '192.168.99.100       webapp.dev' to 'C:\Windows\System32\drivers\etc\hosts'.
 //end creating self-signed (wildcard) SSL certificate(Secure domain and all it subdomains)

@@ -1,2 +1,2 @@
 #Ignore volume folders during production
-docker-config/docker-production-volumes/*
+docker/docker-production-volumes/*

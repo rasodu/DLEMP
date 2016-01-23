@@ -1,7 +1,7 @@
 phpfpm:
     volumes:
         - .:/usr/share/nginx/WEBAPP
-        - ./docker-config/php.ini-development-delta:/usr/local/etc/php/conf.d/development.ini
+        - ./docker/docker-config/php.ini-development-delta:/usr/local/etc/php/conf.d/development.ini
 cmd:
     build: .
     dockerfile: docker-cmd
