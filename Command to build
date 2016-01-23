@@ -20,7 +20,6 @@ php-fpm -D
 	-Copy all 'docker-*' files into Laravel folder(1 folder and 4 files)
 	-Write all docker commands to start all needed containers
 	-Commands to git to cmd on the container
--'storage/app' directory is created when production Docker is run. Try to sync subfolder in 'docker/docker-config' instead.
 -Make sure permission 'WEBAPP' folder is correct on 'nginx' image.
 -MySQL port is exposed during production. It should only be exposed during development.
 -For generic machine only '127.0.0.1:8080' works 'locahost:8080' doesn't work.
