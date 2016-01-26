@@ -10,3 +10,4 @@ mssql & pdo_dblib: apt-get install -y freetds-dev && ln -s /usr/lib/x86_64-linux
                    docker-php-ext-configure mssql --with-mssql=/usr && docker-php-ext-install mssql
                    docker-php-ext-configure pdo_dblib --with-pdo-dblib=/usr && docker-php-ext-install pdo_dblib
                    COPY docker/docker-config/freetds.conf /etc/freetds/freetds.conf
+                   new \PDO('dblib:host=mssqlserver;dbname=DBNAME', 'USERNAME', 'PASSWORD');
