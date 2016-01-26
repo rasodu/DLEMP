@@ -9,3 +9,4 @@ imap: apt-get install -y libc-client-dev libkrb5-dev && docker-php-ext-configure
 mssql & pdo_dblib: apt-get install -y freetds-dev && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/libsybdb.so
                    docker-php-ext-configure mssql --with-mssql=/usr && docker-php-ext-install mssql
                    docker-php-ext-configure pdo_dblib --with-pdo-dblib=/usr && docker-php-ext-install pdo_dblib
+                   COPY docker/docker-config/freetds.conf /etc/freetds/freetds.conf
