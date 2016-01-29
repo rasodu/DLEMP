@@ -1,2 +1,2 @@
 #Ignore volume folders during production
-dockervolumesstorage0app/*
+docker/docker-production-volumes/*

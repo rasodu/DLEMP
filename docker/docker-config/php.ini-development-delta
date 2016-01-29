@@ -1,0 +1,5 @@
+; Error reporting. Preferred development(E_ALL) and production(E_ALL & ~E_DEPRECATED & ~E_STRICT) value
+error_reporting = E_ALL
+; Turning this on could potentially leak out sensitive information such as database usernames and passwords or worse.
+display_errors = On
+display_startup_errors = On

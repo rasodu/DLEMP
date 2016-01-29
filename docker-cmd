@@ -13,7 +13,9 @@ RUN apt-get update && apt-get -y install wget \
 	&& docker-php-ext-install memcached \
     && apt-get clean && rm -rf /var/lib/apt/list/*
 
-COPY docker-config/php-fpm.conf /usr/local/etc/
+COPY docker/docker-config/php-fpm.conf /usr/local/etc/
+COPY docker/docker-config/php.ini-production /usr/local/etc/php/php.ini
+COPY docker/docker-config/php.ini-common-delta /usr/local/etc/php/conf.d/common.ini
 
 #start everything specific 'dlemp_cmd' file
 RUN apt-get update \

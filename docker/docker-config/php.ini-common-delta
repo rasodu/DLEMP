@@ -1,0 +1,22 @@
+; This file file is used to overwrite configurations in '/usr/local/etc/php/php.ini' file
+
+; Timeout for socket based streams
+;default_socket_timeout = 600
+
+; Maximum execution time of each script
+;max_execution_time = 660
+
+; Limit of the entire body of the request
+;post_max_size = 300M
+; Limit of any single file
+;upload_max_filesize = 300M
+
+; Memory limit for the script
+;memory_limit = 128M
+
+; Determines which super global arrays are registered when PHP starts up
+variables_order = "GPCS"
+request_order = "GP"
+
+; This feature is disabled by default. If this is enabled, then the request will be allowed to complete even if user
+;ignore_user_abort = On
