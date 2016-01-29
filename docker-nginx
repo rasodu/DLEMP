@@ -1,4 +1,4 @@
-FROM nginx:1.9.8
+FROM nginx:1.9.10
 
 COPY docker/docker-config/docker-ssl/docker-webapp.key /etc/nginx/ssl/WEBAPP/site.key
 COPY docker/docker-config/docker-ssl/docker-webapp.crt /etc/nginx/ssl/WEBAPP/site.crt
