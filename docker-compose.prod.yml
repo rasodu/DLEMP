@@ -1,6 +1,6 @@
 phpfpm:
     volumes:
-        - ./docker/docker-production-volumes/storage-app:/usr/share/nginx/WEBAPP/storage/app
+        - storage-app:/usr/share/nginx/WEBAPP/storage/app
 mysql:
     volumes:
-        - ./docker/docker-production-volumes/var-lib-mysql:/var/lib/mysql
+        - var-lib-mysql:/var/lib/mysql

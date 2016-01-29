@@ -24,6 +24,7 @@ php-fpm -D
 -MySQL port is exposed during production. It should only be exposed during development.
 -For generic machine only '127.0.0.1:8080' works 'locahost:8080' doesn't work.
 -Figure out a way to remove 'This Connection is Untrusted' warning when visiting 'https://webapp.dev/page1.htm' from FireFox without adding exception.
+-Currently data volumes that are created for production don't prepend project name to itself. Therefore it is a real possibility that two different projects running on a single host in production accidently share their volumes. It is recommended that you change production data volume name in 'docker-compose.prod.yml' file when you copy the files to create new project.
 
 //start test server
 	http://192.168.99.100/page1.htm
@@ -34,7 +35,7 @@ php-fpm -D
   docker-compose build
   docker-compose up
   Ctrl + C
-  docker-compose rm
+  docker-compose rm -v
 OR
   docker-compose build
   docker-compose up -d(This command will automatically read 'docker-compose.yml' and 'docker-compose.override.yml')
@@ -47,8 +48,16 @@ OR
   docker-compose ps
   docker-compose stop
   docker-compose ps
+  docker-compose rm -v
+    OR
   docker-compose rm
 
+//volumes
+docker volume ls //list all volumes
+docker volume rm <volume-name> //remove a volume
+docker volume rm $(docker volume ls -q) //remove all volumes
+docker-compose rm //remove containers
+docker-compose rm -v //removes containers and 'Data volumes' and 'Mounted directory data volumes'
 
 //start temporary 'dlemp_cli' instance
 docker-machine ssh <machine-name> //docker-machine ssh default
