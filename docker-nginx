@@ -7,5 +7,5 @@ COPY docker/docker-config/docker-custom-nginx.conf /etc/nginx/conf.d/custom.conf
 COPY docker/docker-config/mysite.conf /etc/nginx/conf.d/mysite.conf
 
 #COPY htdocs /usr/share/nginx/html
-COPY . /usr/share/nginx/WEBAPP
+COPY public /usr/share/nginx/WEBAPP/public
 #RUN chmod -R 777 /usr/share/nginx/WEBAPP
