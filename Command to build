@@ -144,6 +144,11 @@ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout docker/docker-confi
 Optional: Add '192.168.99.100       webapp.dev' to 'C:\Windows\System32\drivers\etc\hosts'.
 //end creating self-signed (wildcard) SSL certificate(Secure domain and all it subdomains)
 
+//start steps to upgrade php version
+Change from image in phpfpm and cmd file
+Download php.ini file for the version php you upgraded to from github php-src repository
+//start steps to upgrade php version
+
 //Other notes:
 -Production volumes:  './dockervolumes<actual-path-to-volume-folder-with-slash-replaced-with-zero>'(Example: You will mount 'storage/app' to './dockervolumesstorage0app'.[Unfortunately this schema was chosen because '-' is not allowed in the volume path])
 	-This allow easily excluding all volume from being copied when building image for production(When building Docker image directly on production server from source code).
