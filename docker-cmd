@@ -17,6 +17,8 @@ COPY docker/docker-config/php-fpm.conf /usr/local/etc/
 COPY docker/docker-config/php.ini-production /usr/local/etc/php/php.ini
 COPY docker/docker-config/php.ini-common-delta /usr/local/etc/php/conf.d/common.ini
 
+WORKDIR /usr/share/nginx/WEBAPP
+
 #start everything specific 'dlemp_cmd' file
 RUN apt-get update \
     && apt-get -y install curl git \
@@ -27,6 +29,5 @@ RUN apt-get update \
 ENV PATH ~/.composer/vendor/bin:$PATH
 
 STOPSIGNAL SIGKILL
-WORKDIR /usr/share/nginx/WEBAPP
 CMD /bin/bash -c "while true; do echo 1; sleep 1; done"
 #end everything specific 'dlemp_cmd' file
