@@ -17,7 +17,6 @@ COPY docker/docker-config/php-fpm.conf /usr/local/etc/
 COPY docker/docker-config/php.ini-production /usr/local/etc/php/php.ini
 COPY docker/docker-config/php.ini-common-delta /usr/local/etc/php/conf.d/common.ini
 
-RUN mkdir -p /usr/share/nginx/WEBAPP
 COPY . /usr/share/nginx/WEBAPP
 RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP && chmod -R 755 /usr/share/nginx/WEBAPP
 
