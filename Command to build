@@ -145,8 +145,8 @@ Optional: Add '192.168.99.100       webapp.dev' to 'C:\Windows\System32\drivers\
 //end creating self-signed (wildcard) SSL certificate(Secure domain and all it subdomains)
 
 //start steps to upgrade php version
-Change from image in phpfpm and cmd file
-Download php.ini file for the version php you upgraded to from github php-src repository
+Change tag in 'FROM' instruction in dockerfile to build phpfpm and cmd image
+Download php.ini production file for the version of php you upgraded to from github php-src repository
 //start steps to upgrade php version
 
 //Other notes:
