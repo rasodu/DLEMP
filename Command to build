@@ -52,6 +52,11 @@ OR
     OR
   docker-compose rm
 
+//rebuild and redeploy single container
+docker-compose stop phpfpm
+docker-compose build phpfpm
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps phpfpm
+
 //volumes
 docker volume ls //list all volumes
 docker volume rm <volume-name> //remove a volume
