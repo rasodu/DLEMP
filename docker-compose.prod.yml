@@ -4,3 +4,9 @@ phpfpm:
 mysql:
     volumes:
         - var-lib-mysql:/var/lib/mysql
+cron:
+    build: .
+    dockerfile: docker-cron
+    volumes:
+        - /usr/local/bin/docker:/usr/bin/docker
+        - /var/run/docker.sock:/var/run/docker.sock
