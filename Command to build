@@ -24,6 +24,7 @@ php-fpm -D
 -MySQL port is exposed during production. It should only be exposed during development.
 -For generic machine only '127.0.0.1:8080' works 'locahost:8080' doesn't work.
 -Figure out a way to remove 'This Connection is Untrusted' warning when visiting 'https://webapp.dev/page1.htm' from FireFox without adding exception.
+-Currently data volumes that are created for production don't prepend project name to itself. Therefore it is a real possibility that two different projects running on a single host in production accidently share their volumes. It is recommended that you change production data volume name in 'docker-compose.prod.yml' file when you copy the files to create new project.
 
 //start test server
 	http://192.168.99.100/page1.htm
@@ -34,7 +35,7 @@ php-fpm -D
   docker-compose build
   docker-compose up
   Ctrl + C
-  docker-compose rm
+  docker-compose rm -v
 OR
   docker-compose build
   docker-compose up -d(This command will automatically read 'docker-compose.yml' and 'docker-compose.override.yml')
@@ -47,8 +48,21 @@ OR
   docker-compose ps
   docker-compose stop
   docker-compose ps
+  docker-compose rm -v
+    OR
   docker-compose rm
 
+//rebuild single image and redeploy single service
+docker-compose stop phpfpm
+docker-compose build phpfpm
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps phpfpm
+
+//volumes
+docker volume ls //list all volumes
+docker volume rm <volume-name> //remove a volume
+docker volume rm $(docker volume ls -q) //remove all volumes
+docker-compose rm //remove containers
+docker-compose rm -v //removes containers and 'Data volumes' and 'Mounted directory data volumes'
 
 //start temporary 'dlemp_cli' instance
 docker-machine ssh <machine-name> //docker-machine ssh default
@@ -60,7 +74,7 @@ docker exec -it dlemp_cmd_1 /bin/bash OR docker run -it --rm -v /c/Users/<userna
 	//end new laravel install
 	//start run laravel phpunit
 	vendor/bin/phpunit --version
-	rm -r phpunit-coverage && mkdir phpunit-coverage && vendor/bin/phpunit --coverage-html phpunit-coverage
+	rm -r public/phpunit-coverage && mkdir public/phpunit-coverage && vendor/bin/phpunit --coverage-html public/phpunit-coverage
 	//end run laravel phpunit
 	//start change initial Laravel configurations
 	use memcached for caching: 'config/cache.php' => change default driver from 'file' to 'memcached' and change memcached host from '127.0.0.1' to 'memcached'.
@@ -134,6 +148,11 @@ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout docker/docker-confi
  	-Enter '*.webapp.dev' for 'Common Name (e.g. server FQDN or YOUR name)'. All other inputs were left empty(Simply hit enter).
 Optional: Add '192.168.99.100       webapp.dev' to 'C:\Windows\System32\drivers\etc\hosts'.
 //end creating self-signed (wildcard) SSL certificate(Secure domain and all it subdomains)
+
+//start steps to upgrade php version
+Change tag in 'FROM' instruction in dockerfile to build phpfpm and cmd image
+Download php.ini production file for the version of php you upgraded to from github php-src repository
+//start steps to upgrade php version
 
 //Other notes:
 -Production volumes:  './dockervolumes<actual-path-to-volume-folder-with-slash-replaced-with-zero>'(Example: You will mount 'storage/app' to './dockervolumesstorage0app'.[Unfortunately this schema was chosen because '-' is not allowed in the volume path])

@@ -7,15 +7,14 @@ RUN apt-get update && apt-get -y install wget \
     && docker-php-ext-install pdo_mysql \
 	&& apt-get -y install libmcrypt-dev && docker-php-ext-install mcrypt \
 	&& apt-get -y install zlib1g zlib1g-dev && docker-php-ext-install zip \
-	&& apt-get -y install libmemcached-dev zlib1g-dev \
-	&& wget https://pecl.php.net/get/memcached-2.2.0.tgz --output-document=/usr/src/php/ext/memcached.tgz \
-	&& mkdir /usr/src/php/ext/memcached && tar xf /usr/src/php/ext/memcached.tgz -C /usr/src/php/ext/memcached --strip-components 1 && rm /usr/src/php/ext/memcached.tgz \
-	&& docker-php-ext-install memcached \
-    && apt-get clean && rm -rf /var/lib/apt/list/*
+	&& apt-get -y install libmemcached-dev zlib1g-dev && pecl install memcached && docker-php-ext-enable memcached \
+	&& rm -rf /tmp/pear/* && apt-get clean && rm -rf /var/lib/apt/list/*
 
 COPY docker/docker-config/php-fpm.conf /usr/local/etc/
 COPY docker/docker-config/php.ini-production /usr/local/etc/php/php.ini
 COPY docker/docker-config/php.ini-common-delta /usr/local/etc/php/conf.d/common.ini
+
+WORKDIR /usr/share/nginx/WEBAPP
 
 #start everything specific 'dlemp_cmd' file
 RUN apt-get update \
@@ -27,6 +26,5 @@ RUN apt-get update \
 ENV PATH ~/.composer/vendor/bin:$PATH
 
 STOPSIGNAL SIGKILL
-WORKDIR /usr/share/nginx/WEBAPP
 CMD /bin/bash -c "while true; do echo 1; sleep 1; done"
 #end everything specific 'dlemp_cmd' file
