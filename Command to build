@@ -52,7 +52,7 @@ OR
     OR
   docker-compose rm
 
-//rebuild and redeploy single container
+//rebuild single image and redeploy single service
 docker-compose stop phpfpm
 docker-compose build phpfpm
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps phpfpm
@@ -74,7 +74,7 @@ docker exec -it dlemp_cmd_1 /bin/bash OR docker run -it --rm -v /c/Users/<userna
 	//end new laravel install
 	//start run laravel phpunit
 	vendor/bin/phpunit --version
-	rm -r phpunit-coverage && mkdir phpunit-coverage && vendor/bin/phpunit --coverage-html phpunit-coverage
+	rm -r public/phpunit-coverage && mkdir public/phpunit-coverage && vendor/bin/phpunit --coverage-html public/phpunit-coverage
 	//end run laravel phpunit
 	//start change initial Laravel configurations
 	use memcached for caching: 'config/cache.php' => change default driver from 'file' to 'memcached' and change memcached host from '127.0.0.1' to 'memcached'.
