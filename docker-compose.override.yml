@@ -1,11 +1,14 @@
-phpfpm:
-    volumes:
-        - .:/usr/share/nginx/WEBAPP
-        - ./docker/docker-config/php.ini-development-delta:/usr/local/etc/php/conf.d/development.ini
-cmd:
-    build: .
-    dockerfile: docker-cmd
-    volumes_from:
-        - phpfpm
-    links:
-        - mysql
+version: '2'
+services:
+    phpfpm:
+        volumes:
+            - .:/usr/share/nginx/WEBAPP
+            - ./docker/docker-config/php.ini-development-delta:/usr/local/etc/php/conf.d/development.ini
+    cmd:
+        build:
+            context: .
+            dockerfile: docker-cmd
+        volumes_from:
+            - phpfpm
+        links:
+            - mysql

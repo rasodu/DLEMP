@@ -1,34 +1,38 @@
-memcached:
-    image: memcached:1.4.25
-    expose:
-        - "11211"
-    command: memcached -p 11211 -m 64
-mysql:
-    image: mysql:5.6.28
-    expose:
-        - "3306"
-    ports:
-        - "3306:3306"
-    environment:
-        - MYSQL_ROOT_PASSWORD=root
-        - MYSQL_DATABASE=homestead
-        - MYSQL_USER=homestead
-        - MYSQL_PASSWORD=secret
-phpfpm:
-    build: .
-    dockerfile: docker-phpfpm
-    expose:
-        - "9000"
-    links:
-        - memcached
-        - mysql
-nginx:
-    build: .
-    dockerfile: docker-nginx
-    volumes_from:
-        - phpfpm
-    ports:
-        - "80:80"
-        - "443:443"
-    links:
-        - phpfpm
+version: '2'
+services:
+    memcached:
+        image: memcached:1.4.25
+        expose:
+            - "11211"
+        command: memcached -p 11211 -m 64
+    mysql:
+        image: mysql:5.6.28
+        expose:
+            - "3306"
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=homestead
+            - MYSQL_USER=homestead
+            - MYSQL_PASSWORD=secret
+    phpfpm:
+        build:
+            context: .
+            dockerfile: docker-phpfpm
+        expose:
+            - "9000"
+        links:
+            - memcached
+            - mysql
+    nginx:
+        build:
+            context: .
+            dockerfile: docker-nginx
+        volumes_from:
+            - phpfpm
+        ports:
+            - "80:80"
+            - "443:443"
+        links:
+            - phpfpm

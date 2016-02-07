@@ -1,12 +1,20 @@
-phpfpm:
-    volumes:
-        - storage-app:/usr/share/nginx/WEBAPP/storage/app
-mysql:
-    volumes:
-        - var-lib-mysql:/var/lib/mysql
-cron:
-    build: .
-    dockerfile: docker-cron
-    volumes:
-        - /usr/local/bin/docker:/usr/bin/docker
-        - /var/run/docker.sock:/var/run/docker.sock
+version: '2'
+services:
+    phpfpm:
+        volumes:
+            - storage-app:/usr/share/nginx/WEBAPP/storage/app
+    mysql:
+        volumes:
+            - var-lib-mysql:/var/lib/mysql
+    cron:
+        build:
+            context: .
+            dockerfile: docker-cron
+        volumes:
+            - /usr/local/bin/docker:/usr/bin/docker
+            - /var/run/docker.sock:/var/run/docker.sock
+volumes:
+    storage-app:
+        driver: local
+    var-lib-mysql:
+        driver: local
