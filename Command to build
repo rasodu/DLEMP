@@ -132,6 +132,19 @@ OR
 docker-machine start default
 //start increase Docker machine RAM
 
+//start upgrade docker engine on docker host
+docker-machine upgrade <machine-name> //currently this doesn't work on generic machine <= https://github.com/docker/machine/issues/3009
+    OR
+Digital ocean -> Select droplet -> Destroy  -> Rebuild from original
+ //recreate this machine
+    OR <= Not tested yet
+docker-machine ssh <machine name>
+apt-get purge docker-engine
+sudo shutdown -r now
+docker-machine rm <machine name>
+ //recreate this machine
+//end upgrade docker engine on docker host
+
 //start adding php.ini
 Go to: https://github.com/php/php-src/blob/php-5.6.16/php.ini-production
 Select correct tag for the version of php that you are using
