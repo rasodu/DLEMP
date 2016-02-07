@@ -19,7 +19,7 @@ services:
     phpfpm:
         build:
             context: .
-            dockerfile: docker-phpfpm
+            dockerfile: docker/dockerfile/phpfpm
         expose:
             - "9000"
         links:
@@ -28,7 +28,7 @@ services:
     nginx:
         build:
             context: .
-            dockerfile: docker-nginx
+            dockerfile: docker/dockerfile/nginx
         volumes_from:
             - phpfpm
         ports:

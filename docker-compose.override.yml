@@ -7,7 +7,7 @@ services:
     cmd:
         build:
             context: .
-            dockerfile: docker-cmd
+            dockerfile: docker/dockerfile/cmd
         volumes_from:
             - phpfpm
         links:

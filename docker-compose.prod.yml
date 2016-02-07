@@ -9,7 +9,7 @@ services:
     cron:
         build:
             context: .
-            dockerfile: docker-cron
+            dockerfile: docker/dockerfile/cron
         volumes:
             - /usr/local/bin/docker:/usr/bin/docker
             - /var/run/docker.sock:/var/run/docker.sock
