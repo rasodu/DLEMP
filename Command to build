@@ -13,6 +13,7 @@ php-fpm -D
 
 
 //TO DO
+- Try to setup default network on 'overlay' driver during production. So the containers can be deployed on multiple hosts. 'bridge' network only support a single host.
 - Configure php session to use memcached.
 - Stop dlemp_cmd and dlemp_htdocs containers correctly
 - Now this folder must be called 'DLEMP' otherwise common image will be generated with different name. Figure out a way to assign static permanent name to common image.
@@ -66,6 +67,10 @@ docker volume rm <volume-name> //remove a volume
 docker volume rm $(docker volume ls -q) //remove all volumes
 docker-compose rm //remove containers
 docker-compose rm -v //removes containers and 'Data volumes' and 'Mounted directory data volumes'
+
+//networks
+docker network ls //list all volumes
+docker network rm <network-name> //remove a volume
 
 //start temporary 'dlemp_cli' instance
 docker-machine ssh <machine-name> //docker-machine ssh default

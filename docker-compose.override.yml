@@ -10,5 +10,3 @@ services:
             dockerfile: docker/dockerfile/cmd
         volumes_from:
             - phpfpm
-        links:
-            - mysql

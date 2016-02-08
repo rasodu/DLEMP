@@ -22,9 +22,6 @@ services:
             dockerfile: docker/dockerfile/phpfpm
         expose:
             - "9000"
-        links:
-            - memcached
-            - mysql
     nginx:
         build:
             context: .
@@ -34,5 +31,6 @@ services:
         ports:
             - "80:80"
             - "443:443"
-        links:
-            - phpfpm
+networks:
+    default:
+        driver: bridge
