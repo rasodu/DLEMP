@@ -1,3 +1,4 @@
+<<<<<<< d0e7d41e3f6fbaffe6ba5384b0d3b482bc1848c6:compose.yml
 version: '2'
 services:
 #start These services can be disabled without affecting any other services
@@ -7,16 +8,15 @@ services:
             - "11211"
         command: memcached -p 11211 -m 64
     mysql:
-        image: mysql:5.6.28
+        image: tutum/mysql:5.6
         expose:
             - "3306"
         ports:
             - "3306:3306"
         environment:
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=homestead
+            - ON_CREATE_DB=homestead
             - MYSQL_USER=homestead
-            - MYSQL_PASSWORD=secret
+            - MYSQL_PASS=secret
     elasticsearch:
         image: elasticsearch:5.0.0
         expose:
