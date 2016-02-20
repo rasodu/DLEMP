@@ -1,0 +1,7 @@
+FROM ubuntu:14.04
+
+COPY docker/docker-config/crontab-laravel /etc/cron.d/laravel
+COPY docker/docker-config/logrotate-cron-laravel /etc/logrotate.d/cron-laravel
+RUN chmod 0644 /etc/cron.d/laravel && touch /var/log/cron-laravel.log
+
+CMD ["cron", "-f"]

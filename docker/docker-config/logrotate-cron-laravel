@@ -1,0 +1,6 @@
+/var/log/cron-laravel.log {
+	weekly
+	ifempty
+	delaycompress
+	rotate 4
+}

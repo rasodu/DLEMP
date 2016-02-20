@@ -13,6 +13,7 @@ php-fpm -D
 
 
 //TO DO
+- Try to setup default network on 'overlay' driver during production. So the containers can be deployed on multiple hosts. 'bridge' network only support a single host.
 - Configure php session to use memcached.
 - Stop dlemp_cmd and dlemp_htdocs containers correctly
 - Now this folder must be called 'DLEMP' otherwise common image will be generated with different name. Figure out a way to assign static permanent name to common image.
@@ -25,6 +26,9 @@ php-fpm -D
 -For generic machine only '127.0.0.1:8080' works 'locahost:8080' doesn't work.
 -Figure out a way to remove 'This Connection is Untrusted' warning when visiting 'https://webapp.dev/page1.htm' from FireFox without adding exception.
 -Currently data volumes that are created for production don't prepend project name to itself. Therefore it is a real possibility that two different projects running on a single host in production accidently share their volumes. It is recommended that you change production data volume name in 'docker-compose.prod.yml' file when you copy the files to create new project.
+-Laravel cron has mainly has two following problem
+	-We assume docker binary is located at '/usr/local/bin/docker' to mount it inside crop container in 'docker-compose.prod.yml'. But for your OS it may be located at different place. You must change this value in order for Laravel schedule command to be called correctly. This problem is not fixed because $(which docker) to define source volume path doesn't work in 'docker-compose.prod.yml'
+	-You should run only a single cron container on single docker daemon during production(Even if you have multiple projects deployed on a single docker daemon). Single cron container calls Laravel schedule command on all '*_phpfpm_1' containers reachable by docker daemon. If you have multiple cron containers deployed on a single docker daemon, then all Laravel command on '*_phpfpm_1' containers will be called multiple times in a minute.
 
 //start test server
 	http://192.168.99.100/page1.htm
@@ -63,6 +67,10 @@ docker volume rm <volume-name> //remove a volume
 docker volume rm $(docker volume ls -q) //remove all volumes
 docker-compose rm //remove containers
 docker-compose rm -v //removes containers and 'Data volumes' and 'Mounted directory data volumes'
+
+//networks
+docker network ls //list all volumes
+docker network rm <network-name> //remove a volume
 
 //start temporary 'dlemp_cli' instance
 docker-machine ssh <machine-name> //docker-machine ssh default
@@ -129,6 +137,19 @@ OR
 docker-machine start default
 //start increase Docker machine RAM
 
+//start upgrade docker engine on docker host
+docker-machine upgrade <machine-name> //currently this doesn't work on generic machine <= https://github.com/docker/machine/issues/3009
+    OR
+Digital ocean -> Select droplet -> Destroy  -> Rebuild from original
+ //recreate this machine
+    OR <= Not tested yet
+docker-machine ssh <machine name>
+apt-get purge docker-engine
+sudo shutdown -r now
+docker-machine rm <machine name>
+ //recreate this machine
+//end upgrade docker engine on docker host
+
 //start adding php.ini
 Go to: https://github.com/php/php-src/blob/php-5.6.16/php.ini-production
 Select correct tag for the version of php that you are using
@@ -157,3 +178,7 @@ Download php.ini production file for the version of php you upgraded to from git
 //Other notes:
 -Production volumes:  './dockervolumes<actual-path-to-volume-folder-with-slash-replaced-with-zero>'(Example: You will mount 'storage/app' to './dockervolumesstorage0app'.[Unfortunately this schema was chosen because '-' is not allowed in the volume path])
 	-This allow easily excluding all volume from being copied when building image for production(When building Docker image directly on production server from source code).
+
+//Cron:
+-Cron container is only stated during production. You can run your Laravel scheduled jobs manually during development using 'php /path/to/artisan schedule:run' command in phpfpm container.
+-Output from Laravel schedule are logged. The log file is rotated every week and 4 rotated log files are kept at the time(So at least data from past 4 week is available at any given time. If original log file was empty, then an empty rotated file will still be created.)
