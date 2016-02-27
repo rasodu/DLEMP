@@ -24,6 +24,7 @@ RUN apt-get update \
 	&& composer global require "laravel/installer" \
     && apt-get clean && rm -rf /var/lib/apt/list/*
 ENV PATH ~/.composer/vendor/bin:$PATH
+ENV PATH /usr/share/nginx/WEBAPP/vendor/bin:$PATH
 
 STOPSIGNAL SIGKILL
 CMD /bin/bash -c "while true; do echo 1; sleep 1; done"
