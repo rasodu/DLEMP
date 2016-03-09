@@ -1,7 +1,17 @@
 FROM nginx:1.9.10
 
-COPY docker/docker-config/docker-ssl/docker-webapp.key /etc/nginx/ssl/WEBAPP/site.key
-COPY docker/docker-config/docker-ssl/docker-webapp.crt /etc/nginx/ssl/WEBAPP/site.crt
+#start all operations for let's encrypt
+COPY docker/docker-config/letsencrypt-cli.ini /etc/letsencrypt/cli.ini
+RUN mkdir -p /DLEMP/letsencrypt/public/.well-known/acme-challenge
+RUN mkdir /DLEMP/letsencrypt/certs
+RUN apt-get update \
+    && apt-get install -y git \
+    && apt-get clean && rm -rf /var/lib/apt/list/*
+RUN git clone https://github.com/letsencrypt/letsencrypt --branch master --single-branch /DLEMP/letsencrypt/bin --depth 1
+#end all operations for let's encrypt
+
+COPY docker/docker-config/docker-ssl/docker-privkey.pem /etc/nginx/ssl/WEBAPP/privkey.pem
+COPY docker/docker-config/docker-ssl/docker-fullchain.pem /etc/nginx/ssl/WEBAPP/fullchain.pem
 
 COPY docker/docker-config/docker-custom-nginx.conf /etc/nginx/conf.d/custom.conf
 COPY docker/docker-config/mysite.conf /etc/nginx/conf.d/mysite.conf
