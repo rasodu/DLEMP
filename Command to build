@@ -183,20 +183,19 @@ Download php.ini production file for the version of php you upgraded to from git
 //start steps to acquire certificate using Let’s Encrypt(http://webapp.dev/.well-known/acme-challenge/ <= ACME challenge and response directory[last '/' is required because the way we performed setup nginx])
 Getting Initial certificate
 1)FILL the information in config file => docker/docker-config/letsencrypt-cli.ini (Replace: <email> and <domain> with actual values.)
-2)/DLEMP/letsencrypt/bin/letsencrypt-auto --version
-3)/DLEMP/letsencrypt/bin/letsencrypt-auto certonly --agree-tos     <== This will automatically use config stored at '/etc/letsencrypt/cli.ini'
-4)Docker restart nginx container
-5)docker-machine ssh <docker-machine-name>
-6)docker exec -it <nginx-container-name> /bin/bash
-7)ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /etc/nginx/ssl/WEBAPP/privkey.pem
-  ln -sf /etc/letsencrypt/live/<domain>/fullchain.pem /etc/nginx/ssl/WEBAPP/fullchain.pem
+2)docker-machine ssh <docker-machine-name>
+3)docker exec -it <nginxhttp-container-name> /bin/bash
+4)/DLEMP/letsencrypt/bin/letsencrypt-auto --version
+5)/DLEMP/letsencrypt/bin/letsencrypt-auto certonly --agree-tos     <== This will automatically use config stored at '/etc/letsencrypt/cli.ini'
+6)cp -f /etc/letsencrypt/live/<domain>/privkey.pem /etc/letsencrypt/live/privkey.pem
+  cp -f /etc/letsencrypt/live/<domain>/fullchain.pem /etc/letsencrypt/live/fullchain.pem
+7)exit
 8)exit
-9)exit
-10)docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart nginx    <= restart container name
+9)docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart nginxhttps    <= restart container name
 Renew certificate
 1)Need to figure this out
 Revoke certificate
-1)Need to figure this out
+/DLEMP/letsencrypt/bin/letsencrypt-auto revoke --cert-path /etc/letsencrypt/live/<domain>/cert.pem
 //end steps to acquire certificate using Let’s Encrypt
 
 
