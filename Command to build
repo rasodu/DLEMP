@@ -186,9 +186,9 @@ Getting Initial certificate
 2)docker-machine ssh <docker-machine-name>
 3)docker exec -it <nginxhttp-container-name> /bin/bash
 4)/DLEMP/letsencrypt/bin/letsencrypt-auto --version
-5)/DLEMP/letsencrypt/bin/letsencrypt-auto certonly --agree-tos     <== This will automatically use config stored at '/etc/letsencrypt/cli.ini'
-6)cp -f /etc/letsencrypt/live/<domain>/privkey.pem /etc/letsencrypt/live/privkey.pem
-  cp -f /etc/letsencrypt/live/<domain>/fullchain.pem /etc/letsencrypt/live/fullchain.pem
+5)/DLEMP/letsencrypt/bin/letsencrypt-auto certonly --agree-tos     <== This will automatically use config stored at '/root/.config/letsencrypt/cli.ini'
+6)ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /etc/letsencrypt/privkey.pem
+  ln -sf /etc/letsencrypt/live/<domain>/fullchain.pem /etc/letsencrypt/fullchain.pem
 7)exit
 8)exit
 9)docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart nginxhttps    <= restart container name

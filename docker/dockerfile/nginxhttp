@@ -1,18 +1,18 @@
 FROM nginx:1.9.10
 
 #start all operations for let's encrypt
-COPY docker/docker-config/letsencrypt-cli.ini /etc/letsencrypt/cli.ini
 RUN mkdir -p /DLEMP/letsencrypt/public/.well-known/acme-challenge
 RUN apt-get update \
     && apt-get install -y git \
     && apt-get clean && rm -rf /var/lib/apt/list/*
 RUN git clone https://github.com/letsencrypt/letsencrypt --branch master --single-branch /DLEMP/letsencrypt/bin --depth 1
+COPY docker/docker-config/letsencrypt-cli.ini /root/.config/letsencrypt/cli.ini
 #end all operations for let's encrypt
 
 #start create volume for certificates
-COPY docker/docker-config/docker-ssl/docker-privkey.pem /etc/letsencrypt/live/privkey.pem
-COPY docker/docker-config/docker-ssl/docker-fullchain.pem /etc/letsencrypt/live/fullchain.pem
-VOLUME /etc/letsencrypt/live
+COPY docker/docker-config/docker-ssl/docker-privkey.pem /etc/letsencrypt/privkey.pem
+COPY docker/docker-config/docker-ssl/docker-fullchain.pem /etc/letsencrypt/fullchain.pem
+VOLUME /etc/letsencrypt
 #end create volume for certificates
 
 COPY docker/docker-config/nginxhttp-redirect.conf /etc/nginx/conf.d/redirect.conf
