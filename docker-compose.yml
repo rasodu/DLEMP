@@ -1,5 +1,13 @@
 version: '2'
 services:
+    nginxhttp:
+        build:
+            context: .
+            dockerfile: docker/dockerfile/nginxhttp
+        ports:
+            - "80:80"
+        volumes:
+            - etc-letsencrypt:/etc/letsencrypt
     memcached:
         image: memcached:1.4.25
         expose:
@@ -22,15 +30,18 @@ services:
             dockerfile: docker/dockerfile/phpfpm
         expose:
             - "9000"
-    nginx:
+    nginxhttps:
         build:
             context: .
-            dockerfile: docker/dockerfile/nginx
+            dockerfile: docker/dockerfile/nginxhttps
         volumes_from:
-            - phpfpm
+            - nginxhttp:ro
+            - phpfpm:ro
         ports:
-            - "80:80"
             - "443:443"
+volumes:
+    etc-letsencrypt:
+        driver: local
 networks:
     default:
         driver: bridge
