@@ -13,6 +13,7 @@ php-fpm -D
 
 
 //TO DO
+- Allow to define memory limit in redis server(Check if it can be set using config file)
 - Let’s Encrypt improvements
     -Think of mounting let's encrypt's certificate directory using docker volume
         -More then 1 nginx server can be started
@@ -206,3 +207,7 @@ Revoke certificate
 //Cron:
 -Cron container is only stated during production. You can run your Laravel scheduled jobs manually during development using 'php /path/to/artisan schedule:run' command in phpfpm container.
 -Output from Laravel schedule are logged. The log file is rotated every week and 4 rotated log files are kept at the time(So at least data from past 4 week is available at any given time. If original log file was empty, then an empty rotated file will still be created.)
+
+
+//Redis require via composer
+composer require predis/predis:~1.0

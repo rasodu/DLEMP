@@ -13,6 +13,10 @@ services:
         expose:
             - "11211"
         command: memcached -p 11211 -m 64
+    redis:
+        image: redis:3.0.7
+        expose:
+            - "6379"
     mysql:
         image: mysql:5.6.28
         expose:
