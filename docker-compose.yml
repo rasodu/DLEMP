@@ -17,6 +17,10 @@ services:
         image: redis:3.0.7
         expose:
             - "6379"
+    beanstalkd:
+        image: michaelcontento/beanstalkd
+        expose:
+            - "11300"
     mysql:
         image: mysql:5.6.28
         expose:

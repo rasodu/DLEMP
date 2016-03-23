@@ -211,3 +211,10 @@ Revoke certificate
 
 //Redis require via composer
 composer require predis/predis:~1.0
+//Beanstalkd: require via composer
+composer require pda/pheanstalk:~3.0
+
+Why should you use 'Beanstalkd' instead of 'Redis' for queues?
+-Beanstalkd implements job queue
+-Redis implements message queue
+*Note: Message queue broadcasts message to multiple receivers. Job queue will only send job to the first requesting worker.
