@@ -13,6 +13,7 @@ php-fpm -D
 
 
 //TO DO
+- Node.js Socket.io doesn't work on Firefox with self signed certificate. It does work fine on Chrome and Internet Explorer.
 - Allow to define memory limit in redis server(Check if it can be set using config file)
 - Let’s Encrypt improvements
     -Think of mounting let's encrypt's certificate directory using docker volume
@@ -193,6 +194,7 @@ Getting Initial certificate
 7)exit
 8)exit
 9)docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart nginxhttps    <= restart container name
+1)docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart nodesocket    <= restart container socket
 Renew certificate
 1)Need to figure this out
 Revoke certificate

@@ -17,6 +17,16 @@ services:
         image: redis:3.0.7
         expose:
             - "6379"
+    nodesocket:
+        build:
+            context: .
+            dockerfile: docker/dockerfile/nodesocket
+        volumes_from:
+            - nginxhttp:ro
+        expose:
+            - "3000"
+        ports:
+            - "3000:3000"
     beanstalkd:
         image: michaelcontento/beanstalkd
         expose:
