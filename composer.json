@@ -13,5 +13,10 @@
         "predis/predis": "~1.0",
         "pda/pheanstalk": "~3.0",
         "sebastian/peek-and-poke": "dev-master"
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
     }
 }
