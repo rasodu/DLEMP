@@ -1,6 +1,17 @@
 {
-    "require": {
+    "name": "rasodu/dlemp",
+    "description": "LEMP server",
+    "homepage": "https://github.com/rasodu/DLEMP",
+    "authors": [
+        {
+            "name": "Abhijit Amin",
+            "email": "abhijitramin@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
         "predis/predis": "~1.0",
-        "pda/pheanstalk": "~3.0"
+        "pda/pheanstalk": "~3.0",
+        "sebastian/peek-and-poke": "dev-master"
     }
 }
