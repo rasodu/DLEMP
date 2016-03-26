@@ -13,6 +13,8 @@ php-fpm -D
 
 
 //TO DO
+- Node.js Socket.io doesn't work on Firefox with self signed certificate. It does work fine on Chrome and Internet Explorer.
+- Allow to define memory limit in redis server(Check if it can be set using config file)
 - Let’s Encrypt improvements
     -Think of mounting let's encrypt's certificate directory using docker volume
         -More then 1 nginx server can be started
@@ -192,6 +194,7 @@ Getting Initial certificate
 7)exit
 8)exit
 9)docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart nginxhttps    <= restart container name
+1)docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart nodesocket    <= restart container socket
 Renew certificate
 1)Need to figure this out
 Revoke certificate
@@ -206,3 +209,14 @@ Revoke certificate
 //Cron:
 -Cron container is only stated during production. You can run your Laravel scheduled jobs manually during development using 'php /path/to/artisan schedule:run' command in phpfpm container.
 -Output from Laravel schedule are logged. The log file is rotated every week and 4 rotated log files are kept at the time(So at least data from past 4 week is available at any given time. If original log file was empty, then an empty rotated file will still be created.)
+
+
+//Redis require via composer
+composer require predis/predis:~1.0
+//Beanstalkd: require via composer
+composer require pda/pheanstalk:~3.0
+
+Why should you use 'Beanstalkd' instead of 'Redis' for queues?
+-Beanstalkd implements job queue
+-Redis implements message queue
+*Note: Message queue broadcasts message to multiple receivers. Job queue will only send job to the first requesting worker.

@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "ioredis": "1.15.1"
+        ,"socket.io": "1.4.5"
+    }
+}

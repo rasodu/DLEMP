@@ -1,0 +1,10 @@
+FROM node:4.4.0
+EXPOSE 3000
+
+COPY docker/docker-config/node-package.json /usr/src/app/package.json
+WORKDIR /usr/src/app
+RUN npm install
+
+COPY docker/docker-config/node-publisher.js /usr/src/app/socket.js
+
+CMD ["node", "/usr/src/app/socket.js"]

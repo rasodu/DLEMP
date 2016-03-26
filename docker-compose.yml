@@ -13,6 +13,24 @@ services:
         expose:
             - "11211"
         command: memcached -p 11211 -m 64
+    redis:
+        image: redis:3.0.7
+        expose:
+            - "6379"
+    nodesocket:
+        build:
+            context: .
+            dockerfile: docker/dockerfile/nodesocket
+        volumes_from:
+            - nginxhttp:ro
+        expose:
+            - "3000"
+        ports:
+            - "3000:3000"
+    beanstalkd:
+        image: michaelcontento/beanstalkd
+        expose:
+            - "11300"
     mysql:
         image: mysql:5.6.28
         expose:

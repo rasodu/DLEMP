@@ -28,4 +28,9 @@ ENV PATH /usr/share/nginx/WEBAPP/vendor/bin:$PATH
 
 STOPSIGNAL SIGKILL
 CMD /bin/bash -c "while true; do echo 1; sleep 1; done"
+
+RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean && rm -rf /var/lib/apt/list/*
+RUN npm install --global gulp@^3.8.8
 #end everything specific 'dlemp_cmd' file
