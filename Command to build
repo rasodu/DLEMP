@@ -13,6 +13,7 @@ php-fpm -D
 
 
 //TO DO
+- Unittest is not yet written for reading event back from socket.io server.('tests\A42SocketTest.php')
 - Node.js Socket.io doesn't work on Firefox with self signed certificate. It does work fine on Chrome and Internet Explorer.
 - Allow to define memory limit in redis server(Check if it can be set using config file)
 - Let’s Encrypt improvements
