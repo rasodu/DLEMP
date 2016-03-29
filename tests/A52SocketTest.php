@@ -1,12 +1,20 @@
 <?php
 
-class A42SocketTest extends TestCase{
+class A52SocketTest extends TestCase{
 
     private $channel_name= 'unittest-channel';
     private $event_name= 'MyEvent';
     private $sent_data= NULL;
 
     private $client= NULL;
+
+
+    public function setUp(){
+        if(!class_exists('Predis\Client')){
+            $this->markTestSkipped('predis/predis package is not available. Probably this means socket.io is not setup.');
+        }
+    }
+
     public function testSubscribeSockerIOChannel(){
     }
 

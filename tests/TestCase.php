@@ -3,6 +3,17 @@
 class TestCase extends PHPUnit_Framework_TestCase{
 
     /**
+    *Check if the given extension is loaded.
+    *
+    *@param String $ext_name is the name of the extension that you want to check is installed or not.
+    *
+    *@return bool if entension is installed, then return true. Return false Otherwise.
+    */
+    public function isExtensionLoaded($ext_name){
+        return extension_loaded($ext_name);
+    }
+
+    /**
     *Get response at given url
     *
     *Get header and body at given URL
@@ -16,6 +27,10 @@ class TestCase extends PHPUnit_Framework_TestCase{
     *@return bool|string If request is successful, them return header and body. Otherwise return false.
     */
     protected function getFullResponseFromURL($url){
+        if(!$this->isExtensionLoaded('curl')){
+            $this->markTestSkipped('Curl extension is not available.');
+        }
+
         ///start initialize curl
         $ch = curl_init();
         ///end initialize curl

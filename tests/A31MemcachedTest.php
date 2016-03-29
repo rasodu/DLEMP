@@ -1,11 +1,15 @@
 <?php
 
-class A21MemcachedTest extends TestCase{
+class A31MemcachedTest extends TestCase{
 
     private $memcached= NULL;
     private $key= 'user';
     private $value= 'aamin';
     public function setUp(){
+        if(!$this->isExtensionLoaded('memcached')){
+            $this->markTestSkipped('Memcached extension is not available.');
+        }
+
         $this->memcached= new Memcached();
         $this->memcached->addServer("memcached", 11211);
     }

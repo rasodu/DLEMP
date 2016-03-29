@@ -1,10 +1,13 @@
 <?php
 
-class A31QueueTest extends TestCase{
+class A41QueueTest extends TestCase{
 
     private $pheanstalk;
     private $test_payload= 'job payload goes here';
     public function setUp(){
+        if(!class_exists('Pheanstalk\Pheanstalk')){
+            $this->markTestSkipped('pda/pheanstalk package is not available.');
+        }
         $this->pheanstalk= new Pheanstalk\Pheanstalk('beanstalkd');
     }
 

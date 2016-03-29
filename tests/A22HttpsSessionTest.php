@@ -1,6 +1,6 @@
 <?php
 
-class A12HttpsSessionTest extends TestCase{
+class A22HttpsSessionTest extends TestCase{
 
     private $key= 'user';
     private $value= 'aamin';

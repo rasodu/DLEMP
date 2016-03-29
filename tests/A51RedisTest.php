@@ -1,11 +1,14 @@
 <?php
 
-class A41RedisTest extends TestCase{
+class A51RedisTest extends TestCase{
 
     private $redis= NULL;
     private $key= 'user';
     private $value= 'aamin';
     public function setUp(){
+        if(!class_exists('Predis\Client')){
+            $this->markTestSkipped('predis/predis package is not available.');
+        }
         $this->redis= new Predis\Client('tcp://redis:6379');
     }
 

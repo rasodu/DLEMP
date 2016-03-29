@@ -1,6 +1,6 @@
 <?php
 
-class A01HttpTest extends TestCase{
+class A11HttpTest extends TestCase{
 
     public function testHttpRedirectToHttps(){
         $response= $this->getFullResponseFromURL('http://nginxhttp/');
