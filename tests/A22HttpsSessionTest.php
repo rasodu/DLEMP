@@ -1,18 +1,21 @@
 <?php
 
-class A22HttpsSessionTest extends TestCase{
+class A22HttpsSessionTest extends TestCase
+{
 
     private $key= 'user';
     private $value= 'aamin';
 
-    public function testWriteToSession(){
+    public function testWriteToSession()
+    {
         $_SESSION[$this->key]= $this->value;
     }
 
     /**
     *@depends testWriteToSession
     */
-    public function testReadFromSession(){
+    public function testReadFromSession()
+    {
         $result= $_SESSION[$this->key];
         unset($_SESSION[$this->key]);
 

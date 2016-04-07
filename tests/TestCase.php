@@ -1,6 +1,7 @@
 <?php
 
-class TestCase extends PHPUnit_Framework_TestCase{
+class TestCase extends PHPUnit_Framework_TestCase
+{
 
     /**
     *Check if the given extension is loaded.
@@ -9,7 +10,8 @@ class TestCase extends PHPUnit_Framework_TestCase{
     *
     *@return bool if entension is installed, then return true. Return false Otherwise.
     */
-    public function isExtensionLoaded($ext_name){
+    public function isExtensionLoaded($ext_name)
+    {
         return extension_loaded($ext_name);
     }
 
@@ -26,8 +28,9 @@ class TestCase extends PHPUnit_Framework_TestCase{
     *
     *@return bool|string If request is successful, them return header and body. Otherwise return false.
     */
-    protected function getFullResponseFromURL($url){
-        if(!$this->isExtensionLoaded('curl')){
+    protected function getFullResponseFromURL($url)
+    {
+        if (!$this->isExtensionLoaded('curl')) {
             $this->markTestSkipped('Curl extension is not available.');
         }
 
@@ -42,7 +45,7 @@ class TestCase extends PHPUnit_Framework_TestCase{
         ///end set curl options
 
         ///start if request is https, then don't verify certificate
-        if( substr($url, 0, 8) == 'https://'){
+        if (substr($url, 0, 8) == 'https://') {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         }
@@ -50,7 +53,7 @@ class TestCase extends PHPUnit_Framework_TestCase{
 
         ///start get response from URL and print errors if errors are found
         $response = curl_exec($ch);
-        if(curl_error($ch)){
+        if (curl_error($ch)) {
             echo 'error:' . curl_error($ch);
         }
         ///end get response from URL and print errors if errors are found

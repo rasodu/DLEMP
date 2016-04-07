@@ -1,17 +1,20 @@
 <?php
 
-class A41QueueTest extends TestCase{
+class A41QueueTest extends TestCase
+{
 
     private $pheanstalk;
     private $test_payload= 'job payload goes here';
-    public function setUp(){
-        if(!class_exists('Pheanstalk\Pheanstalk')){
+    public function setUp()
+    {
+        if (!class_exists('Pheanstalk\Pheanstalk')) {
             $this->markTestSkipped('pda/pheanstalk package is not available.');
         }
         $this->pheanstalk= new Pheanstalk\Pheanstalk('beanstalkd');
     }
 
-    public function testIsServiceListening(){
+    public function testIsServiceListening()
+    {
         $result= $this->pheanstalk->getConnection()->isServiceListening();
         $this->assertSame(true, $result);
     }
@@ -19,7 +22,8 @@ class A41QueueTest extends TestCase{
     /**
     *@depends testIsServiceListening
     */
-    public function testPushToQueue(){
+    public function testPushToQueue()
+    {
         $result= $this->pheanstalk->useTube('testtube')
             ->put($this->test_payload);
     }
@@ -27,7 +31,8 @@ class A41QueueTest extends TestCase{
     /**
     *@depends testPushToQueue
     */
-    public function testPopFromQueue(){
+    public function testPopFromQueue()
+    {
         $job = $this->pheanstalk->watch('testtube')
             ->ignore('default')
             ->reserve();

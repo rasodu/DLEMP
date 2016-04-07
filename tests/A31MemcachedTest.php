@@ -1,12 +1,14 @@
 <?php
 
-class A31MemcachedTest extends TestCase{
+class A31MemcachedTest extends TestCase
+{
 
-    private $memcached= NULL;
+    private $memcached= null;
     private $key= 'user';
     private $value= 'aamin';
-    public function setUp(){
-        if(!$this->isExtensionLoaded('memcached')){
+    public function setUp()
+    {
+        if (!$this->isExtensionLoaded('memcached')) {
             $this->markTestSkipped('Memcached extension is not available.');
         }
 
@@ -14,7 +16,8 @@ class A31MemcachedTest extends TestCase{
         $this->memcached->addServer("memcached", 11211);
     }
 
-    public function testWriteToMemcached(){
+    public function testWriteToMemcached()
+    {
         $result= $this->memcached->set($this->key, $this->value);
         $this->assertSame(true, $result);
     }
@@ -22,7 +25,8 @@ class A31MemcachedTest extends TestCase{
     /**
     *@depends testWriteToMemcached
     */
-    public function testReadFromMemcached(){
+    public function testReadFromMemcached()
+    {
         $result= $this->memcached->get($this->key);
         $this->assertEquals($this->value, $result);
     }
@@ -30,7 +34,8 @@ class A31MemcachedTest extends TestCase{
     /**
     *@depends testReadFromMemcached
     */
-    public function testDeleteFromMemcached(){
+    public function testDeleteFromMemcached()
+    {
         $result= $this->memcached->delete($this->key);
         $this->assertSame(true, $result);
 
