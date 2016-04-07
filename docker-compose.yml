@@ -3,7 +3,9 @@ services:
     nginxhttp:
         build:
             context: .
-            dockerfile: docker/dockerfile/nginxhttp
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttp
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         ports:
             - "80:80"
         volumes:
@@ -20,7 +22,9 @@ services:
     nodesocket:
         build:
             context: .
-            dockerfile: docker/dockerfile/nodesocket
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nodesocket
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         volumes_from:
             - nginxhttp:ro
         expose:
@@ -45,13 +49,17 @@ services:
     phpfpm:
         build:
             context: .
-            dockerfile: docker/dockerfile/phpfpm
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/phpfpm
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         expose:
             - "9000"
     nginxhttps:
         build:
             context: .
-            dockerfile: docker/dockerfile/nginxhttps
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttps
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         volumes_from:
             - nginxhttp:ro
             - phpfpm:ro

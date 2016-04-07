@@ -3,10 +3,12 @@ services:
     phpfpm:
         volumes:
             - .:/usr/share/nginx/WEBAPP
-            - ./docker/docker-config/php.ini-development-delta:/usr/local/etc/php/conf.d/development.ini
+            - ./${DLEMP_BASE_DIR}docker/docker-config/php.ini-development-delta:/usr/local/etc/php/conf.d/development.ini
     cmd:
         build:
             context: .
-            dockerfile: docker/dockerfile/cmd
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/cmd
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         volumes_from:
             - phpfpm

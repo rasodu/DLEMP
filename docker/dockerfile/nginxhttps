@@ -1,7 +1,8 @@
 FROM nginx:1.9.10
+ARG DLEMP_BASE_DIR
 
-COPY docker/docker-config/docker-custom-nginx.conf /etc/nginx/conf.d/custom.conf
-COPY docker/docker-config/mysite.conf /etc/nginx/conf.d/mysite.conf
+COPY ${DLEMP_BASE_DIR}docker/docker-config/docker-custom-nginx.conf /etc/nginx/conf.d/custom.conf
+COPY ${DLEMP_BASE_DIR}docker/docker-config/mysite.conf /etc/nginx/conf.d/mysite.conf
 
 #COPY htdocs /usr/share/nginx/html
 COPY public /usr/share/nginx/WEBAPP/public

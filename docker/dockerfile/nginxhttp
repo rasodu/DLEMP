@@ -1,4 +1,5 @@
 FROM nginx:1.9.10
+ARG DLEMP_BASE_DIR
 
 #start all operations for let's encrypt
 RUN mkdir -p /DLEMP/letsencrypt/public/.well-known/acme-challenge
@@ -10,9 +11,9 @@ COPY docker/docker-config/letsencrypt-cli.ini /root/.config/letsencrypt/cli.ini
 #end all operations for let's encrypt
 
 #start create volume for certificates
-COPY docker/docker-config/docker-ssl/docker-privkey.pem /etc/letsencrypt/privkey.pem
-COPY docker/docker-config/docker-ssl/docker-fullchain.pem /etc/letsencrypt/fullchain.pem
+COPY ${DLEMP_BASE_DIR}docker/docker-config/docker-ssl/docker-privkey.pem /etc/letsencrypt/privkey.pem
+COPY ${DLEMP_BASE_DIR}docker/docker-config/docker-ssl/docker-fullchain.pem /etc/letsencrypt/fullchain.pem
 VOLUME /etc/letsencrypt
 #end create volume for certificates
 
-COPY docker/docker-config/nginxhttp-redirect.conf /etc/nginx/conf.d/redirect.conf
+COPY ${DLEMP_BASE_DIR}docker/docker-config/nginxhttp-redirect.conf /etc/nginx/conf.d/redirect.conf

@@ -1,4 +1,5 @@
 FROM php:5.6.16-fpm
+ARG DLEMP_BASE_DIR
 
 #Installed by default: OpenSSL, PDO, Tokenizer, mysqlnd(Substitute for 'mysql')
 #Installed manually: Mbstring, phppdo_mysql, mcrypt, zip(required for 'laravel/installer'), memcached
@@ -10,9 +11,9 @@ RUN apt-get update && apt-get -y install wget \
 	&& apt-get -y install libmemcached-dev zlib1g-dev && pecl install memcached && docker-php-ext-enable memcached \
 	&& rm -rf /tmp/pear/* && apt-get clean && rm -rf /var/lib/apt/list/*
 
-COPY docker/docker-config/php-fpm.conf /usr/local/etc/
-COPY docker/docker-config/php.ini-production /usr/local/etc/php/php.ini
-COPY docker/docker-config/php.ini-common-delta /usr/local/etc/php/conf.d/common.ini
+COPY ${DLEMP_BASE_DIR}docker/docker-config/php-fpm.conf /usr/local/etc/
+COPY ${DLEMP_BASE_DIR}docker/docker-config/php.ini-production /usr/local/etc/php/php.ini
+COPY ${DLEMP_BASE_DIR}docker/docker-config/php.ini-common-delta /usr/local/etc/php/conf.d/common.ini
 
 WORKDIR /usr/share/nginx/WEBAPP
 
