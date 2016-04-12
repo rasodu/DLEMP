@@ -30,10 +30,12 @@ class A52SocketTest extends TestCase
 
         $redis= new Predis\Client('tcp://redis:6379');
 
-        $publish= json_encode([
+        $publish= json_encode(
+            [
             'event' => $this->event_name
             ,'data' => $this->sent_data
-        ]);
+            ]
+        );
 
         $result= $redis->publish($this->channel_name, $publish);
 

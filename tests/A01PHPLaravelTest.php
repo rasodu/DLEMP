@@ -20,7 +20,7 @@ class A01PHPLaravelTest extends TestCase
 
     public function testPrettyURLsEnabled()
     {
-        $result= $response= $this->getFullResponseFromURL('https://nginxhttps/random-dir/page1?example=value');
+        $result= $this->getFullResponseFromURL('https://nginxhttps/random-dir/page1?example=value');
 
         $this->assertContains(
             'HTTP/1.1 200 OK',
@@ -28,6 +28,16 @@ class A01PHPLaravelTest extends TestCase
         );
         $this->assertContains(
             "This is 'index.php' - It supports Laravel Pretty URLs: <b>/random-dir/page1?example=value</b>",
+            $result
+        );
+    }
+
+    public function testStaticStoragefiles()
+    {
+        $result= $this->getFullResponseFromURL('https://nginxhttps/storage/static_file.txt');
+
+        $this->assertContains(
+            'Text in static file.',
             $result
         );
     }
