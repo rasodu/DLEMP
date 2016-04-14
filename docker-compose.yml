@@ -1,24 +1,26 @@
 version: '2'
 services:
-    nginxhttp:
-        build:
-            context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttp
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
-        ports:
-            - "80:80"
-        volumes:
-            - etc-letsencrypt:/etc/letsencrypt
+#start These services can be disabled without affecting any other services
+    beanstalkd:
+        image: michaelcontento/beanstalkd
+        expose:
+            - "11300"
     memcached:
         image: memcached:1.4.25
         expose:
             - "11211"
         command: memcached -p 11211 -m 64
-    redis:
-        image: redis:3.0.7
+    mysql:
+        image: mysql:5.6.28
         expose:
-            - "6379"
+            - "3306"
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=homestead
+            - MYSQL_USER=homestead
+            - MYSQL_PASSWORD=secret
     nodesocket:
         build:
             context: .
@@ -31,21 +33,13 @@ services:
             - "3000"
         ports:
             - "3000:3000"
-    beanstalkd:
-        image: michaelcontento/beanstalkd
+#end These services can be disabled without affecting any other services
+#start Disabling these services require that you also disable services that depends on the services that you are disabling.
+    redis: #Also turn off: nodesocket
+        image: redis:3.0.7
         expose:
-            - "11300"
-    mysql:
-        image: mysql:5.6.28
-        expose:
-            - "3306"
-        ports:
-            - "3306:3306"
-        environment:
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=homestead
-            - MYSQL_USER=homestead
-            - MYSQL_PASSWORD=secret
+            - "6379"
+#end Disabling these services require that you also disable services that depends on the services that you are disabling.
     phpfpm:
         build:
             context: .
@@ -65,6 +59,16 @@ services:
             - phpfpm:ro
         ports:
             - "443:443"
+    nginxhttp:
+        build:
+            context: .
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttp
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        ports:
+            - "80:80"
+        volumes:
+            - etc-letsencrypt:/etc/letsencrypt
 volumes:
     etc-letsencrypt:
         driver: local
