@@ -115,7 +115,7 @@ sudo nano /etc/sudoers.d/AllowOthersToSudoWithPassword
 su --login dockeruser
 mkdir ~/.ssh
 chmod 700 ~/.ssh
-nano ~/.ssh/authorized_keys // Copy your public key from '~/.ssh/docker_test.pub' file on your machine here. CTRL-X, then Y, then ENTER
+nano ~/.ssh/authorized_keys // Copy your public key from '~/.ssh/docker_test.pub' file on your machine here. CTRL-X, then Y, then ENTER. User Git cli to copy the file. Using Docker toolbox cli the keys splits key into multiple lines and doesn't allow user to login without password.
 chmod 600 ~/.ssh/authorized_keys
 sudo service ssh restart
 ssh dockeruser@127.0.0.1 -p 2222 //Test this from new terminal then 'exit' if this success
