@@ -1,6 +1,6 @@
 <?php
 
-class A00PHPDlemp extends TestCase
+class A00PHPDlempTest extends TestCase
 {
 
     public function testExtensionCurl()

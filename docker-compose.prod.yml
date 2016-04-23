@@ -1,11 +1,6 @@
 version: '2'
 services:
-    phpfpm:
-        volumes:
-            - storage-app:/usr/share/nginx/WEBAPP/storage/app
-    mysql:
-        volumes:
-            - var-lib-mysql:/var/lib/mysql
+#start These services can be disabled without affecting any other services
     cron:
         build:
             context: .
@@ -15,6 +10,13 @@ services:
         volumes:
             - /usr/local/bin/docker:/usr/bin/docker
             - /var/run/docker.sock:/var/run/docker.sock
+    mysql:
+        volumes:
+            - var-lib-mysql:/var/lib/mysql
+#end These services can be disabled without affecting any other services
+    phpfpm:
+        volumes:
+            - storage-app:/usr/share/nginx/WEBAPP/storage/app
 volumes:
     storage-app:
         driver: local
