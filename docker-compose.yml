@@ -1,10 +1,6 @@
 version: '2'
 services:
 #start These services can be disabled without affecting any other services
-    beanstalkd:
-        image: michaelcontento/beanstalkd
-        expose:
-            - "11300"
     memcached:
         image: memcached:1.4.25
         expose:
@@ -33,8 +29,20 @@ services:
             - "3000"
         ports:
             - "3000:3000"
+    queue:
+        extends:
+            service: phpfpm
+        depends_on:
+            - beanstalkd
+        command: php artisan queue:listen --queue=high,default,low --timeout=60 --sleep=5 --tries=3
+        volumes_from:
+            - phpfpm
 #end These services can be disabled without affecting any other services
 #start Disabling these services require that you also disable services that depends on the services that you are disabling.
+    beanstalkd: #Also turn off: queue
+        image: schickling/beanstalkd
+        expose:
+            - "11300"
     redis: #Also turn off: nodesocket
         image: redis:3.0.7
         expose:
