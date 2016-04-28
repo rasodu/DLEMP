@@ -8,7 +8,5 @@ services:
         build:
             context: .
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/cmd
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         volumes_from:
             - phpfpm
