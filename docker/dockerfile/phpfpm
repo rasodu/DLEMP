@@ -9,7 +9,7 @@ RUN apt-get update && apt-get -y install wget \
 	&& apt-get -y install libmcrypt-dev && docker-php-ext-install mcrypt \
 	&& apt-get -y install zlib1g zlib1g-dev && docker-php-ext-install zip \
 	&& apt-get -y install libmemcached-dev zlib1g-dev && pecl install memcached && docker-php-ext-enable memcached \
-	&& rm -rf /tmp/pear/* && apt-get clean && rm -rf /var/lib/apt/list/*
+	&& rm -rf /tmp/pear/* && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY ${DLEMP_BASE_DIR}docker/docker-config/php-fpm.conf /usr/local/etc/
 COPY ${DLEMP_BASE_DIR}docker/docker-config/php.ini-production /usr/local/etc/php/php.ini
