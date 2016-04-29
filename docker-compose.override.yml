@@ -1,5 +1,9 @@
 version: '2'
 services:
+    smtp:
+        image: michielbdejong/mailtrap
+        expose:
+            - "25"
     phpfpm:
         volumes:
             - .:/usr/share/nginx/WEBAPP

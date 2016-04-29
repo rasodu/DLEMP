@@ -2,7 +2,7 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-if( isset($argv[1]) && $argv[1] == 'queue:listen'){
+if(isset($argv[1]) && $argv[1] == 'queue:listen') {
     //docker exec -it <project-name>_beanstalkd_1 /bin/bash
     //apt-get update
     //apt-get install telnet
@@ -31,10 +31,10 @@ if( isset($argv[1]) && $argv[1] == 'queue:listen'){
         //end print job data and delete the job from queue
     }
 }
-elseif( isset($argv[1]) && $argv[1] == 'schedule:run'){
+elseif(isset($argv[1]) && $argv[1] == 'schedule:run') {
     print('Laravel cron run: '.time()."\n");
 }
-elseif( isset($argv[1]) ){
+elseif(isset($argv[1]) ) {
     print("Specified not valid: {$argv[1]}\n");
 }
 else{

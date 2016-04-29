@@ -221,3 +221,6 @@ Why should you use 'Beanstalkd' instead of 'Redis' for queues?
 -Beanstalkd implements job queue
 -Redis implements message queue
 *Note: Message queue broadcasts message to multiple receivers. Job queue will only send job to the first requesting worker.
+
+//Show output from smtp log. Continue streaming the new output from the container’s STDOUT and STDERR.
+docker logs --follow dlemp_smtp_1
