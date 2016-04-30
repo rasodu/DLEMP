@@ -1,5 +1,9 @@
 version: '2'
 services:
+    webapp.dev: #s3mock service is given this name for easy internal excess
+        image: lphoward/fake-s3
+        ports:
+            - "4569:4569"
     smtp:
         image: michielbdejong/mailtrap
         expose:
