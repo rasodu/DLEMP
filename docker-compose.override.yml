@@ -3,13 +3,16 @@ services:
 #start These services can be disabled without affecting any other services
     webapp.dev: #s3mock service is given this name for easy internal excess
         image: lphoward/fake-s3
-        ports:
-            - "4569:4569"
+        expose:
+            - "4569"
     smtp:
         image: michielbdejong/mailtrap
         expose:
             - "25"
 #end These services can be disabled without affecting any other services
+    nginxhttp:
+        ports:
+            - "4569:4569"
     phpfpm:
         volumes:
             - .:/usr/share/nginx/WEBAPP
