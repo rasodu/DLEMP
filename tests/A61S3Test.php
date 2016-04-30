@@ -17,6 +17,7 @@ use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 
 class A61S3Test extends TestCase
 {
+    private $end_point= 'http://s3mock:4569';
     private $bucket_region= 'us-east-1';
     private $bucket_name= 'unittestbucket';
     private $bucket_file_path= 'example_notes.txt';
@@ -34,7 +35,7 @@ class A61S3Test extends TestCase
                 'region' => $this->bucket_region,
                 'version' => 'latest',
 
-                'endpoint' => 'http://webapp.dev:4569',
+                'endpoint' => $this->end_point,
                 'scheme' => 'http',
                 //'bucket_endpoint' => true, //<= This may not be required. Because this is used for CNAME type bucket.
             ]
