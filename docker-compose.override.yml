@@ -1,5 +1,9 @@
 version: '2'
 services:
+    smtp:
+        image: michielbdejong/mailtrap
+        expose:
+            - "25"
     phpfpm:
         volumes:
             - .:/usr/share/nginx/WEBAPP
@@ -8,7 +12,5 @@ services:
         build:
             context: .
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/cmd
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         volumes_from:
             - phpfpm

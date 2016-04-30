@@ -1,33 +1,42 @@
 <?php
 
-//docker exec -it <project-name>_beanstalkd_1 /bin/bash
-//apt-get update
-//apt-get install telnet
-//telnet localhost 11300
-//stats
-//quit
-
-//start init $pheanstalk instance
 require __DIR__.'/vendor/autoload.php';
-$pheanstalk= new Pheanstalk\Pheanstalk('beanstalkd');
-//end init $pheanstalk instance
 
-if($pheanstalk->getConnection()->isServiceListening() === false) {
-    print("Error: Cannot connect to beanstalkd.");
+if(isset($argv[1]) && $argv[1] == 'queue:listen') {
+    //docker exec -it <project-name>_beanstalkd_1 /bin/bash
+    //apt-get update
+    //apt-get install telnet
+    //telnet localhost 11300
+    //stats
+    //quit
+
+    $pheanstalk= new Pheanstalk\Pheanstalk('beanstalkd');
+    if($pheanstalk->getConnection()->isServiceListening() === false) {
+        print("Error: Cannot connect to beanstalkd.");
+    }
+    else{
+        print("Connected to beanstalkd.\n\n");
+
+        //start print job data and delete the job from queue
+        while(true){
+            $job = $pheanstalk
+                ->watch('testqueue')
+                ->ignore('default')
+                ->reserve();
+
+            print($job->getData()."\n");
+
+            $pheanstalk->delete($job);
+        }
+        //end print job data and delete the job from queue
+    }
+}
+elseif(isset($argv[1]) && $argv[1] == 'schedule:run') {
+    print('Laravel cron run: '.time()."\n");
+}
+elseif(isset($argv[1]) ) {
+    print("Specified not valid: {$argv[1]}\n");
 }
 else{
-    print("Connected to beanstalkd.\n\n");
-
-    //start print job data and delete the job from queue
-    while(true){
-        $job = $pheanstalk
-            ->watch('testqueue')
-            ->ignore('default')
-            ->reserve();
-
-        print($job->getData()."\n");
-
-        $pheanstalk->delete($job);
-    }
-    //end print job data and delete the job from queue
+    print("Command not specified.\n");
 }
