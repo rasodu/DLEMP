@@ -1,6 +1,6 @@
 <?php
 
-//https://github.com/laravel/framework/blob/5.1/src/Illuminate/Filesystem/FilesystemAdapter.php
+//https://github.com/laravel/framework/blob/5.2/src/Illuminate/Filesystem/FilesystemAdapter.php
 //https://github.com/thephpleague/flysystem-aws-s3-v3/tree/1.0.10
 
 //http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html
@@ -13,12 +13,14 @@ use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
 
+use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
+
 class A61S3Test extends TestCase
 {
     private $bucket_region= 'us-east-1';
     private $bucket_name= 'unittestbucket';
     private $bucket_file_path= 'example_notes.txt';
-    private $bucket_file_content= 'content inside the file';
+    private $bucket_file_content= 'Content inside the file(Randon: dfkjha89yhdkjfrhwe8)';
 
     public function testCreateBucket()
     {
@@ -68,8 +70,8 @@ class A61S3Test extends TestCase
         //start pul file
         $laravel_filesystem_adapter->put(
             $this->bucket_file_path,
-            $this->bucket_file_content
-            //$visibility = null
+            $this->bucket_file_content,
+            FilesystemContract::VISIBILITY_PUBLIC //Currently this option has no effect on FakeS3
         );
         //end put file
 
@@ -85,6 +87,17 @@ class A61S3Test extends TestCase
         //end check contect of file
 
         return $laravel_filesystem_adapter;
+    }
+
+    /**
+    *@depends testPutFile
+    */
+    public function testGetURL($laravel_filesystem_adapter)
+    {
+        $url= $laravel_filesystem_adapter->url($this->bucket_file_path);
+
+        $response= $this->getFullResponseFromURL($url);
+        $this->assertContains($this->bucket_file_content, $response);
     }
 
     /**

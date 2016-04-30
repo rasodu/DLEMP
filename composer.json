@@ -13,7 +13,7 @@
         "predis/predis": "~1.0",
         "pda/pheanstalk": "~3.0",
         "phpmailer/phpmailer": "~5.2",
-        "illuminate/filesystem": "~5.1",
+        "illuminate/filesystem": "~5.2",
         "league/flysystem-aws-s3-v3": "~1.0",
         "sebastian/peek-and-poke": "dev-master"
     },
