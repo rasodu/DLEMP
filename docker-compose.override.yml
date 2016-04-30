@@ -10,7 +10,7 @@ services:
         expose:
             - "25"
 #end These services can be disabled without affecting any other services
-    nginxhttp:
+    nginxhttps:
         ports:
             - "4569:4569"
     phpfpm:
