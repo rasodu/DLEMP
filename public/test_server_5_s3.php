@@ -7,7 +7,7 @@ use League\Flysystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
 
 //start define settings
-$end_point= 'http://s3mock:4569';
+$end_point= 'http://webapp.dev:4569';
 $bucket_region= 'us-east-1';
 $bucket_name= 'dslkgslakgjiorukj';
 $file_path= 'test.jpg';
@@ -56,4 +56,4 @@ if (!$disk->exists($file_path)) {
 
 
 
-print("<img src='https://webapp.dev:4569/$bucket_name/$file_path'>");
+print("<img src='".$disk->url($file_path)."'/>");

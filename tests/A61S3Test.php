@@ -17,7 +17,7 @@ use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 
 class A61S3Test extends TestCase
 {
-    private $end_point= 'http://s3mock:4569';
+    private $end_point= 'http://webapp.dev:4569';
     private $bucket_region= 'us-east-1';
     private $bucket_name= 'unittestbucket';
     private $bucket_file_path= 'example_notes.txt';

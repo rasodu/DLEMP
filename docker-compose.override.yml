@@ -1,20 +1,15 @@
 version: '2'
 services:
 #start These services can be disabled without affecting any other services
-    s3mock: #s3mock service is given this name for easy internal excess
+    webapp.dev: #s3mock service is given this name for easy internal excess
         image: lphoward/fake-s3
-        expose:
-            - "4569"
+        ports:
+            - "4569:4569"
     smtp:
         image: michielbdejong/mailtrap
         expose:
             - "25"
 #end These services can be disabled without affecting any other services
-    nginxhttps:
-        ports:
-            - "4569:4569"
-        volumes:
-            - ./${DLEMP_BASE_DIR}docker/docker-config/mysite-s3.conf:/etc/nginx/conf.d/mysite-s3.conf
     phpfpm:
         volumes:
             - .:/usr/share/nginx/WEBAPP
