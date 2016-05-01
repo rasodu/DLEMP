@@ -13,6 +13,8 @@ services:
     nginxhttps:
         ports:
             - "4569:4569"
+        volumes:
+            - ./${DLEMP_BASE_DIR}docker/docker-config/mysite-s3.conf:/etc/nginx/conf.d/mysite-s3.conf
     phpfpm:
         volumes:
             - .:/usr/share/nginx/WEBAPP
