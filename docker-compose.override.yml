@@ -1,9 +1,20 @@
 version: '2'
 services:
+#start These services can be disabled without affecting any other services
+    webapp.dev: #s3mock service is given this name for easy internal excess
+        build:
+            context: .
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/s3mock
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        command: -r /fakes3_root -p 4569 --hostname webapp.dev
+        ports:
+            - "4569:4569"
     smtp:
         image: michielbdejong/mailtrap
         expose:
             - "25"
+#end These services can be disabled without affecting any other services
     phpfpm:
         volumes:
             - .:/usr/share/nginx/WEBAPP
