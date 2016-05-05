@@ -20,6 +20,7 @@ class A61S3Test extends TestCase
     private $end_point= 'http://webapp.dev:4569';
     private $bucket_region= 'us-east-1';
     private $bucket_name= 'unittestbucket';
+    private $root_folder_in_bucket= 'news';
     private $bucket_file_path= 'example_notes.txt';
     private $bucket_file_content= 'Content inside the file(Randon: dfkjha89yhdkjfrhwe8)';
 
@@ -63,7 +64,7 @@ class A61S3Test extends TestCase
     public function testPutFile($s3_client)
     {
         //start create laravel filesystem adapter
-        $cloud_adapter= new AwsS3Adapter($s3_client, $this->bucket_name);
+        $cloud_adapter= new AwsS3Adapter($s3_client, $this->bucket_name, $this->root_folder_in_bucket);
         $filesystem= new Filesystem($cloud_adapter);
         $laravel_filesystem_adapter= new FilesystemAdapter($filesystem);
         //end create laravel filesystem adapter

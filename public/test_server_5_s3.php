@@ -9,7 +9,8 @@ use Illuminate\Filesystem\FilesystemAdapter;
 //start define settings
 $end_point= 'http://webapp.dev:4569';
 $bucket_region= 'us-east-1';
-$bucket_name= 'dslkgslakgjiorukj';
+$bucket_name= 'default1bucket';
+$root_folder_in_bucket= 'news';
 $file_path= 'test.jpg';
 //end define settings
 
@@ -43,7 +44,7 @@ $s3_client->createBucket(
 //end create bucket
 
 //start create laravel filesystem adapter
-$cloud_adapter= new AwsS3Adapter($s3_client, $bucket_name);
+$cloud_adapter= new AwsS3Adapter($s3_client, $bucket_name, $root_folder_in_bucket);
 $filesystem= new Filesystem($cloud_adapter);
 $disk= new FilesystemAdapter($filesystem);
 //end create laravel filesystem adapter
