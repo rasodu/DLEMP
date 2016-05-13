@@ -54,7 +54,6 @@ services:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/phpfpm
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
-        image: dlemp/phpfpm
         expose:
             - "9000"
     nginxhttps:

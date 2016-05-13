@@ -23,3 +23,7 @@ RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP && chmod -R 755 /usr/shar
 
 CMD ["php-fpm"]
 #end common phpfpm instructions
+
+#start everything specific to phpfpm-dev
+RUN pecl install xdebug && docker-php-ext-enable xdebug && rm -rf /tmp/pear/*
+#start everything specific to phpfpm-dev
