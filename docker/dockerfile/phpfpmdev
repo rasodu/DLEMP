@@ -25,7 +25,6 @@ CMD ["php-fpm"]
 RUN pecl install xdebug && docker-php-ext-enable xdebug && rm -rf /tmp/pear/*
 RUN printf "\n\
 xdebug.remote_enable=1\n\
-xdebug.remote_host=xdebugremotehost\n\
 xdebug.remote_connect_back=1\n\
 xdebug.remote_port=9000\n\
 xdebug.remote_handler=dbgp\n\

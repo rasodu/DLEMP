@@ -19,8 +19,6 @@ services:
         build:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/phpfpmdev
         image: dlemp/phpfpm
-        extra_hosts:
-            - "xdebugremotehost:10.0.75.1"
         volumes:
             - .:/usr/share/nginx/WEBAPP
             - ./${DLEMP_BASE_DIR}docker/docker-config/php.ini-development-delta:/usr/local/etc/php/conf.d/development.ini
