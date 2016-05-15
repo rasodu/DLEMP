@@ -15,10 +15,6 @@ docker push rasodu/cmd:5.6.<version_number>
 docker tag dlemp_nginxhttp rasodu/nginxhttp:1.9.<version_number>
 docker push rasodu/nginxhttp:1.9.<version_number>
     //end push nginxhttp image
-    //start push s3mock image
-docker tag dlemp_webapp.dev rasodu/s3mock:0.2.<version_number>
-docker push rasodu/s3mock:0.2.<version_number>
-    //end push s3mock image
     //start push nodesocket image
 docker tag dlemp_nodesocket rasodu/nodesocket:4.4.<version_number>
 docker push rasodu/nodesocket:4.4.<version_number>
@@ -34,6 +30,14 @@ docker history dlemp_nginxhttps
 docker tag <image-id-of-layer> rasodu/nginxhttps:1.9.<version_number>//Tag at layer before copying 'public' directory to the image
 docker push rasodu/nginxhttps:1.9.<version_number>
     //end push nginxhttps
+
+    //start push s3mock image
+docker exec -it dlemp_webapp.dev_1 /bin/bash
+s3cmd mb s3://default_bucket
+docker-compose stop
+docker commit dlemp_webapp.dev_1 rasodu/s3mock:0.2.<version_number>
+docker push rasodu/s3mock:0.2.<version_number>
+    //end push s3mock image
 
     //start logout from docker hub
 docker logout
