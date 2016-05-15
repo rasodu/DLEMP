@@ -31,4 +31,6 @@ xdebug.remote_handler = dbgp\n\
 xdebug.remote_mode = req\n\
 xdebug.cli_color = On\n\
 xdebug.overload_var_dump = 2\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+COPY ${DLEMP_BASE_DIR}docker/docker-config/php.ini-development-delta /usr/local/etc/php/conf.d/development.ini
 #start everything specific to phpfpmdev

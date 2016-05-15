@@ -33,7 +33,7 @@ docker push rasodu/nginxhttps:1.9.<version_number>
 
     //start push s3mock image
 docker exec -it dlemp_webapp.dev_1 /bin/bash
-s3cmd mb s3://default_bucket
+s3cmd mb s3://default_bucket //Check 'default_bucket' bucket is created by visiting: http://webapp.dev:4569
 docker-compose stop
 docker commit dlemp_webapp.dev_1 rasodu/s3mock:0.2.<version_number>
 docker push rasodu/s3mock:0.2.<version_number>
