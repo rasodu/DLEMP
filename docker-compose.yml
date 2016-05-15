@@ -23,6 +23,8 @@ services:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nodesocket
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        depends_on:
+            - redis
         volumes_from:
             - nginxhttp:ro
         expose:
