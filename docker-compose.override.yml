@@ -16,6 +16,9 @@ services:
             - "25"
 #end These services can be disabled without affecting any other services
     phpfpm:
+        build:
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/phpfpmdev
+        image: dlemp/phpfpm
         volumes:
             - .:/usr/share/nginx/WEBAPP
             - ./${DLEMP_BASE_DIR}docker/docker-config/php.ini-development-delta:/usr/local/etc/php/conf.d/development.ini

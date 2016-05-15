@@ -23,6 +23,8 @@ services:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nodesocket
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        depends_on:
+            - redis
         volumes_from:
             - nginxhttp:ro
         expose:
@@ -54,7 +56,6 @@ services:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/phpfpm
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
-        image: dlemp/phpfpm
         expose:
             - "9000"
     nginxhttps:
