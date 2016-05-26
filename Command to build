@@ -18,7 +18,7 @@ docker push rasodu/nginxhttp:1.9.<version_number>
     //start push nodesocket image
 docker tag dlemp_nodesocket rasodu/nodesocket:4.4.<version_number>
 docker push rasodu/nodesocket:4.4.<version_number>
-    //end push s3mock image
+    //end push nodesocket image
 
     //start push phpfpm
 docker history dlemp/phpfpm
@@ -38,6 +38,12 @@ docker-compose stop
 docker commit dlemp_webapp.dev_1 rasodu/s3mock:0.2.<version_number>
 docker push rasodu/s3mock:0.2.<version_number>
     //end push s3mock image
+
+    //start push cron image
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+docker tag dlemp_cron rasodu/cron:14.04.<version_number>
+docker push rasodu/cron:14.04.<version_number>
+    //end push cron image
 
     //start logout from docker hub
 docker logout

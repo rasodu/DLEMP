@@ -1,2 +1,2 @@
 #run Laravel schedule command on phpfpm_1 container
-* * * * * root docker exec -t $(docker ps --format "{{.Names}}" | grep "_phpfpm_1") php /usr/share/nginx/WEBAPP/artisan schedule:run >> /var/log/cron-laravel.log 2>&1
+* * * * * root /usr/bin/curl --silent --insecure https://nginxhttps/schedule/run >> /var/log/cron-laravel.log 2>&1
