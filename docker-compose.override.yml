@@ -24,5 +24,8 @@ services:
         build:
             context: .
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/cmd
+        ports:
+            - "3000:3000"
+            - "3001:3001"
         volumes_from:
             - phpfpm
