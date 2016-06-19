@@ -20,9 +20,8 @@ ENV PATH /usr/share/nginx/WEBAPP/vendor/bin:$PATH
     #start install vim
 RUN apt-get -y install vim
 RUN git clone https://github.com/rasodu/dotfiles.git ~/.dotfiles
-RUN ln -s ~/.dotfiles/.vimrc ~/.vimrc
-RUN mkdir -p ~/.vim/colors
-RUN wget -O ~/.vim/colors/xoria256.vim http://www.vim.org/scripts/download_script.php?src_id=23975
+RUN chmod +x ~/.dotfiles/install.sh && ~/.dotfiles/install.sh
+RUN chmod +x ~/.dotfiles/link.sh && ~/.dotfiles/link.sh
     #end install vim
 
     #start define how to run and stop the container
