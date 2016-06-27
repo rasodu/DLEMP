@@ -2,7 +2,7 @@ version: '2'
 services:
 #start These services can be disabled without affecting any other services
     memcached:
-        image: memcached:1.4.25
+        image: memcached:1.4.27-alpine
         expose:
             - "11211"
         command: memcached -p 11211 -m 64
@@ -44,7 +44,7 @@ services:
         expose:
             - "11300"
     redis: #Also turn off: nodesocket
-        image: redis:3.0.7
+        image: redis:3.2.1-alpine
         expose:
             - "6379"
 #end Disabling these services require that you also disable services that depends on the services that you are disabling.
