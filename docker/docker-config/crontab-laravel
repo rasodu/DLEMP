@@ -1,2 +1,4 @@
+#!/bin/sh
+
 #run Laravel schedule command on phpfpm_1 container
-* * * * * root /usr/bin/curl --silent --insecure https://nginxhttps/schedule/run >> /var/log/cron-laravel.log 2>&1
+/usr/bin/curl --silent --insecure https://nginxhttps/schedule/run

@@ -1,12 +1,16 @@
-FROM ubuntu:14.04
+FROM alpine:3.4
 ARG DLEMP_BASE_DIR
 
-RUN apt-get update \
-    && apt-get install -y curl \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+#install requited software
+RUN apk add --no-cache curl
 
-COPY ${DLEMP_BASE_DIR}docker/docker-config/crontab-laravel /etc/cron.d/laravel
-COPY ${DLEMP_BASE_DIR}docker/docker-config/logrotate-cron-laravel /etc/logrotate.d/cron-laravel
-RUN chmod 0644 /etc/cron.d/laravel && touch /var/log/cron-laravel.log
+#setup cron file
+RUN mkdir -p /etc/periodic/1min
+COPY ${DLEMP_BASE_DIR}docker/docker-config/crontab-laravel /etc/periodic/1min/laravel
+RUN chmod +x /etc/periodic/1min/laravel
 
-CMD ["cron", "-f"]
+#change crontab to run 1min cron
+RUN printf "*    *       *       *       *       run-parts /etc/periodic/1min\n" > /var/spool/cron/crontabs/root
+
+#set cron command for the image
+CMD ["crond", "-f", "-d", "8"]
