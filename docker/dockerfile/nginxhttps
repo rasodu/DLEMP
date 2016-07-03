@@ -1,4 +1,4 @@
-FROM nginx:1.9.15
+FROM nginx:1.9.15-alpine
 ARG DLEMP_BASE_DIR
 
 COPY ${DLEMP_BASE_DIR}docker/docker-config/docker-custom-nginx.conf /etc/nginx/conf.d/custom.conf
