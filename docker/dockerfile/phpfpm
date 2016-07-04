@@ -1,5 +1,5 @@
 #start common phpfpm instructions
-FROM php:5.6.16-fpm
+FROM php:5.6.21-fpm
 ARG DLEMP_BASE_DIR
 
 #Installed by default: OpenSSL, PDO, Tokenizer, mysqlnd(Substitute for 'mysql')
@@ -23,5 +23,7 @@ CMD ["php-fpm"]
 
 #start everything specific to phpfpm
 COPY . /usr/share/nginx/WEBAPP
-RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP && chmod -R 755 /usr/share/nginx/WEBAPP
+RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP \
+    && chmod -R 555 /usr/share/nginx/WEBAPP \
+    && chmod -R 755 /usr/share/nginx/WEBAPP/storage
 #end everything specific to phpfpm

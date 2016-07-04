@@ -7,7 +7,6 @@ services:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/s3mock
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
-        command: -r /fakes3_root -p 4569 --hostname webapp.dev
         ports:
             - "4569:4569"
     smtp:
@@ -21,10 +20,12 @@ services:
         image: dlemp/phpfpm
         volumes:
             - .:/usr/share/nginx/WEBAPP
-            - ./${DLEMP_BASE_DIR}docker/docker-config/php.ini-development-delta:/usr/local/etc/php/conf.d/development.ini
     cmd:
         build:
             context: .
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/cmd
+        ports:
+            - "3002:3000"
+            - "3001:3001"
         volumes_from:
             - phpfpm

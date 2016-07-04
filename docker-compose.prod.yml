@@ -7,9 +7,6 @@ services:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/cron
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
-        volumes:
-            - /usr/local/bin/docker:/usr/bin/docker
-            - /var/run/docker.sock:/var/run/docker.sock
     mysql:
         volumes:
             - var-lib-mysql:/var/lib/mysql

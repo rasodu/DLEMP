@@ -1,29 +1,35 @@
 FROM dlemp/phpfpm
 
 #start everything specific 'dlemp_cmd' file
-RUN apt-get update \
-    && apt-get -y install curl git \
+    #start install node
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get install -y libnotify-bin
+RUN npm install --global gulp@^3.8.8
+    #end install node
+
+    #start install php related tools
+RUN apt-get -y install curl git \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && mkdir -p ~/.composer/cache/ && chmod -R 777 ~/.composer/cache/ \
 	&& composer global require "laravel/installer" \
-    && composer global require "squizlabs/php_codesniffer=*" && ~/.composer/vendor/bin/phpcs --config-set defalt_standard PSR2 \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && composer global require "squizlabs/php_codesniffer=*" && ~/.composer/vendor/bin/phpcs --config-set default_standard PSR2 && ~/.composer/vendor/bin/phpcbf --config-set default_standard PSR2
 ENV PATH ~/.composer/vendor/bin:$PATH
 ENV PATH /usr/share/nginx/WEBAPP/vendor/bin:$PATH
+    #end install php related tools
 
+    #start install vim
+RUN apt-get -y install ctags vim
+RUN git clone https://github.com/rasodu/dotfiles.git ~/.dotfiles
+#RUN ~/.dotfiles/install.sh && ~/.dotfiles/link.sh
+    #end install vim
+
+    #start define how to run and stop the container
 STOPSIGNAL SIGKILL
 CMD ~/.composer/vendor/bin/phpcs --config-show && /bin/bash -c "while true; do echo 1; sleep 1; done"
-
-RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - \
-    && apt-get install -y nodejs \
-    && apt-get update \
-    && apt-get install -y libnotify-bin \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN npm install --global gulp@^3.8.8
+    #end define how to run and stop the container
 #end everything specific 'dlemp_cmd' file
 
-#start partial support for Laravel Elixir on windows VM
-RUN mkdir -p /DLEMP/nodejs \
-    && ln -s /usr/share/nginx/WEBAPP/package.json /DLEMP/nodejs/package.json \
-    && ln -s /usr/share/nginx/WEBAPP/resources /DLEMP/nodejs/resources \
-    && ln -s /usr/share/nginx/WEBAPP/public /DLEMP/nodejs/public
-#end partial support for Laravel Elixir on windows VM
+#start add workaround for Laravel Elixir on windows VM
+RUN ln -s /usr/share/nginx/WEBAPP/package.json /usr/share/nginx/package.json
+EXPOSE 3000 3001
+#end add workaround for Laravel Elixir on windows VM

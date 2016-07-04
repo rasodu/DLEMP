@@ -1,3 +1,61 @@
+//start commands to push images to docker hub. Tags are created at increments of 10s. '.1', '.11', ...
+    //start login to docker hub
+docker login
+    //end login to docker hub
+
+    //start push phpfpmdev image
+docker tag dlemp/phpfpm rasodu/phpfpmdev:5.6.<version_number>
+docker push rasodu/phpfpmdev:5.6.<version_number>
+    //end push phpfpmdev image
+    //start push cmd image
+docker tag dlemp_cmd rasodu/cmd:5.6.<version_number>
+docker push rasodu/cmd:5.6.<version_number>
+    //end push cmd image
+    //start push nginxhttp image
+docker tag dlemp_nginxhttp rasodu/nginxhttp:1.9.<version_number>
+docker push rasodu/nginxhttp:1.9.<version_number>
+    //end push nginxhttp image
+    //start push nodesocket image
+docker tag dlemp_nodesocket rasodu/nodesocket:4.4.<version_number>
+docker push rasodu/nodesocket:4.4.<version_number>
+    //end push nodesocket image
+
+    //start push phpfpm
+docker history dlemp/phpfpm
+docker tag <image-id-of-layer> rasodu/phpfpm:5.6.<version_number>//Tag at layer before installing xdebug
+docker push rasodu/phpfpm:5.6.<version_number>
+    //end push phpfpm
+    //start push nginxhttps
+docker history dlemp_nginxhttps
+docker tag <image-id-of-layer> rasodu/nginxhttps:1.9.<version_number>//Tag at layer before copying 'public' directory to the image
+docker push rasodu/nginxhttps:1.9.<version_number>
+    //end push nginxhttps
+
+    //start push s3mock image
+docker exec -it dlemp_webapp.dev_1 /bin/bash
+s3cmd mb s3://default_bucket //Check 'default_bucket' bucket is created by visiting: http://webapp.dev:4569
+docker-compose stop
+docker commit dlemp_webapp.dev_1 rasodu/s3mock:0.2.<version_number>
+docker push rasodu/s3mock:0.2.<version_number>
+    //end push s3mock image
+
+    //start push cron image
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+docker tag dlemp_cron rasodu/cron:3.4.<version_number>
+docker push rasodu/cron:3.4.<version_number>
+    //end push cron image
+
+    //start logout from docker hub
+docker logout
+    //end logout from docker hub
+//end commands to push images to docker hub. Tags are created at increments of 10s. '.1', '.11', ...
+
+
+//run alpine linux
+docker run -it --rm alpine:3.4 ash
+apk add --no-cache curl
+
+//main docker commands
 docker run --name some-memcache -d memcached:1.4.25 memcached -p 11211 -m 64
 
 docker build -t nginx-test-image NGINX
