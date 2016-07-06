@@ -51,7 +51,7 @@ services:
     phpfpm:
         build:
             context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/phpfpm
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/56phpfpm
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         expose:
