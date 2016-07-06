@@ -51,9 +51,10 @@ services:
     phpfpm:
         build:
             context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/56phpfpm
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/${DLEMP_PHP_VERSION}phpfpm
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+                DLEMP_PHP_VERSION: ${DLEMP_PHP_VERSION}
         expose:
             - "9000"
     nginxhttps:
