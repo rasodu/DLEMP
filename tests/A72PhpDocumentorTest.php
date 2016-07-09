@@ -7,7 +7,7 @@ class A72PhpDocumentorTest extends TestCase
 
     public function testPhpdocIsInstalled()
     {
-        $process = new Process('/DLEMP/tools/phpdoc/vendor/bin/phpdoc --version');
+        $process = new Process('/usr/local/bin/phpdoc --version');
         $process->run();
         $output= $process->getOutput();
 

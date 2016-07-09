@@ -17,9 +17,10 @@ RUN chmod +x /usr/local/bin/installphar && apt-get -y install curl wget
 RUN apt-get -y install curl git \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && mkdir -p ~/.composer/cache/ && chmod -R 777 ~/.composer/cache/ \
     && composer global require "laravel/installer" \
-    && mkdir -p /DLEMP/tools/phpcodesniffer && composer require --working-dir=/DLEMP/tools/phpcodesniffer "squizlabs/php_codesniffer=*" && /DLEMP/tools/phpcodesniffer/vendor/bin/phpcs --config-set default_standard PSR2 && /DLEMP/tools/phpcodesniffer/vendor/bin/phpcbf --config-set default_standard PSR2 \
-    && mkdir -p /DLEMP/tools/phpdoc && composer require --working-dir=/DLEMP/tools/phpdoc "phpdocumentor/phpdocumentor:2.*"
-ENV PATH /usr/share/nginx/WEBAPP/vendor/bin:/DLEMP/tools/phpdoc/vendor/bin:/DLEMP/tools/phpcodesniffer/vendor/bin:~/.composer/vendor/bin:$PATH
+    && installphar https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar phpcs && phpcs --config-set default_standard PSR2 \
+    && installphar https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar phpcbf && phpcbf --config-set default_standard PSR2 \
+    && installphar http://www.phpdoc.org/phpDocumentor.phar phpdoc
+ENV PATH /usr/share/nginx/WEBAPP/vendor/bin:~/.composer/vendor/bin:$PATH
     #end install php related tools
 
     #start install tools for benchmarking performance
@@ -34,7 +35,7 @@ RUN git clone https://github.com/rasodu/dotfiles.git ~/.dotfiles
 
     #start define how to run and stop the container
 STOPSIGNAL SIGKILL
-CMD /DLEMP/tools/phpcodesniffer/vendor/bin/phpcs --config-show && /bin/bash -c "while true; do echo 1; sleep 1; done"
+CMD phpcs --config-show && /bin/bash -c "while true; do echo 1; sleep 1; done"
     #end define how to run and stop the container
 #end everything specific 'dlemp_cmd' file
 
