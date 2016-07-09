@@ -7,7 +7,7 @@ class A74LaravelInstallerTest extends TestCase
 
     public function testComposerCommandworks()
     {
-        $process = new Process('/usr/local/bin/composer --version');
+        $process = new Process('composer --version');
         $process->run();
         $output= $process->getOutput();
 
