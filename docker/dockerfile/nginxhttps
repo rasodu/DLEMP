@@ -4,6 +4,12 @@ ARG DLEMP_BASE_DIR
 COPY ${DLEMP_BASE_DIR}docker/docker-config/docker-custom-nginx.conf /etc/nginx/conf.d/custom.conf
 COPY ${DLEMP_BASE_DIR}docker/docker-config/mysite.conf /etc/nginx/conf.d/mysite.conf
 
+#start create volume for certificates
+COPY ${DLEMP_BASE_DIR}docker/docker-config/docker-ssl/docker-privkey.pem /etc/letsencrypt/privkey.pem
+COPY ${DLEMP_BASE_DIR}docker/docker-config/docker-ssl/docker-fullchain.pem /etc/letsencrypt/fullchain.pem
+VOLUME /etc/letsencrypt
+#end create volume for certificates
+
 #COPY htdocs /usr/share/nginx/html
 COPY public /usr/share/nginx/WEBAPP/public
 #RUN chmod -R 777 /usr/share/nginx/WEBAPP

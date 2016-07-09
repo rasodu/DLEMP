@@ -1,19 +1,8 @@
-FROM nginx:1.9.15
+FROM nginx:1.9.15-alpine
 ARG DLEMP_BASE_DIR
 
-#start all operations for let's encrypt
+#start create acme challenge directory
 RUN mkdir -p /DLEMP/letsencrypt/public/.well-known/acme-challenge
-RUN apt-get update \
-    && apt-get install -y git \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN git clone https://github.com/letsencrypt/letsencrypt --branch master --single-branch /DLEMP/letsencrypt/bin --depth 1
-COPY docker/docker-config/letsencrypt-cli.ini /root/.config/letsencrypt/cli.ini
-#end all operations for let's encrypt
-
-#start create volume for certificates
-COPY ${DLEMP_BASE_DIR}docker/docker-config/docker-ssl/docker-privkey.pem /etc/letsencrypt/privkey.pem
-COPY ${DLEMP_BASE_DIR}docker/docker-config/docker-ssl/docker-fullchain.pem /etc/letsencrypt/fullchain.pem
-VOLUME /etc/letsencrypt
-#end create volume for certificates
+#end create acme challenge directory
 
 COPY ${DLEMP_BASE_DIR}docker/docker-config/nginxhttp-redirect.conf /etc/nginx/conf.d/redirect.conf
