@@ -1,0 +1,36 @@
+#!/bin/bash
+
+
+#start function to check if file at url exist
+phar_at_url () {
+    status=$(curl -s --head -w %{http_code} "$1" -o /dev/null)
+
+    if [[ $status != "200" && $status != "302" ]]; then
+        echo "$1 returned $status"
+        exit 0
+    fi
+}
+
+#end function to check if file at url exist
+
+
+#start print help message
+if [ "$1" == "-h" -o "$1" == "--help" -o -z "$1" -o -z "$2" ]; then
+    printf "Usage: `basename $0` <phar-url>.phar <final-command-name>\nExample: installphar https://phar.phpunit.de/phpunit.phar phpunit\n\n"
+    exit 0
+fi
+#end print help message
+
+
+phar_at_url "$1"
+
+if [ -x "$(command -v $2)" ]; then
+    echo "$2 already installed."
+    exit 0
+fi
+
+wget "$1" -O /usr/local/bin/"$2"
+chmod +x /usr/local/bin/"$2"
+
+echo "$2" is install at /usr/local/bin"$2" 
+
