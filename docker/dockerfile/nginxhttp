@@ -5,4 +5,4 @@ ARG DLEMP_BASE_DIR
 RUN mkdir -p /DLEMP/letsencrypt/public/.well-known/acme-challenge
 #end create acme challenge directory
 
-COPY ${DLEMP_BASE_DIR}docker/docker-config/nginxhttp-redirect.conf /etc/nginx/conf.d/redirect.conf
+COPY ${DLEMP_BASE_DIR}docker/docker-config/nginxhttp-redirect.conf /etc/nginx/conf.d/default.conf
