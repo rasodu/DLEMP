@@ -10,4 +10,4 @@ RUN git clone https://github.com/letsencrypt/letsencrypt --branch master --singl
 COPY docker/docker-config/letsencrypt-cli.ini /root/.config/letsencrypt/cli.ini
 #end all operations for let's encrypt
 
-CMD ["echo", "hi"]
+CMD ["echo", "docker run --rm -it <project-name>_letsencrypt /bin/bash"]

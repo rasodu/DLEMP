@@ -11,6 +11,10 @@ docker push rasodu/phpfpmdev:5.6.<version_number>
 docker tag dlemp_cmd rasodu/cmd:5.6.<version_number>
 docker push rasodu/cmd:5.6.<version_number>
     //end push cmd image
+    //start push letsencrypt image
+docker tag dlemp_letsencrypt rasodu/letsencrypt:0.8.<version_number>
+docker push rasodu/letsencrypt:0.8.<version_number>
+    //end push letsencrypt image
     //start push nginxhttp image
 docker tag dlemp_nginxhttp rasodu/nginxhttp:1.9.<version_number>
 docker push rasodu/nginxhttp:1.9.<version_number>
