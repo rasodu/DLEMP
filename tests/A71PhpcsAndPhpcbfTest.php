@@ -6,7 +6,7 @@ class A71PhpcsAndPhpcbfTest extends TestCase
 {
     public function testDefaultStandardForPhpcs()
     {
-        $process = new Process('/DLEMP/tools/phpcodesniffer/vendor/bin/phpcs --config-show standard');
+        $process = new Process('phpcs --config-show standard');
         $process->run();
         $output= $process->getOutput();
 
@@ -15,7 +15,7 @@ class A71PhpcsAndPhpcbfTest extends TestCase
 
     public function testDefaultStandardForPhpcbf()
     {
-        $process = new Process('/DLEMP/tools/phpcodesniffer/vendor/bin/phpcbf --config-show standard');
+        $process = new Process('phpcbf --config-show standard');
         $process->run();
         $output= $process->getOutput();
 
