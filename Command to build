@@ -54,6 +54,12 @@ docker logout
     //end logout from docker hub
 //end commands to push images to docker hub. Tags are created at increments of 10s. '.1', '.11', ...
 
+//change docker client
+eval $(docker-machine env <machine-name>)
+eval $(docker-machine env --unset)
+ssh [-i ~/.ssh/<private-key>] -L 2375:localhost:2375 <username>@<ip|domain> [-p <ssh-port>]
+export DOCKER_HOST=localhost:2375
+docker info
 
 //run alpine linux
 docker run -it --rm alpine:3.4 ash
