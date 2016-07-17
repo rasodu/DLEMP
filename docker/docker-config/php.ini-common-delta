@@ -20,3 +20,12 @@ request_order = "GP"
 
 ; This feature is disabled by default. If this is enabled, then the request will be allowed to complete even if user
 ;ignore_user_abort = On
+
+
+; OPCache settings but this is useless if OPCache is not enabled.
+opcache.enable_cli = On
+opcache.memory_consumption = 128
+opcache.max_accelerated_files = 8000
+opcache.revalidate_freq = 60
+opcache.max_wasted_percentage = 5
+opcache.fast_shutdown = On
