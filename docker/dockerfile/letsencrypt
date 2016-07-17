@@ -1,0 +1,13 @@
+FROM debian:jessie
+ARG DLEMP_BASE_DIR
+
+#start all operations for let's encrypt
+RUN mkdir -p /DLEMP/letsencrypt/bin
+RUN apt-get update \
+    && apt-get install -y git \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN git clone https://github.com/letsencrypt/letsencrypt --branch master --single-branch /DLEMP/letsencrypt/bin --depth 1
+COPY docker/docker-config/letsencrypt-cli.ini /root/.config/letsencrypt/cli.ini
+#end all operations for let's encrypt
+
+CMD ["echo", "docker run --rm -it <project-name>_letsencrypt /bin/bash"]

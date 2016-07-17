@@ -11,6 +11,10 @@ docker push rasodu/phpfpmdev:5.6.<version_number>
 docker tag dlemp_cmd rasodu/cmd:5.6.<version_number>
 docker push rasodu/cmd:5.6.<version_number>
     //end push cmd image
+    //start push letsencrypt image
+docker tag dlemp_letsencrypt rasodu/letsencrypt:0.8.<version_number>
+docker push rasodu/letsencrypt:0.8.<version_number>
+    //end push letsencrypt image
     //start push nginxhttp image
 docker tag dlemp_nginxhttp rasodu/nginxhttp:1.9.<version_number>
 docker push rasodu/nginxhttp:1.9.<version_number>
@@ -50,6 +54,12 @@ docker logout
     //end logout from docker hub
 //end commands to push images to docker hub. Tags are created at increments of 10s. '.1', '.11', ...
 
+//change docker client
+eval $(docker-machine env <machine-name>)
+eval $(docker-machine env --unset)
+ssh [-i ~/.ssh/<private-key>] -L 2375:localhost:2375 <username>@<ip|domain> [-p <ssh-port>]
+export DOCKER_HOST=localhost:2375
+docker info
 
 //run alpine linux
 docker run -it --rm alpine:3.4 ash

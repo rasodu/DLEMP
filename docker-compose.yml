@@ -24,9 +24,10 @@ services:
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         depends_on:
+            - nginxhttps
             - redis
-        volumes_from:
-            - nginxhttp:ro
+        volumes:
+            - etc-letsencrypt:/etc/letsencrypt
         ports:
             - "3000:3000"
     queue:
@@ -64,10 +65,11 @@ services:
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         volumes_from:
-            - nginxhttp:ro
             - phpfpm:ro
         ports:
             - "443:443"
+        volumes:
+            - etc-letsencrypt:/etc/letsencrypt
     nginxhttp:
         build:
             context: .
@@ -76,8 +78,6 @@ services:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         ports:
             - "80:80"
-        volumes:
-            - etc-letsencrypt:/etc/letsencrypt
 volumes:
     etc-letsencrypt:
         driver: local
