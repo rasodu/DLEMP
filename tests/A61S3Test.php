@@ -15,6 +15,9 @@ use Illuminate\Filesystem\FilesystemAdapter;
 
 use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 
+/**
+*@group dev
+*/
 class A61S3Test extends TestCase
 {
     private $end_point= 'http://webapp.dev:4569';

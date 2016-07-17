@@ -32,12 +32,56 @@ class A01PHPLaravelTest extends TestCase
         );
     }
 
-    public function testStaticStoragefiles()
+    /**
+    *@group dev
+    */
+    public function testStaticStorageFilesServedDuringDevelopment()
     {
         $result= $this->getFullResponseFromURL('https://nginxhttps/storage/static_file.txt');
 
         $this->assertContains(
             'Text in static file.',
+            $result
+        );
+    }
+
+    /**
+    *@group prod
+    */
+    public function testStaticStorageFilesShouldntBeCopiedToProductionVolume()
+    {
+        $result= $this->getFullResponseFromURL('https://nginxhttps/storage/static_file.txt');
+
+        $this->assertContains('HTTP/1.1 404 Not Found', $result);
+    }
+
+    public function testStaticStorageNewFileIsServed()
+    {
+        $file_name= 'static_file9876.txt';
+        $file_folder= '/usr/share/nginx/WEBAPP/storage/app/public/';
+        $file_path= $file_folder.$file_name;
+        $file_content= 'Text in static file.';
+
+        //create files for test
+        $delete_folder= false;
+        if (!file_exists($file_folder)) {
+            $delete_folder= true;
+            mkdir($file_folder);
+        }
+        file_put_contents($file_path, $file_content);
+        //end files for test
+
+        $result= $this->getFullResponseFromURL('https://nginxhttps/storage/'.$file_name);
+
+        //start remove files created for test
+        unlink($file_path);
+        if ($delete_folder) {
+            rmdir($file_folder);
+        }
+        //end remove files created for test
+
+        $this->assertContains(
+            $file_content,
             $result
         );
     }

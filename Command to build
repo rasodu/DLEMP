@@ -25,7 +25,8 @@ docker push rasodu/nodesocket:4.4.<version_number>
     //end push nodesocket image
 
     //start push phpfpm
-docker history dlemp/phpfpm
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml build phpfpm
+docker history dlemp_phpfpm
 docker tag <image-id-of-layer> rasodu/phpfpm:5.6.<version_number>//Tag at layer before installing xdebug
 docker push rasodu/phpfpm:5.6.<version_number>
     //end push phpfpm

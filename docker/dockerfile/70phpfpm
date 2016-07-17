@@ -11,10 +11,10 @@ RUN apt-get update && apt-get -y install wget \
     && apt-get -y install libmcrypt-dev && docker-php-ext-install mcrypt \
     && apt-get -y install zlib1g zlib1g-dev && docker-php-ext-install zip \
     && apt-get -y install libmemcached-dev zlib1g-dev \
-    && wget https://github.com/php-memcached-dev/php-memcached/archive/php7.tar.gz --output-document=/usr/src/php/ext/memcached.tgz.gz \
+    && curl -L https://github.com/php-memcached-dev/php-memcached/archive/php7.tar.gz --create-dirs --output /usr/src/php/ext/memcached.tgz.gz \
     && mkdir /usr/src/php/ext/memcached && tar xf /usr/src/php/ext/memcached.tgz.gz -C /usr/src/php/ext/memcached --strip-components 1 && rm /usr/src/php/ext/memcached.tgz.gz \
-    && docker-php-ext-install memcached \
-    && rm -rf /tmp/pear/* && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && cd /usr/src/php/ext/memcached && phpize && ./configure && make && make install && docker-php-ext-enable memcached && rm -r /usr/src/php && cd / \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY ${DLEMP_BASE_DIR}docker/docker-config/php-fpm.conf /usr/local/etc/
 COPY ${DLEMP_BASE_DIR}docker/docker-config/php${DLEMP_PHP_VERSION}.ini-production /usr/local/etc/php/php.ini
@@ -26,6 +26,10 @@ CMD ["php-fpm"]
 #end common phpfpm instructions
 
 #start everything specific to phpfpm
+    #start install OPCache
+RUN docker-php-ext-install opcache
+    #end install OPCache
+
 COPY . /usr/share/nginx/WEBAPP
 RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP \
     && chmod -R 555 /usr/share/nginx/WEBAPP \

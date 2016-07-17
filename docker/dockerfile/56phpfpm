@@ -23,6 +23,10 @@ CMD ["php-fpm"]
 #end common phpfpm instructions
 
 #start everything specific to phpfpm
+    #start install OPCache
+RUN docker-php-ext-install opcache
+    #end install OPCache
+
 COPY . /usr/share/nginx/WEBAPP
 RUN chown -R www-data:www-data /usr/share/nginx/WEBAPP \
     && chmod -R 555 /usr/share/nginx/WEBAPP \
