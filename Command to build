@@ -16,8 +16,8 @@ docker tag dlemp_letsencrypt rasodu/letsencrypt:0.8.<version_number>
 docker push rasodu/letsencrypt:0.8.<version_number>
     //end push letsencrypt image
     //start push nginxhttp image
-docker tag dlemp_nginxhttp rasodu/nginxhttp:1.9.<version_number>
-docker push rasodu/nginxhttp:1.9.<version_number>
+docker tag dlemp_nginxhttp rasodu/nginxhttp:1.10.<version_number>
+docker push rasodu/nginxhttp:1.10.<version_number>
     //end push nginxhttp image
     //start push nodesocket image
 docker tag dlemp_nodesocket rasodu/nodesocket:4.4.<version_number>
@@ -32,8 +32,8 @@ docker push rasodu/phpfpm:5.6.<version_number>
     //end push phpfpm
     //start push nginxhttps
 docker history dlemp_nginxhttps
-docker tag <image-id-of-layer> rasodu/nginxhttps:1.9.<version_number>//Tag at layer before copying 'public' directory to the image
-docker push rasodu/nginxhttps:1.9.<version_number>
+docker tag <image-id-of-layer> rasodu/nginxhttps:1.10.<version_number>//Tag at layer before copying 'public' directory to the image
+docker push rasodu/nginxhttps:1.10.<version_number>
     //end push nginxhttps
 
     //start push s3mock image
