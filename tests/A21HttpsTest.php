@@ -2,8 +2,16 @@
 
 class A21HttpsTest extends TestCase
 {
-    public function testResponseFromServerIsHTTP2(){
+    public function testResponseFromServerIsHTTP2()
+    {
         //Add test to check that the response is HTTP2
+    }
+
+    public function testResponseFromServerIsEncodedWithGzip()
+    {
+        $response= $this->getFullResponseFromURL('https://nginxhttps/page2.php');
+
+        $this->assertContains('Content-Encoding: gzip', $response);
     }
 
     //curl --http2 https://nginxhttps/page1.htm --insecure
