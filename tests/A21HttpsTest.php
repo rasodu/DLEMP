@@ -2,8 +2,11 @@
 
 class A21HttpsTest extends TestCase
 {
+    public function testResponseFromServerIsHTTP2(){
+        //Add test to check that the response is HTTP2
+    }
 
-    //curl https://nginxhttps/page1.htm --insecure
+    //curl --http2 https://nginxhttps/page1.htm --insecure
     public function testServingHtmlFile()
     {
         $response= $this->getFullResponseFromURL('https://nginxhttps/page1.htm');
