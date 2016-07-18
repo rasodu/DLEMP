@@ -42,6 +42,7 @@ class TestCase extends PHPUnit_Framework_TestCase
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_ENCODING, "gzip");
         ///end set curl options
 
         ///start if request is https, then don't verify certificate
