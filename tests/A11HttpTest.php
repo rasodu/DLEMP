@@ -20,4 +20,11 @@ class A11HttpTest extends TestCase
 
         $this->assertContains('HTTP/1.1 404 Not Found', $response);
     }
+
+    public function testDontSendNginxVersionNumberInHeader()
+    {
+        $response= $this->getFullResponseFromURL('http://nginxhttp/');
+
+        $this->assertNotContains('Server: nginx/', $response);
+    }
 }
