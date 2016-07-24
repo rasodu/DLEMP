@@ -44,4 +44,11 @@ class A21HttpsTest extends TestCase
 
         $this->assertNotContains('Server: nginx/', $response);
     }
+
+    public function testSendPrecompressedGzipFiles()
+    {
+        $response= $this->getFullResponseFromURL('https://nginxhttps/css/app.css');
+
+        $this->assertContains('/*compressed file*/', $response);
+    }
 }
