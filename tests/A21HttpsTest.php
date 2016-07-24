@@ -30,4 +30,18 @@ class A21HttpsTest extends TestCase
         $this->assertContains('HTTP/1.1 200 OK', $response);
         $this->assertContains('<title>phpinfo()</title>', $response);
     }
+
+    public function testDontSendXPoweredByHeader()
+    {
+        $response= $this->getFullResponseFromURL('https://nginxhttps/page2.php');
+
+        $this->assertNotContains('X-Powered-By:', $response, "x-powered-by header is sent by server. This will expose php version that is installed on your server.");
+    }
+
+    public function testDontSendNginxVersionNumberInHeader()
+    {
+        $response= $this->getFullResponseFromURL('https://nginxhttps/page1.htm');
+
+        $this->assertNotContains('Server: nginx/', $response);
+    }
 }
