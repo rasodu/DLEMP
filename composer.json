@@ -16,11 +16,18 @@
         "illuminate/filesystem": "~5.2",
         "league/flysystem-aws-s3-v3": "~1.0",
         "symfony/process": "~3.0",
-        "sebastian/peek-and-poke": "dev-master"
+        "sebastian/peek-and-poke": "dev-master",
+        "rasodu/services": "dev-master"
     },
     "autoload-dev": {
         "classmap": [
             "tests/TestCase.php"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/rasodu/services"
+        }
+    ]
 }
