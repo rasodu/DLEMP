@@ -32,5 +32,5 @@ fi
 wget "$1" -O /usr/local/bin/"$2"
 chmod +x /usr/local/bin/"$2"
 
-echo "$2" is install at /usr/local/bin"$2" 
+echo "$2" is install at /usr/local/bin"$2"
 
