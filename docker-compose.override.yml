@@ -16,7 +16,7 @@ services:
 #end These services can be disabled without affecting any other services
     phpfpm:
         build:
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/${DLEMP_PHP_VERSION}phpfpmdev
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/${DLEMP_PHP_VERSION}phpfpmdevlaravel
         image: dlemp/phpfpm
         volumes:
             - .:/usr/share/nginx/WEBAPP

@@ -52,7 +52,7 @@ services:
     phpfpm:
         build:
             context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/${DLEMP_PHP_VERSION}phpfpm
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/${DLEMP_PHP_VERSION}phpfpmlaravel
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
                 DLEMP_PHP_VERSION: ${DLEMP_PHP_VERSION}
@@ -61,7 +61,7 @@ services:
     nginxhttps:
         build:
             context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttps
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttpslaravel
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         volumes_from:
