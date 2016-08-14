@@ -17,10 +17,10 @@ services:
             - MYSQL_DATABASE=homestead
             - MYSQL_USER=homestead
             - MYSQL_PASSWORD=secret
-    nodesocket:
+    pusherlaravel:
         build:
             context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nodesocket
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/pusherlaravel
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         depends_on:
@@ -44,7 +44,7 @@ services:
         image: kusmierz/beanstalkd:v1.10.0
         expose:
             - "11300"
-    redis: #Also turn off: nodesocket
+    redis: #Also turn off: pusherlaravel
         image: redis:3.2.1-alpine
         expose:
             - "6379"

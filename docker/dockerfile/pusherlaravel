@@ -1,0 +1,11 @@
+FROM node:4.4.7-slim
+ARG DLEMP_BASE_DIR
+EXPOSE 3000
+
+COPY ${DLEMP_BASE_DIR}docker/docker-config/node-package.json /usr/src/app/package.json
+WORKDIR /usr/src/app
+RUN npm install
+
+COPY ${DLEMP_BASE_DIR}docker/docker-config/node-publisher.js /usr/src/app/socket.js
+
+CMD ["node", "/usr/src/app/socket.js"]
