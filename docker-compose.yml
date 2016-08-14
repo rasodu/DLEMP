@@ -30,7 +30,7 @@ services:
             - etc-letsencrypt:/etc/letsencrypt
         ports:
             - "3000:3000"
-    queue:
+    workerlaravel:
         extends:
             service: phpfpm
         depends_on:
@@ -40,7 +40,7 @@ services:
             - phpfpm
 #end These services can be disabled without affecting any other services
 #start Disabling these services require that you also disable services that depends on the services that you are disabling.
-    beanstalkd: #Also turn off: queue
+    beanstalkd: #Also turn off: workerlaravel
         image: kusmierz/beanstalkd:v1.10.0
         expose:
             - "11300"
