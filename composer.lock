@@ -1559,12 +1559,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rasodu/services.git",
-                "reference": "8ceb3792e35aadc8f433fac89ab862a81923201a"
+                "reference": "1cced5a201a0f5d83dd229357b6a266db99a0b4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rasodu/services/zipball/8ceb3792e35aadc8f433fac89ab862a81923201a",
-                "reference": "8ceb3792e35aadc8f433fac89ab862a81923201a",
+                "url": "https://api.github.com/repos/rasodu/services/zipball/1cced5a201a0f5d83dd229357b6a266db99a0b4a",
+                "reference": "1cced5a201a0f5d83dd229357b6a266db99a0b4a",
                 "shasum": ""
             },
             "type": "library",
@@ -1574,7 +1574,7 @@
                 "source": "https://github.com/rasodu/services/tree/master",
                 "issues": "https://github.com/rasodu/services/issues"
             },
-            "time": "2016-08-13 16:31:49"
+            "time": "2016-08-15 00:38:47"
         },
         {
             "name": "sebastian/comparator",
