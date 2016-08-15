@@ -1,0 +1,31 @@
+version: '2'
+services:
+#start These services can be disabled without affecting any other services
+    pusherlaravel:
+        build:
+            context: .
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/pusherlaravel
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        depends_on:
+            - nginxhttps
+            - redis
+        volumes:
+            - etc-letsencrypt:/etc/letsencrypt
+        ports:
+            - "3000:3000"
+    workerlaravel:
+        image: dlemp/phpfpm
+        depends_on:
+            - beanstalkd
+            - phpfpm
+        command: php artisan queue:listen --queue=high,default,low --timeout=60 --sleep=5 --tries=3
+        volumes_from:
+            - phpfpm
+#end These services can be disabled without affecting any other services
+    phpfpm:
+        build:
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/${DLEMP_PHP_VERSION}phpfpmlaravel
+    nginxhttps:
+        build:
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttpslaravel

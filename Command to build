@@ -4,12 +4,12 @@ docker login
     //end login to docker hub
 
     //start push phpfpmdev image
-docker tag dlemp/phpfpm rasodu/phpfpmdev:5.6.<version_number>
-docker push rasodu/phpfpmdev:5.6.<version_number>
+docker tag dlemp/phpfpm rasodu/phpfpmdevlaravel:5.6.<version_number>
+docker push rasodu/phpfpmdevlaravel:5.6.<version_number>
     //end push phpfpmdev image
     //start push cmd image
-docker tag dlemp_cmd rasodu/cmd:5.6.<version_number>
-docker push rasodu/cmd:5.6.<version_number>
+docker tag dlemp_cmd rasodu/cmdlaravel:5.6.<version_number>
+docker push rasodu/cmdlaravel:5.6.<version_number>
     //end push cmd image
     //start push letsencrypt image
 docker tag dlemp_letsencrypt rasodu/letsencrypt:0.8.<version_number>
@@ -19,21 +19,22 @@ docker push rasodu/letsencrypt:0.8.<version_number>
 docker tag dlemp_nginxhttp rasodu/nginxhttp:1.10.<version_number>
 docker push rasodu/nginxhttp:1.10.<version_number>
     //end push nginxhttp image
-    //start push nodesocket image
-docker tag dlemp_nodesocket rasodu/nodesocket:4.4.<version_number>
-docker push rasodu/nodesocket:4.4.<version_number>
+    //start push pusherlaravel image
+docker tag dlemp_pusherlaravel rasodu/pusherlaravel:4.4.<version_number>
+docker push rasodu/pusherlaravel:4.4.<version_number>
     //end push nodesocket image
 
     //start push phpfpm
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml build phpfpm
-docker history dlemp_phpfpm
-docker tag <image-id-of-layer> rasodu/phpfpm:5.6.<version_number>//Tag at layer before installing xdebug
-docker push rasodu/phpfpm:5.6.<version_number>
+#put app in production mode by changing 'COMPOSE_FILE' in '.env' file
+docker-compose build phpfpm
+docker history dlemp/phpfpm
+docker tag <image-id-of-layer> rasodu/phpfpmlaravel:5.6.<version_number>//Tag at layer before installing xdebug
+docker push rasodu/phpfpmlaravel:5.6.<version_number>
     //end push phpfpm
     //start push nginxhttps
 docker history dlemp_nginxhttps
-docker tag <image-id-of-layer> rasodu/nginxhttps:1.10.<version_number>//Tag at layer before copying 'public' directory to the image
-docker push rasodu/nginxhttps:1.10.<version_number>
+docker tag <image-id-of-layer> rasodu/nginxhttpslaravel:1.10.<version_number>//Tag at layer before copying 'public' directory to the image
+docker push rasodu/nginxhttpslaravel:1.10.<version_number>
     //end push nginxhttps
 
     //start push s3mock image
@@ -45,7 +46,8 @@ docker push rasodu/s3mock:0.2.<version_number>
     //end push s3mock image
 
     //start push cron image
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+#put app in production mode by changing 'COMPOSE_FILE' in '.env' file
+docker-compose build
 docker tag dlemp_cron rasodu/cron:3.4.<version_number>
 docker push rasodu/cron:3.4.<version_number>
     //end push cron image

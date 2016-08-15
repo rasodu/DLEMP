@@ -33,10 +33,10 @@ to use in development.
 
 **How do I run/stop this project**
 - Run project
-    - ```docker-compose up -d``` - Run project in development mode
+    - Uncomment ```COMPOSE_FILE``` for development ```.env```, then run ```docker-compose up -d``` - Run project in development mode
         - ```phpunit --exclude-group prod``` - Run unittests in `cmd` container
         - ```vendor/bin/phpunit --exclude-group cmd,prod``` - Run unittests in `phpfpmdev` container
-    - ```docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d``` - Run project in production mode
+    - Uncomment ```COMPOSE_FILE``` for production ```.env```, then run ```docker-compose up -d``` - Run project in production mode
         - ```vendor/bin/phpunit --exclude-group dev,cmd``` - Run unittests in `phpfpm` container
 - Stop project
     - ```docker-compose down [--rmi local] -v```
