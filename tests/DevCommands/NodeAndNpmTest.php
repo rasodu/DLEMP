@@ -2,8 +2,20 @@
 
 use Symfony\Component\Process\Process;
 
-class NpmTest extends TestCase
+class NodeAndNpmTest extends TestCase
 {
+    /**
+    *@group cmd
+    */
+    public function testNodeIsInstalled()
+    {
+        $process= new Process('node --help');
+        $process->run();
+        $output= $process->getOutput();
+
+        $this->assertContains('node', $output);
+    }
+
     /**
     *@group cmd
     */
