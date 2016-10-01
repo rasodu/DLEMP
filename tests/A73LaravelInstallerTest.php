@@ -10,7 +10,7 @@ class A73LaravelInstallerTest extends TestCase
     */
     public function testLaravelCommandworks()
     {
-        $process = new Process('~/.composer/vendor/bin/laravel --version');
+        $process = new Process('/root/.composer/vendor/bin/laravel --version');
         $process->run();
         $output= $process->getOutput();
 

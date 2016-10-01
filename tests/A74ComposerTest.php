@@ -16,4 +16,12 @@ class A74LaravelInstallerTest extends TestCase
 
         $this->assertContains("Composer version", $output);
     }
+
+    /**
+    *@group cmd
+    */
+    public function testComposerCacheIsWritableByAllUsers()
+    {
+        $this->assertEquals(16895, fileperms('/.composer'), "Non root user will not be able to execute 'composer' command in cmd image.");
+    }
 }
