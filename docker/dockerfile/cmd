@@ -20,7 +20,7 @@ RUN apt-get -y install curl git \
     && installphar https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar phpcs && phpcs --config-set default_standard PSR2 \
     && installphar https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar phpcbf && phpcbf --config-set default_standard PSR2 \
     && apt-get -y install libxslt-dev && docker-php-ext-install xsl && apt-get -y install graphviz && installphar http://www.phpdoc.org/phpDocumentor.phar phpdoc
-ENV PATH /usr/share/nginx/WEBAPP/vendor/bin:~/.composer/vendor/bin:$PATH
+ENV PATH /usr/share/nginx/WEBAPP/vendor/bin:/root/.composer/vendor/bin:$PATH
     #end install php related tools
 
     #start install tools for benchmarking performance
@@ -38,6 +38,11 @@ STOPSIGNAL SIGKILL
 CMD phpcs --config-show && /bin/bash -c "while true; do echo 1; sleep 1; done"
     #end define how to run and stop the container
 #end everything specific 'dlemp_cmd' file
+
+#start change permissions so some software can be run under all user accounts
+RUN mkdir /.composer && mkdir /.npm
+RUN chmod 777 /.composer && chmod 777 /.npm && chmod 777 /usr/share/nginx && chmod 777 /root && chmod 777 /root/.composer
+#end change permissions so some software can be run under all user accounts
 
 #start add workaround for Laravel Elixir on windows VM
 RUN ln -s /usr/share/nginx/WEBAPP/package.json /usr/share/nginx/package.json
