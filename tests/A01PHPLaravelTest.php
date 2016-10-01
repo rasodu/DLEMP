@@ -8,7 +8,7 @@ class A01PHPLaravelTest extends TestCase
 
     public function testPhpVersionRequiredByLaravel()
     {
-        $laravel_minimum_php_version= '5.5.9';
+        $laravel_minimum_php_version= '5.6.4';
         $installed_version= phpversion();
 
         $this->assertSame(
@@ -128,6 +128,25 @@ class A01PHPLaravelTest extends TestCase
             true,
             $this->isExtensionLoaded('tokenizer'),
             "Tokenizer is not installed. Tokenizer is required by Laravel."
+        );
+    }
+
+
+    public function testXml()
+    {
+        $this->assertSame(
+            true,
+            $this->isExtensionLoaded('xml'),
+            "XML is not installed. XML is required by Laravel."
+        );
+    }
+
+    public function testPcntl()
+    {
+        $this->assertSame(
+            true,
+            $this->isExtensionLoaded('pcntl'),
+            "Pcntl is not installed. Pcntl is required if you want to set timeout in queue worker."
         );
     }
 
