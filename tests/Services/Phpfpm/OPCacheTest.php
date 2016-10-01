@@ -1,6 +1,6 @@
 <?php
 
-class A81OPCacheTest extends TestCase
+class PCacheTest extends TestCase
 {
     /**
     *@group dev

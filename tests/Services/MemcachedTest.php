@@ -1,6 +1,6 @@
 <?php
 
-class A31MemcachedTest extends TestCase
+class MemcachedTest extends TestCase
 {
 
     private $memcached= null;

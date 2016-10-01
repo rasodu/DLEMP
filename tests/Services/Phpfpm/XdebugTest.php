@@ -1,6 +1,6 @@
 <?php
 
-class A82XdebugTest extends TestCase
+class XdebugTest extends TestCase
 {
     /**
     *@group dev

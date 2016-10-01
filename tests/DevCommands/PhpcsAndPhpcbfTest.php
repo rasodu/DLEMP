@@ -2,7 +2,7 @@
 
 use Symfony\Component\Process\Process;
 
-class A71PhpcsAndPhpcbfTest extends TestCase
+class PhpcsAndPhpcbfTest extends TestCase
 {
     /**
     *@group cmd

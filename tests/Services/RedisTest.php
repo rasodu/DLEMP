@@ -1,6 +1,6 @@
 <?php
 
-class A51RedisTest extends TestCase
+class RedisTest extends TestCase
 {
 
     private $redis= null;

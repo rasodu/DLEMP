@@ -1,6 +1,6 @@
 <?php
 
-class A41QueueTest extends TestCase
+class QueueTest extends TestCase
 {
 
     private $pheanstalk;
