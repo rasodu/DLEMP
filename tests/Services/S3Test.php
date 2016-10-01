@@ -18,7 +18,7 @@ use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 /**
 *@group dev
 */
-class A61S3Test extends TestCase
+class S3Test extends TestCase
 {
     private $end_point= 'http://webapp.dev:4569';
     private $bucket_region= 'us-east-1';

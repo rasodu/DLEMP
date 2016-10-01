@@ -1,6 +1,6 @@
 <?php
 
-class A00PHPDlempTest extends TestCase
+class DlempTest extends TestCase
 {
     public function testCustomCommonSettings()
     {

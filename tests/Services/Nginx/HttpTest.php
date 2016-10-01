@@ -1,6 +1,6 @@
 <?php
 
-class A11HttpTest extends TestCase
+class HttpTest extends TestCase
 {
 
     public function testHttpRedirectToHttps()

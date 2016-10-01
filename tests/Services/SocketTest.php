@@ -1,6 +1,6 @@
 <?php
 
-class A52SocketTest extends TestCase
+class SocketTest extends TestCase
 {
 
     private $channel_name= 'unittest-channel';

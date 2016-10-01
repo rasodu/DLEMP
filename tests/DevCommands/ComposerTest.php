@@ -2,7 +2,7 @@
 
 use Symfony\Component\Process\Process;
 
-class A74LaravelInstallerTest extends TestCase
+class ComposerTest extends TestCase
 {
 
     /**

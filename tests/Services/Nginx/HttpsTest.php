@@ -1,6 +1,6 @@
 <?php
 
-class A21HttpsTest extends TestCase
+class HttpsTest extends TestCase
 {
     public function testResponseFromServerIsHTTP2()
     {

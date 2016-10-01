@@ -2,7 +2,7 @@
 
 use Symfony\Component\Process\Process;
 
-class A75NpmTest extends TestCase
+class NpmTest extends TestCase
 {
     /**
     *@group cmd

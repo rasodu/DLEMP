@@ -2,7 +2,7 @@
 
 use Symfony\Component\Process\Process;
 
-class A72PhpDocumentorTest extends TestCase
+class PhpDocumentorTest extends TestCase
 {
 
     /**
