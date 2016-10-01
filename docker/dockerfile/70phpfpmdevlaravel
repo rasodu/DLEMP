@@ -8,6 +8,8 @@ ARG DLEMP_PHP_VERSION
 RUN apt-get update && apt-get -y install wget \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install pdo_mysql \
+    && apt-get -y install libxml2-dev && docker-php-ext-install xml \
+    && docker-php-ext-install pcntl \
     && apt-get -y install libmcrypt-dev && docker-php-ext-install mcrypt \
     && apt-get -y install zlib1g zlib1g-dev && docker-php-ext-install zip \
     && apt-get -y install libmemcached-dev zlib1g-dev \
