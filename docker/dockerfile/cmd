@@ -5,6 +5,7 @@ FROM dlemp/phpfpm
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
     && apt-get install -y nodejs \
     && apt-get install -y libnotify-bin
+ENV PATH /usr/share/nginx/WEBAPP/node_modules/.bin:$PATH
     #end install node
 
     #start install phar installer
@@ -32,6 +33,10 @@ RUN git clone https://github.com/rasodu/dotfiles.git ~/.dotfiles
 #RUN ~/.dotfiles/install.sh && ~/.dotfiles/link.sh
     #end install vim
 
+    #start expose ports used by Browsersync
+EXPOSE 3001 3002
+    #end expose ports used by Browsersync
+
     #start define how to run and stop the container
 STOPSIGNAL SIGKILL
 CMD phpcs --config-show && /bin/bash -c "while true; do echo 1; sleep 1; done"
@@ -45,5 +50,5 @@ RUN chmod 777 /.composer && chmod 777 /.npm && chmod 777 /usr/share/nginx && chm
 
 #start add workaround for Laravel Elixir on windows VM
 RUN ln -s /usr/share/nginx/WEBAPP/package.json /usr/share/nginx/package.json
-EXPOSE 3000 3001
+ENV PATH /usr/share/nginx/node_modules/.bin:$PATH
 #end add workaround for Laravel Elixir on windows VM
