@@ -17,6 +17,17 @@ services:
             - MYSQL_DATABASE=homestead
             - MYSQL_USER=homestead
             - MYSQL_PASSWORD=secret
+    elasticsearch:
+        image: elasticsearch:5.0.0
+        expose:
+            - "9200"
+        ports:
+            - "9200:9200"
+        #start temporary solution to fix problem with elasticsearch image version 5.0.0
+        environment:
+            - ES_JAVA_OPTS=-Xms1g -Xmx1g
+        command: -E bootstrap.ignore_system_bootstrap_checks=true
+        #end temporary solution to fix problem with elasticsearch image version 5.0.0
 #end These services can be disabled without affecting any other services
 #start Disabling these services require that you also disable services that depends on the services that you are disabling.
     beanstalkd: #Also turn off: workerlaravel
