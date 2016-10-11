@@ -10,6 +10,9 @@ services:
     mysql:
         volumes:
             - var-lib-mysql:/var/lib/mysql
+    elasticsearch:
+        volumes:
+            - elasticsearch-data:/usr/share/elasticsearch/data
 #end These services can be disabled without affecting any other services
     nginxhttp:
         volumes:
@@ -28,6 +31,8 @@ services:
             - etc-letsencrypt:/etc/letsencrypt
 volumes:
     var-lib-mysql:
+        driver: local
+    elasticsearch-data:
         driver: local
     acme-challenge:
         driver: local
