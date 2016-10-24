@@ -13,6 +13,14 @@ services:
     elasticsearch:
         volumes:
             - elasticsearch-data:/usr/share/elasticsearch/data
+    beanstalkd:
+        command: beanstalkd -p 11300 -u nobody -b /var/lib/beanstalkd
+        volumes:
+            - data-beanstalkd:/var/lib/beanstalkd
+    redis:
+        command: redis-server --appendonly yes
+        volumes:
+            - data-redis:/data
 #end These services can be disabled without affecting any other services
     nginxhttp:
         volumes:
@@ -35,4 +43,8 @@ volumes:
     elasticsearch-data:
         driver: local
     acme-challenge:
+        driver: local
+    data-beanstalkd:
+        driver: local
+    data-redis:
         driver: local
