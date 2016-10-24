@@ -32,10 +32,12 @@ services:
 #start Disabling these services require that you also disable services that depends on the services that you are disabling.
     beanstalkd: #Also turn off: workerlaravel
         image: rasodu/beanstalkd:v1.10.1
+        command: beanstalkd -p 11300 -u nobody -b /var/lib/beanstalkd
         expose:
             - "11300"
     redis: #Also turn off: pusherlaravel
         image: redis:3.2.1-alpine
+        command: redis-server --appendonly yes
         expose:
             - "6379"
 #end Disabling these services require that you also disable services that depends on the services that you are disabling.
