@@ -7,5 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 ### Added
+- Default time on php.ini is set to UTC (2016-10-29)
 - Elasticsearch(version 5.0.0) container is added.
 ### Fixed

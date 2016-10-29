@@ -8,6 +8,11 @@ class DlempTest extends TestCase
         $this->assertSame('GP', ini_get('request_order'));
     }
 
+    public function testDefaultTimeZone()
+    {
+        $this->assertSame('UTC', date_default_timezone_get(), 'Default display timezone is not UTC');
+    }
+
     /**
     *@group dev
     */

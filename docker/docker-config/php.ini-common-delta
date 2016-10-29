@@ -1,5 +1,8 @@
 ; This file file is used to overwrite configurations in '/usr/local/etc/php/php.ini' file
 
+; Set default time zone to UTC
+date.timezone = "UTC"
+
 ; Turn off x-powered-by:"PHP/5.6.21" header
 expose_php = off
 
