@@ -7,10 +7,10 @@ date.timezone = "UTC"
 expose_php = off
 
 ; Timeout for socket based streams
-;default_socket_timeout = 600
+default_socket_timeout = 60
 
 ; Maximum execution time of each script
-;max_execution_time = 660
+max_execution_time = 60
 
 ; Limit of the entire body of the request
 ;post_max_size = 300M

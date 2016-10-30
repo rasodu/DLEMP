@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 ### Added
+- Set default execution time in NGINX and phpfpm (2016-0-29)
 - Default time on php.ini is set to UTC (2016-10-29)
 - Elasticsearch(version 5.0.0) container is added.
 ### Fixed
