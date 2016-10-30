@@ -11,12 +11,15 @@ class DlempTest extends TestCase
     public function testDefaultTimeZone()
     {
         $this->assertSame('UTC', date_default_timezone_get(), 'Default display timezone is not UTC');
+
+        $phpfpm_settings= $this->getPhpfpmIniSettings();
+        $this->assertSame('UTC', $phpfpm_settings['date.timezone'], 'Default display timezone is not UTC');
     }
 
     /**
-    *@group dev
+    *@group cmd
     */
-    public function testCustomDevelopmentSettings()
+    public function testCustomDevelopmentSettingsCli()
     {
         $this->assertSame(strval(E_ALL), ini_get('error_reporting'));
         $this->assertSame('1', ini_get('display_errors'));
@@ -24,13 +27,25 @@ class DlempTest extends TestCase
     }
 
     /**
+    *@group dev
+    */
+    public function testCustomDevelopmentSettingsPhpfpm()
+    {
+        $phpfpm_settings= $this->getPhpfpmIniSettings();
+        $this->assertSame(strval(E_ALL), $phpfpm_settings['error_reporting']);
+        $this->assertSame('1', $phpfpm_settings['display_errors']);
+        $this->assertSame('1', $phpfpm_settings['display_startup_errors']);
+    }
+
+    /**
     *@group prod
     */
     public function testProductionSettings()
     {
-        $this->assertSame(strval(E_ALL - E_DEPRECATED - E_STRICT), ini_get('error_reporting'));
-        $this->assertSame('', ini_get('display_errors'));
-        $this->assertSame('', ini_get('display_startup_errors'));
+        $phpfpm_settings= $this->getPhpfpmIniSettings();
+        $this->assertSame(strval(E_ALL - E_DEPRECATED - E_STRICT), $phpfpm_settings['error_reporting']);
+        $this->assertSame('', $phpfpm_settings['display_errors']);
+        $this->assertSame('', $phpfpm_settings['display_startup_errors']);
     }
 
     public function testExtensionCurl()
