@@ -44,7 +44,7 @@ to use in development.
 
 
 **Explain script execution time limit**
-|    | NGINX | phpfpm | cli
+|    | NGINX | phpfpm | cli |
 | --- | --- | --- | --- |
 | Production | 10 minutes | 1 minutes | Unlimited |
 | Development | 10 minutes | 10 minute | Unlimited |
