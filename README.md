@@ -31,6 +31,7 @@ Mailgun for SMTP during production.
 Though we will provide Mailtrap for you
 to use in development.
 
+
 **How do I run/stop this project**
 - Run project
     - Uncomment ```COMPOSE_FILE``` for development ```.env```, then run ```docker-compose up -d``` - Run project in development mode
@@ -40,3 +41,20 @@ to use in development.
         - ```vendor/bin/phpunit --exclude-group dev,cmd``` - Run unittests in `phpfpm` container
 - Stop project
     - ```docker-compose down [--rmi local] -v```
+
+
+**Explain script execution time limit**
+|    | NGINX | phpfpm | cli
+| --- | --- | --- | --- |
+| Production | 10 minutes | 1 minutes | Unlimited |
+| Development | 10 minutes | 10 minute | Unlimited |
+- NGINX connection that download large static files over slow connection may stay open for up to 10 minutes.
+- phpfpm execution time during production will be limited to 60 seconds. You should queue time consuming tasks.
+```
+//Optionally if you want to increase execution time for a single script, then you may always use
+set_time_limit(<time-in-seconds>)
+// or
+ini_set('max_execution_time', <time-in-seconds>)
+```
+- Laravel queue that run using cli will execute without any time limit.
+- xDebug may run for up to 10 minutes during development.

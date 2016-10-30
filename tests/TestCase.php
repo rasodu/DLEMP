@@ -26,9 +26,11 @@ class TestCase extends PHPUnit_Framework_TestCase
     *
     *@param string $url is the URL from which to fetch response
     *
+    *@param bool $with_headers will define it the return value should include header value
+    *
     *@return bool|string If request is successful, them return header and body. Otherwise return false.
     */
-    protected function getFullResponseFromURL($url)
+    protected function getFullResponseFromURL($url, $with_headers = true)
     {
         if (!$this->isExtensionLoaded('curl')) {
             $this->markTestSkipped('Curl extension is not available.');
@@ -41,9 +43,14 @@ class TestCase extends PHPUnit_Framework_TestCase
         ///start set curl options
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_ENCODING, "gzip");
         ///end set curl options
+
+        ///start also print header
+        if ($with_headers) {
+            curl_setopt($ch, CURLOPT_HEADER, true);
+        }
+        ///end also print header
 
         ///start if request is https, then don't verify certificate
         if (substr($url, 0, 8) == 'https://') {
@@ -62,5 +69,27 @@ class TestCase extends PHPUnit_Framework_TestCase
         ///start return respose
         return $response;
         ///end return respose
+    }
+
+
+    private $phpfpm_ini_setting_cache= null;
+    /**
+    *When we run 'ini_get' in phpunit, we don't get settings of php cli environment instead of phpfpm.
+    *This function will load settings from 'https://nginxhttps/phpini_arr.php' file
+    *
+    *@return array Return an empty array if failed. Other decode json value at 'https://nginxhttps/phpini_arr.php' and return.
+    */
+    protected function getPhpfpmIniSettings()
+    {
+        if ($this->phpfpm_ini_setting_cache === null) {
+            $data= $this->getFullResponseFromURL('https://nginxhttps/phpini_arr.php', false);
+            $this->phpfpm_ini_setting_cache= json_decode($data, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                $this->phpfpm_ini_setting_cache= [];
+            }
+        }
+
+        return $this->phpfpm_ini_setting_cache;
     }
 }

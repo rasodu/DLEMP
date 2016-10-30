@@ -3,3 +3,7 @@ error_reporting = E_ALL
 ; Turning this on could potentially leak out sensitive information such as database usernames and passwords or worse.
 display_errors = On
 display_startup_errors = On
+
+; Up default execution time during development so you can use xDebug without worrying about timeout
+default_socket_timeout = 600
+max_execution_time = 600
