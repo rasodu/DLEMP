@@ -1,0 +1,8 @@
+FROM quay.io/letsencrypt/letsencrypt:v0.9.3
+ARG DLEMP_BASE_DIR
+
+#start all operations for let's encrypt
+COPY docker/docker-config/certbot-cli.ini /root/.config/letsencrypt/cli.ini
+#end all operations for let's encrypt
+
+CMD ["echo", "docker run --rm -it <project-name>_certbot_1 /bin/bash"]

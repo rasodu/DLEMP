@@ -22,11 +22,11 @@ services:
 #end These services can be disabled without affecting any other services
     nginxhttp:
         volumes:
-            - acme-challenge:/DLEMP/letsencrypt/public/.well-known/acme-challenge
-    letsencrypt:
+            - acme-challenge:/DLEMP/certbot/public/.well-known/acme-challenge
+    certbot:
         build:
             context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/letsencrypt
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/certbot
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         depends_on:
@@ -35,6 +35,7 @@ services:
             - nginxhttp:rw
         volumes:
             - etc-letsencrypt:/etc/letsencrypt
+            - var-lib-letsencrypt:/var/lib/letsencrypt
 volumes:
     var-lib-mysql:
         driver: local
@@ -45,4 +46,6 @@ volumes:
     data-beanstalkd:
         driver: local
     data-redis:
+        driver: local
+    var-lib-letsencrypt:
         driver: local

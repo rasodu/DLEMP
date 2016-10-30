@@ -11,10 +11,10 @@ docker push rasodu/phpfpmdevlaravel:5.6.<version_number>
 docker tag dlemp_cmd rasodu/cmdlaravel:5.6.<version_number>
 docker push rasodu/cmdlaravel:5.6.<version_number>
     //end push cmd image
-    //start push letsencrypt image
-docker tag dlemp_letsencrypt rasodu/letsencrypt:0.8.<version_number>
-docker push rasodu/letsencrypt:0.8.<version_number>
-    //end push letsencrypt image
+    //start push certbot image
+docker tag dlemp_certbot rasodu/certbot:0.9.<version_number>
+docker push rasodu/certbot:0.9.<version_number>
+    //end push certbot image
     //start push nginxhttp image
 docker tag dlemp_nginxhttp rasodu/nginxhttp:1.10.<version_number>
 docker push rasodu/nginxhttp:1.10.<version_number>
@@ -256,17 +256,17 @@ Download php.ini production file for the version of php you upgraded to from git
 
 //start steps to acquire certificate using Let’s Encrypt(http://webapp.dev/.well-known/acme-challenge/ <= ACME challenge and response directory[last '/' is required because the way we performed setup nginx])
 Getting Initial certificate
-1)FILL the information in config file => docker/docker-config/letsencrypt-cli.ini (Replace: <email> and <domain> with actual values.)
+rm - 1)FILL the information in config file => docker/docker-config/certbot-cli.ini (Replace: <email> and <domain> with actual values.)
 2)docker-machine ssh <docker-machine-name>
-3)docker exec -it <nginxhttp-container-name> /bin/bash
-4)/DLEMP/letsencrypt/bin/letsencrypt-auto --version
-5)/DLEMP/letsencrypt/bin/letsencrypt-auto certonly --agree-tos     <== This will automatically use config stored at '/root/.config/letsencrypt/cli.ini'
+rm - 3)docker-compose run --rm -it certbot /bin/bash
+rm - 4)/DLEMP/certbot/bin/certbot-auto --version
+5)docker-compose run certbot certonly --agree-tos --email <email> -d <domain>     <== This will automatically use config stored at '/root/.config/letsencrypt/cli.ini'
+6)docker-compose run --entrypoint bash certbot
 6)ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /etc/letsencrypt/privkey.pem
   ln -sf /etc/letsencrypt/live/<domain>/fullchain.pem /etc/letsencrypt/fullchain.pem
-7)exit
 8)exit
-9)docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart nginxhttps    <= restart container name
-10)docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart nodesocket    <= restart container socket
+9)docker-compose restart nginxhttps    <= restart container name
+10)docker-compose restart pusherlaravel    <= restart container socket
 Renew certificate
 1)Need to figure this out
 Revoke certificate
