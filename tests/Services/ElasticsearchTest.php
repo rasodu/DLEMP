@@ -26,6 +26,23 @@ class ElasticsearchTest extends TestCase
         $this->assertTrue(isset($info['version']['lucene_version']));
     }
 
+    /**
+    *@depends testInfo
+    */
+    public function testCreateIndex()
+    {
+        $params = [
+            'index' => 'dlemp',
+        ];
+        if (!$this->elasticsearch->indices()->exists($params)) {
+            $response= $this->elasticsearch->indices()->create($params);
+            var_dump($response);
+        }
+    }
+
+    /**
+    *@depends testCreateIndex
+    */
     public function testWrtieToElasticsearch()
     {
         $params = [
@@ -40,7 +57,8 @@ class ElasticsearchTest extends TestCase
         ];
 
         $response = $this->elasticsearch->index($params);
-        $this->AssertEquals('created', $response['result']);
+
+        $this->AssertEquals(true, $response['created']);
     }
 
     /**
@@ -70,6 +88,6 @@ class ElasticsearchTest extends TestCase
         ];
 
         $response = $this->elasticsearch->delete($params);
-        $this->AssertEquals('deleted', $response['result']);
+        $this->AssertEquals(true, $response['_shards']['successful']);
     }
 }
