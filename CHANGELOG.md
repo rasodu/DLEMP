@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 ### Added
+- Increase NGINX cgi timeout (2016-10-31)
 - Downgrade elasticsearch to version 2.4.1 (2016-10-30)
 - Letsencrypt official docker image is used (2016-10-30)
 - Set default execution time in NGINX and phpfpm (2016-10-29)
