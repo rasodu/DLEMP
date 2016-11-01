@@ -1,4 +1,10 @@
 /vendor
+
+# vi files
 *.swp
 tags
 
+# eclipse files
+.buildpath
+.project
+.settings
