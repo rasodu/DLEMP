@@ -1,6 +1,6 @@
 COMPOSE=docker-compose
 
-.PHONY: all test mostlyclean clean enter
+.PHONY: all test mostlyclean clean enter codeanalytics codefix
 
 include .env
 
@@ -28,10 +28,11 @@ clean:
 	$(COMPOSE) down -v --rmi local
 	$(RM) -r vendor
 
-enter: vendor
-	case "$(COMPOSE_FILE)" in \
-		*"prod.yml"*) \
-			echo "cmd container is not created in production mode.";; \
-		*) \
-			docker-compose exec --user=$$(id -u):$$(id -g) cmd bash;; \
-	esac
+enter:
+	docker-compose exec --user=$$(id -u):$$(id -g) cmd bash
+
+codeanalytics:
+	docker-compose exec --user=$$(id -u):$$(id -g) cmd phpcs tests/ public/
+
+codefix:
+	docker-compose exec --user=$$(id -u):$$(id -g) cmd phpcbf tests/ public/
