@@ -28,6 +28,7 @@ clean:
 	$(COMPOSE) down -v --rmi local
 	-$(RM) -r vendor
 	-$(RM) -r public/app-documentation
+	#-$(RM) -r public/phpunit-coverage
 
 enter:
 	docker-compose exec --user=$$(id -u):$$(id -g) cmd bash
@@ -42,3 +43,6 @@ public/app-documentation: tests
 	#phpdoc template:list
 	#'--template=zend' doesn't work https://github.com/gomoob/grunt-phpdocumentor/issues/12
 	docker exec --user=$$(id -u):$$(id -g) dlemp_cmd_1 phpdoc -d tests/ -t public/app-documentation/
+
+#public/phpunit-coverage: app
+#	docker exec --user=$$(id -u):$$(id -g) dlemp_cmd_1 phpunit --coverage-html public/phpunit-coverage

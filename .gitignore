@@ -11,3 +11,6 @@ tags
 
 # ignore phpDocumentor directory
 /public/app-documentation
+
+# ignore phpunit code coverage directory
+#/public/phpunit-coverage
