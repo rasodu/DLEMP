@@ -8,3 +8,6 @@ tags
 .buildpath
 .project
 .settings
+
+# ignore phpDocumentor directory
+/public/app-documentation

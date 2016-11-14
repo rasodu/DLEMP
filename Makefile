@@ -26,7 +26,8 @@ mostlyclean:
 #Don't remove images from repository because they may be used by other projects on the same machine
 clean:
 	$(COMPOSE) down -v --rmi local
-	$(RM) -r vendor
+	-$(RM) -r vendor
+	-$(RM) -r public/app-documentation
 
 enter:
 	docker-compose exec --user=$$(id -u):$$(id -g) cmd bash
@@ -36,3 +37,8 @@ codeanalytics:
 
 codefix:
 	docker-compose exec --user=$$(id -u):$$(id -g) cmd phpcbf tests/ public/
+
+public/app-documentation: tests
+	#phpdoc template:list
+	#'--template=zend' doesn't work https://github.com/gomoob/grunt-phpdocumentor/issues/12
+	docker exec --user=$$(id -u):$$(id -g) dlemp_cmd_1 phpdoc -d tests/ -t public/app-documentation/
