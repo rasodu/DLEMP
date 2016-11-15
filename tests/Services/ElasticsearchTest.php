@@ -36,7 +36,7 @@ class ElasticsearchTest extends TestCase
         ];
         if (!$this->elasticsearch->indices()->exists($params)) {
             $response= $this->elasticsearch->indices()->create($params);
-            var_dump($response);
+            $this->assertTrue($response['acknowledged']);
         }
     }
 
@@ -89,5 +89,19 @@ class ElasticsearchTest extends TestCase
 
         $response = $this->elasticsearch->delete($params);
         $this->AssertEquals(true, $response['_shards']['successful']);
+    }
+
+    /**
+    *@depends testDeleteFromElasticsearch
+    */
+    public function testDeleteIndex()
+    {
+        $params = [
+            'index' => 'dlemp',
+        ];
+        if ($this->elasticsearch->indices()->exists($params)) {
+            $response= $this->elasticsearch->indices()->delete($params);
+            $this->assertTrue($response['acknowledged']);
+        }
     }
 }
