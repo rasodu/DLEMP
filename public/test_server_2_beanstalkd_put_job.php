@@ -5,10 +5,9 @@ require __DIR__.'/../vendor/autoload.php';
 $pheanstalk= new Pheanstalk\Pheanstalk('beanstalkd');
 //end init $pheanstalk instance
 
-if($pheanstalk->getConnection()->isServiceListening() === false) {
+if ($pheanstalk->getConnection()->isServiceListening() === false) {
     print("Error: Cannot connect to beanstalkd.");
-}
-else{
+} else {
     print("Connected to beanstalkd.<br/><br/>");
 
     //start add job to queue
