@@ -1,5 +1,5 @@
 #start common phpfpm instructions
-FROM php:7.0.11-fpm
+FROM php:7.0.13-fpm
 ARG DLEMP_BASE_DIR
 ARG DLEMP_PHP_VERSION
 
