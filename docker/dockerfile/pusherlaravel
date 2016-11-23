@@ -1,4 +1,4 @@
-FROM node:4.4.7-slim
+FROM node:6.9.1-alpine
 ARG DLEMP_BASE_DIR
 EXPOSE 3000
 

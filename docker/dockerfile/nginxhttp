@@ -1,4 +1,4 @@
-FROM nginx:1.10.1-alpine
+FROM nginx:1.10.2-alpine
 ARG DLEMP_BASE_DIR
 
 #start create acme challenge directory
