@@ -28,4 +28,16 @@ services:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/${DLEMP_PHP_VERSION}phpfpmlaravel
     nginxhttps:
         build:
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttpslaravel
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttps
+        depends_on:
+            - nginxhttplaravel
+    nginxhttplaravel:
+        build:
+            context: .
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttplaravel
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        depends_on:
+            - phpfpm
+        expose:
+            - "443"
