@@ -63,14 +63,6 @@ services:
             - "443:443"
         volumes:
             - etc-letsencrypt:/etc/letsencrypt
-    nginxhttp:
-        build:
-            context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttp
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
-        ports:
-            - "80:80"
 volumes:
     etc-letsencrypt:
         driver: local

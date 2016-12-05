@@ -21,6 +21,13 @@ services:
             - data-redis:/data
 #end These services can be disabled without affecting any other services
     nginxhttp:
+        build:
+            context: .
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttp
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        ports:
+            - "80:80"
         volumes:
             - acme-challenge:/DLEMP/certbot/public/.well-known/acme-challenge
     certbot:
