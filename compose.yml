@@ -45,13 +45,18 @@ services:
         image: dlemp/phpfpm
         expose:
             - "9000"
+    httpbackend:
+        volumes_from:
+            - phpfpm:ro
+        depends_on:
+            - phpfpm
+        expose:
+            - "443"
     nginxhttps:
         build:
             context: .
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
-        volumes_from:
-            - phpfpm:ro
         ports:
             - "443:443"
         volumes:

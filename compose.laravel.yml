@@ -37,7 +37,3 @@ services:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttplaravel
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
-        depends_on:
-            - phpfpm
-        expose:
-            - "443"
