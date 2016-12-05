@@ -29,8 +29,6 @@ services:
     nginxhttps:
         build:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttps
-        depends_on:
-            - httpbackend
     httpbackend:
         build:
             context: .

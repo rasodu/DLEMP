@@ -51,12 +51,14 @@ services:
         depends_on:
             - phpfpm
         expose:
-            - "443"
+            - "80"
     nginxhttps:
         build:
             context: .
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        depends_on:
+            - httpbackend
         ports:
             - "443:443"
         volumes:

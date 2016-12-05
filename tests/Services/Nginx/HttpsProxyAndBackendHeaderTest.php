@@ -15,7 +15,7 @@ class HttpsProxyAndBackendHeaderTest extends TestCase
             "{$this->custom_http_header_key}: $this->custom_http_header_value",
         ];
         $this->server_var_https= json_decode($this->getFullResponseFromURL('https://nginxhttps/test_server_8_load_balancer.php', false, $custom_http_headers), true);
-        $this->server_var_httpbackend= json_decode($this->getFullResponseFromURL('https://httpbackend/test_server_8_load_balancer.php', false, $custom_http_headers), true);
+        $this->server_var_httpbackend= json_decode($this->getFullResponseFromURL('http://httpbackend/test_server_8_load_balancer.php', false, $custom_http_headers), true);
     }
 
     public function testProxyIsForwardingAdditionalHeadersToBackend()
@@ -26,21 +26,20 @@ class HttpsProxyAndBackendHeaderTest extends TestCase
 
     public function testMakeSureThatXForwardHeaderAreSet()
     {
+        //HTTP_X_FORWARDED_PROTO is used by laravel to create correct URLs
         $this->assertEquals($this->server_var_https['HTTP_X_FORWARDED_FOR'], getHostByName(getHostName()));
         $this->assertEquals($this->server_var_https['HTTP_X_FORWARDED_PROTO'], 'https');
         $this->assertEquals($this->server_var_https['HTTP_X_FORWARDED_PORT'], '443');
+
+        $this->assertArrayNotHasKey('HTTP_X_FORWARDED_FOR', $this->server_var_httpbackend);
+        $this->assertArrayNotHasKey('HTTP_X_FORWARDED_PROTO', $this->server_var_httpbackend);
+        $this->assertArrayNotHasKey('HTTP_X_FORWARDED_PORT', $this->server_var_httpbackend);
     }
 
     public function testCorrectHostNameSetForProxyRequest()
     {
         $this->assertEquals($this->server_var_https['HTTP_HOST'], 'nginxhttps');
         $this->assertEquals($this->server_var_httpbackend['HTTP_HOST'], 'httpbackend');
-    }
-
-    public function testProxyResquestAreReportedAsHttps()
-    {
-        $this->assertEquals($this->server_var_https['HTTPS'], 'on');
-        //$this->assertEquals($this->server_var_https['HTTPS'], 'on');
     }
 
     public function testProxyRedirectionIsOff()
