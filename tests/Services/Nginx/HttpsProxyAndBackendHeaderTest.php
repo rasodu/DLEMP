@@ -15,7 +15,7 @@ class HttpsProxyAndBackendHeaderTest extends TestCase
             "{$this->custom_http_header_key}: $this->custom_http_header_value",
         ];
         $this->server_var_https= json_decode($this->getFullResponseFromURL('https://nginxhttps/test_server_8_load_balancer.php', false, $custom_http_headers), true);
-        $this->server_var_httpbackend= json_decode($this->getFullResponseFromURL('https://nginxhttplaravel/test_server_8_load_balancer.php', false, $custom_http_headers), true);
+        $this->server_var_httpbackend= json_decode($this->getFullResponseFromURL('https://httpbackend/test_server_8_load_balancer.php', false, $custom_http_headers), true);
     }
 
     public function testProxyIsForwardingAdditionalHeadersToBackend()
@@ -34,7 +34,7 @@ class HttpsProxyAndBackendHeaderTest extends TestCase
     public function testCorrectHostNameSetForProxyRequest()
     {
         $this->assertEquals($this->server_var_https['HTTP_HOST'], 'nginxhttps');
-        $this->assertEquals($this->server_var_httpbackend['HTTP_HOST'], 'nginxhttplaravel');
+        $this->assertEquals($this->server_var_httpbackend['HTTP_HOST'], 'httpbackend');
     }
 
     public function testProxyResquestAreReportedAsHttps()

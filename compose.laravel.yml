@@ -30,8 +30,8 @@ services:
         build:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttps
         depends_on:
-            - nginxhttplaravel
-    nginxhttplaravel:
+            - httpbackend
+    httpbackend:
         build:
             context: .
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttplaravel
