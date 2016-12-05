@@ -30,7 +30,7 @@ class TestCase extends PHPUnit_Framework_TestCase
     *
     *@return bool|string If request is successful, them return header and body. Otherwise return false.
     */
-    protected function getFullResponseFromURL($url, $with_headers = true)
+    protected function getFullResponseFromURL($url, $with_headers = true, $custom_http_headers = [])
     {
         if (!$this->isExtensionLoaded('curl')) {
             $this->markTestSkipped('Curl extension is not available.');
@@ -58,6 +58,10 @@ class TestCase extends PHPUnit_Framework_TestCase
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         }
         ///end if request is https, then don't verify certificate
+
+        ///start set custom http headers
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $custom_http_headers);
+        ///end set custom http headers
 
         ///start get response from URL and print errors if errors are found
         $response = curl_exec($ch);

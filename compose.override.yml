@@ -17,6 +17,9 @@ services:
     phpfpm:
         volumes:
             - .:/usr/share/nginx/WEBAPP
+    httpbackend:
+        ports:
+            - "80:80"
     cmd:
         build:
             context: .
