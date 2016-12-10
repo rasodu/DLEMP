@@ -14,7 +14,7 @@ services:
             - etc-letsencrypt:/etc/letsencrypt
         ports:
             - "3000:3000"
-    workerlaravel:
+    worker:
         image: dlemp/phpfpm
         depends_on:
             - beanstalkd
