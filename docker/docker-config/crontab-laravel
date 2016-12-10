@@ -1,4 +1,4 @@
 #!/bin/sh
 
 #run Laravel schedule command on phpfpm_1 container
-/usr/bin/curl --silent --insecure https://nginxhttps/schedule/run
+/usr/bin/curl --silent --insecure https://https/schedule/run

@@ -52,7 +52,7 @@ services:
             - phpfpm
         expose:
             - "80"
-    nginxhttps:
+    https:
         build:
             context: .
             args:

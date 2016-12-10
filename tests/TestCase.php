@@ -79,14 +79,14 @@ class TestCase extends PHPUnit_Framework_TestCase
     private $phpfpm_ini_setting_cache= null;
     /**
     *When we run 'ini_get' in phpunit, we don't get settings of php cli environment instead of phpfpm.
-    *This function will load settings from 'https://nginxhttps/phpini_arr.php' file
+    *This function will load settings from 'https://https/phpini_arr.php' file
     *
-    *@return array Return an empty array if failed. Other decode json value at 'https://nginxhttps/phpini_arr.php' and return.
+    *@return array Return an empty array if failed. Other decode json value at 'https://https/phpini_arr.php' and return.
     */
     protected function getPhpfpmIniSettings()
     {
         if ($this->phpfpm_ini_setting_cache === null) {
-            $data= $this->getFullResponseFromURL('https://nginxhttps/phpini_arr.php', false);
+            $data= $this->getFullResponseFromURL('https://https/phpini_arr.php', false);
             $this->phpfpm_ini_setting_cache= json_decode($data, true);
 
             if (json_last_error() !== JSON_ERROR_NONE) {

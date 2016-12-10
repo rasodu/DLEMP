@@ -21,7 +21,7 @@
         - Version of **php** image used *phpfpm*, *phpfpmdev* and *cmd* : We support all major versions of PHP that are not in 'End of life'. We will support one minor version for each major version of PHP. (If people want to use older version of PHP(minor or major), then they may use old version of this package.) http://php.net/supported-versions.php
         - Versin of **Node.js** installed on *cmd* : Not decided yet
     - **Supporting software**
-        - Version of **NGINX** image used to build *nginxhttp* and *nginxhttps* : Each even minor number of NGINX release is stable version of NGINX and each odd minor number release of NGINX is mainline version of NGINX. We will use stable release NGINX for these two services.
+        - Version of **NGINX** image used to build *http* and *https* : Each even minor number of NGINX release is stable version of NGINX and each odd minor number release of NGINX is mainline version of NGINX. We will use stable release NGINX for these two services.
         - Version of **Node.js** image used to build *pusherlaravel* : Only use LTS releases. LTS release is used after they enter 'Active LTS' state. https://github.com/nodejs/LTS
         - Version of **alpine** image used in *cron* : This service is not internet facing. So we will not update it frequently.
         - Version of **letsencypt** image used in *certbot* : This service is not internet facing. So we will not update it frequently.

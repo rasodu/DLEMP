@@ -37,7 +37,7 @@ services:
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         depends_on:
-            - nginxhttps
+            - https
         volumes_from:
             - http:rw
         volumes:
