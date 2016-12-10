@@ -7,7 +7,7 @@ class NginxTest extends TestCase
 {
     public function testPrettyURLsEnabled()
     {
-        $result= $this->getFullResponseFromURL('https://nginxhttps/random-dir/page1?example=value');
+        $result= $this->getFullResponseFromURL('https://https/random-dir/page1?example=value');
 
         $this->assertContains(
             'HTTP/1.1 200 OK',
@@ -24,7 +24,7 @@ class NginxTest extends TestCase
     */
     public function testStaticStorageFilesServedDuringDevelopment()
     {
-        $result= $this->getFullResponseFromURL('https://nginxhttps/storage/static_file.txt');
+        $result= $this->getFullResponseFromURL('https://https/storage/static_file.txt');
 
         $this->assertContains(
             'Text in static file.',
@@ -37,7 +37,7 @@ class NginxTest extends TestCase
     */
     public function testStaticStorageFilesShouldntBeCopiedToProductionVolume()
     {
-        $result= $this->getFullResponseFromURL('https://nginxhttps/storage/static_file.txt');
+        $result= $this->getFullResponseFromURL('https://https/storage/static_file.txt');
 
         $this->assertContains('HTTP/1.1 404 Not Found', $result);
     }
@@ -58,7 +58,7 @@ class NginxTest extends TestCase
         file_put_contents($file_path, $file_content);
         //end files for test
 
-        $result= $this->getFullResponseFromURL('https://nginxhttps/storage/'.$file_name);
+        $result= $this->getFullResponseFromURL('https://https/storage/'.$file_name);
 
         //start remove files created for test
         unlink($file_path);

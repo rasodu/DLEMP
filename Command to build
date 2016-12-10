@@ -15,11 +15,11 @@ docker push rasodu/cmdlaravel:5.6.<version_number>
 docker tag dlemp_certbot rasodu/certbot:0.9.<version_number>
 docker push rasodu/certbot:0.9.<version_number>
     //end push certbot image
-    //start push nginxhttp image
-docker tag dlemp_nginxhttp rasodu/nginxhttp:1.10.<version_number>
-docker push rasodu/nginxhttp:1.10.<version_number>
-    //end push nginxhttp image
-    //start push pusherlaravel image
+    //start push httpnginx image
+docker tag dlemp_http rasodu/httpnginx:1.10.<version_number>
+docker push rasodu/httpnginx:1.10.<version_number>
+    //end push httpnginx image
+    //start push pusher service
 docker tag dlemp_pusherlaravel rasodu/pusherlaravel:4.4.<version_number>
 docker push rasodu/pusherlaravel:4.4.<version_number>
     //end push nodesocket image
@@ -31,11 +31,11 @@ docker history dlemp/phpfpm
 docker tag <image-id-of-layer> rasodu/phpfpmlaravel:5.6.<version_number>//Tag at layer before installing xdebug
 docker push rasodu/phpfpmlaravel:5.6.<version_number>
     //end push phpfpm
-    //start push nginxhttps
-docker history dlemp_nginxhttps
-docker tag <image-id-of-layer> rasodu/nginxhttpslaravel:1.10.<version_number>//Tag at layer before copying 'public' directory to the image
-docker push rasodu/nginxhttpslaravel:1.10.<version_number>
-    //end push nginxhttps
+    //start push https
+docker history dlemp_https
+docker tag <image-id-of-layer> rasodu/httpsnginx:1.10.<version_number>//Tag at layer before copying 'public' directory to the image
+docker push rasodu/httpsnginx:1.10.<version_number>
+    //end push https
 
     //start push s3mock image
 docker exec -it dlemp_webapp.dev_1 /bin/bash
@@ -265,8 +265,8 @@ rm - 4)/DLEMP/certbot/bin/certbot-auto --version
 6)ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /etc/letsencrypt/privkey.pem
   ln -sf /etc/letsencrypt/live/<domain>/fullchain.pem /etc/letsencrypt/fullchain.pem
 8)exit
-9)docker-compose restart nginxhttps    <= restart container name
-10)docker-compose restart pusherlaravel    <= restart container socket
+9)docker-compose restart https    <= restart container name
+10)docker-compose restart pusher    <= restart container socket
 Renew certificate
 1)Need to figure this out
 Revoke certificate

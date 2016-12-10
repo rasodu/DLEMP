@@ -14,7 +14,7 @@ class HttpsProxyAndBackendHeaderTest extends TestCase
         $custom_http_headers= [
             "{$this->custom_http_header_key}: $this->custom_http_header_value",
         ];
-        $this->server_var_https= json_decode($this->getFullResponseFromURL('https://nginxhttps/test_server_8_load_balancer.php', false, $custom_http_headers), true);
+        $this->server_var_https= json_decode($this->getFullResponseFromURL('https://https/test_server_8_load_balancer.php', false, $custom_http_headers), true);
         $this->server_var_httpbackend= json_decode($this->getFullResponseFromURL('http://httpbackend/test_server_8_load_balancer.php', false, $custom_http_headers), true);
     }
 
@@ -38,12 +38,12 @@ class HttpsProxyAndBackendHeaderTest extends TestCase
 
     public function testCorrectHostNameSetForProxyRequest()
     {
-        $this->assertEquals($this->server_var_https['HTTP_HOST'], 'nginxhttps');
+        $this->assertEquals($this->server_var_https['HTTP_HOST'], 'https');
         $this->assertEquals($this->server_var_httpbackend['HTTP_HOST'], 'httpbackend');
     }
 
     public function testProxyRedirectionIsOff()
     {
-        $this->assertContains('https://webapp.dev/', $this->getFullResponseFromURL('https://nginxhttps/test_server_8_load_redirect.php'));
+        $this->assertContains('https://webapp.dev/', $this->getFullResponseFromURL('https://https/test_server_8_load_redirect.php'));
     }
 }
