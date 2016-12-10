@@ -7,10 +7,10 @@ class HttpTest extends TestCase
     */
     public function testHttpRedirectToHttps()
     {
-        $response= $this->getFullResponseFromURL('http://nginxhttp/');
+        $response= $this->getFullResponseFromURL('http://http/');
 
         $this->assertContains('HTTP/1.1 301 Moved Permanently', $response);
-        $this->assertContains('Location: https://nginxhttp/', $response);
+        $this->assertContains('Location: https://http/', $response);
     }
     /**
     *@group prod
@@ -19,7 +19,7 @@ class HttpTest extends TestCase
     */
     public function testServingLetsencryptAcmeChallenge()
     {
-        $response= $this->getFullResponseFromURL('http://nginxhttp/.well-known/acme-challenge/');
+        $response= $this->getFullResponseFromURL('http://http/.well-known/acme-challenge/');
 
         $this->assertContains('HTTP/1.1 404 Not Found', $response);
     }
@@ -29,7 +29,7 @@ class HttpTest extends TestCase
     */
     public function testDontSendNginxVersionNumberInHeader()
     {
-        $response= $this->getFullResponseFromURL('http://nginxhttp/');
+        $response= $this->getFullResponseFromURL('http://http/');
 
         $this->assertNotContains('Server: nginx/', $response);
     }

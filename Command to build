@@ -15,10 +15,10 @@ docker push rasodu/cmdlaravel:5.6.<version_number>
 docker tag dlemp_certbot rasodu/certbot:0.9.<version_number>
 docker push rasodu/certbot:0.9.<version_number>
     //end push certbot image
-    //start push nginxhttp image
-docker tag dlemp_nginxhttp rasodu/nginxhttp:1.10.<version_number>
-docker push rasodu/nginxhttp:1.10.<version_number>
-    //end push nginxhttp image
+    //start push httpnginx image
+docker tag dlemp_http rasodu/httpnginx:1.10.<version_number>
+docker push rasodu/httpnginx:1.10.<version_number>
+    //end push httpnginx image
     //start push pusherlaravel image
 docker tag dlemp_pusherlaravel rasodu/pusherlaravel:4.4.<version_number>
 docker push rasodu/pusherlaravel:4.4.<version_number>
