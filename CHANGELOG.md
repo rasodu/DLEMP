@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Changed
+- Some of the service name changed (2016-12-10)
 - nginxhttps service is split into nginxhttps and httpbackend (2016-12-05)
 ### Added
 - Added CHANGELOG.md file (2016-11-14)
