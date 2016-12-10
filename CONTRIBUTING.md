@@ -14,7 +14,7 @@
 #### Recommendation for updating base image and other software installed in final images
 - **Philosophy**
     - Developers care about PHP version in phpfpm/phpfpmdev/cmd image and Node.js version in cmd image. Version of these software effects the code that developers write. We refer these kinds of softwares as *core services/softwares*.
-    - Developer don't care about the versions of services that don't directly effect their code. For example, version of NGINX used in nginxhttp/nignxhttps and version of Node.js used in pusherlaravel don't directly effect the code that the developers are writing. Developers just want these services to work without knowing details about these services. We will refer to these kind of software as *supporting services/software*.
+    - Developer don't care about the versions of services that don't directly effect their code. For example, version of NGINX used in http/https and version of Node.js used in pusherlaravel don't directly effect the code that the developers are writing. Developers just want these services to work without knowing details about these services. We will refer to these kind of software as *supporting services/software*.
     - This project aims to build stable development environment. Therefore we will use stable base for *supporting services/softwares* to make sure that they work without any kind of hiccup. Use LTS components to build them if possible.
 - **Individual components**
     - **Core software**

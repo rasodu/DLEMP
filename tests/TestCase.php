@@ -21,7 +21,7 @@ class TestCase extends PHPUnit_Framework_TestCase
     *Get header and body at given URL
     *<code>
     * //extends this class
-    *$this->testHttpRedirectToHttps('http://nginxhttp/');
+    *$this->testHttpRedirectToHttps('http://http/');
     *</code>
     *
     *@param string $url is the URL from which to fetch response
