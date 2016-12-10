@@ -32,6 +32,6 @@ services:
     httpbackend:
         build:
             context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/nginxhttplaravel
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/httpbackendlaravelnginx
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
