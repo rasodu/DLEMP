@@ -1,7 +1,7 @@
 version: '2'
 services:
 #start These services can be disabled without affecting any other services
-    pusherlaravel:
+    pusher:
         build:
             context: .
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/pusherlaravel

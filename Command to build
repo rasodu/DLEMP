@@ -19,7 +19,7 @@ docker push rasodu/certbot:0.9.<version_number>
 docker tag dlemp_http rasodu/httpnginx:1.10.<version_number>
 docker push rasodu/httpnginx:1.10.<version_number>
     //end push httpnginx image
-    //start push pusherlaravel image
+    //start push pusher service
 docker tag dlemp_pusherlaravel rasodu/pusherlaravel:4.4.<version_number>
 docker push rasodu/pusherlaravel:4.4.<version_number>
     //end push nodesocket image
@@ -266,7 +266,7 @@ rm - 4)/DLEMP/certbot/bin/certbot-auto --version
   ln -sf /etc/letsencrypt/live/<domain>/fullchain.pem /etc/letsencrypt/fullchain.pem
 8)exit
 9)docker-compose restart https    <= restart container name
-10)docker-compose restart pusherlaravel    <= restart container socket
+10)docker-compose restart pusher    <= restart container socket
 Renew certificate
 1)Need to figure this out
 Revoke certificate
