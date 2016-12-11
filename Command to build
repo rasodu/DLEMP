@@ -3,26 +3,30 @@
 docker login
     //end login to docker hub
 
-    //start push phpfpmdev image
+    //start push phpfpmdev service
 docker tag dlemp/phpfpm rasodu/phpfpmdevlaravel:5.6.<version_number>
 docker push rasodu/phpfpmdevlaravel:5.6.<version_number>
-    //end push phpfpmdev image
-    //start push cmd image
+    //end push phpfpmdev service
+    //start push cmd service
 docker tag dlemp_cmd rasodu/cmdlaravel:5.6.<version_number>
 docker push rasodu/cmdlaravel:5.6.<version_number>
-    //end push cmd image
-    //start push certbot image
+    //end push cmd service
+    //start push certbot service
 docker tag dlemp_certbot rasodu/certbot:0.9.<version_number>
 docker push rasodu/certbot:0.9.<version_number>
-    //end push certbot image
-    //start push httpnginx image
+    //end push certbot service
+    //start push http service
 docker tag dlemp_http rasodu/httpnginx:1.10.<version_number>
 docker push rasodu/httpnginx:1.10.<version_number>
-    //end push httpnginx image
+    //end push http service
+    //start push https
+docker tag dlemp_https rasodu/httpsnginx:1.10.<version_number>//Tag at layer before copying 'public' directory to the image
+docker push rasodu/httpsnginx:1.10.<version_number>
+    //end push https
     //start push pusher service
 docker tag dlemp_pusherlaravel rasodu/pusherlaravel:4.4.<version_number>
 docker push rasodu/pusherlaravel:4.4.<version_number>
-    //end push nodesocket image
+    //end push pusher service
 
     //start push phpfpm
 #put app in production mode by changing 'COMPOSE_FILE' in '.env' file
@@ -31,11 +35,11 @@ docker history dlemp/phpfpm
 docker tag <image-id-of-layer> rasodu/phpfpmlaravel:5.6.<version_number>//Tag at layer before installing xdebug
 docker push rasodu/phpfpmlaravel:5.6.<version_number>
     //end push phpfpm
-    //start push https
-docker history dlemp_https
-docker tag <image-id-of-layer> rasodu/httpsnginx:1.10.<version_number>//Tag at layer before copying 'public' directory to the image
-docker push rasodu/httpsnginx:1.10.<version_number>
-    //end push https
+    //start push httpbackend
+docker history dlemp_httpbackend
+docker tag <image-id-of-layer> rasodu/httpbackendlaravelnginx:1.10.<version_number>//Tag at layer before copying 'public' directory to the image
+docker push rasodu/httpbackendlaravelnginx:1.10.<version_number>
+    //end push httpbackend
 
     //start push s3mock image
 docker exec -it dlemp_webapp.dev_1 /bin/bash

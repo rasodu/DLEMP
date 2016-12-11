@@ -14,6 +14,6 @@ class LaravelInstallerTest extends TestCase
         $process->run();
         $output= $process->getOutput();
 
-        $this->assertContains("Laravel Installer version", $output);
+        $this->assertContains("Laravel Installer", $output);
     }
 }
