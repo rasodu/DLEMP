@@ -52,6 +52,14 @@ services:
             - phpfpm
         expose:
             - "80"
+    nodejs:
+        build:
+            context: .
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/6nodejs
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        expose:
+            - "8080"
     https:
         build:
             context: .
