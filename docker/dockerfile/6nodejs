@@ -1,0 +1,6 @@
+FROM node:6.9.4
+ARG DLEMP_BASE_DIR
+
+COPY ${DLEMP_BASE_DIR}nodejs /usr/src/app/
+
+CMD npm start --prefix usr/src/app
