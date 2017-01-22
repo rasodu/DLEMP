@@ -69,6 +69,7 @@ services:
             - httpbackend
         ports:
             - "443:443"
+            - "8080:8080"
         volumes:
             - etc-letsencrypt:/etc/letsencrypt
 volumes:

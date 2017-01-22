@@ -31,6 +31,6 @@ services:
             - phpfpm
     nodejs:
         ports:
-            - "8080:8080"
+            - "8081:8080"
         volumes:
             - ./nodejs:/usr/src/app/
