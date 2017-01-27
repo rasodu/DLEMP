@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Some of the service name changed (2016-12-10)
 - nginxhttps service is split into nginxhttps and httpbackend (2016-12-05)
 ### Added
+- Laravel Echo server support is added (2017-01-26)
+- Nodejs server support is added (2017-01-22)
 - Added CHANGELOG.md file (2016-11-14)
 - Support for make build system is added (2016-11-14)
 - Increase NGINX cgi timeout (2016-10-31)

@@ -14,6 +14,16 @@ services:
             - etc-letsencrypt:/etc/letsencrypt
         ports:
             - "3000:3000"
+    broadcaster:
+        build:
+            context: .
+            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/broadcasterlaravelechoserver
+            args:
+                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        depends_on:
+            - redis
+        expose:
+            - "6001"
     worker:
         image: dlemp/phpfpm
         depends_on:

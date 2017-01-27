@@ -3,3 +3,6 @@ services:
     phpfpm:
         build:
             dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/${DLEMP_PHP_VERSION}phpfpmdevlaravel
+    broadcaster:
+        ports:
+            - "6000:6001"

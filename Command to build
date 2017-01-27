@@ -27,6 +27,11 @@ docker push rasodu/httpsnginx:1.10.<version_number>
 docker tag dlemp_pusherlaravel rasodu/pusherlaravel:4.4.<version_number>
 docker push rasodu/pusherlaravel:4.4.<version_number>
     //end push pusher service
+    //start push broadcaster service
+docker-compose exec broadcaster npm list -g | grep -i laravel
+docker tag dlemp_broadcaster rasodu/broadcasterlaravelechoserver:<version_number>
+docker push rasodu/broadcasterlaravelechoserver:<version_number>
+    //end push broadcaster service
 
     //start push phpfpm
 #put app in production mode by changing 'COMPOSE_FILE' in '.env' file
