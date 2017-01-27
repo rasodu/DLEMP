@@ -1,0 +1,10 @@
+FROM node:6.9.1-alpine
+ARG DLEMP_BASE_DIR
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+RUN npm install -g laravel-echo-server
+
+RUN laravel-echo-server init
+COPY ${DLEMP_BASE_DIR}docker/docker-config/laravel-echo-server.json /usr/src/app/laravel-echo-server.json
+CMD laravel-echo-server start

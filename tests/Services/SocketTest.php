@@ -39,7 +39,7 @@ class SocketTest extends TestCase
 
         $result= $redis->publish($this->channel_name, $publish);
 
-        $this->assertSame(1, $result);
+        $this->assertSame(2, $result);
     }
 
     /**
