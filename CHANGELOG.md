@@ -5,10 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
 ### Changed
 - Some of the service name changed (2016-12-10)
 - nginxhttps service is split into nginxhttps and httpbackend (2016-12-05)
+
 ### Added
+- PHP 7.1 support is added (2017-01-28)
 - Laravel Echo server support is added (2017-01-26)
 - Nodejs server support is added (2017-01-22)
 - Added CHANGELOG.md file (2016-11-14)
@@ -19,4 +22,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Set default execution time in NGINX and phpfpm (2016-10-29)
 - Default time on php.ini is set to UTC (2016-10-29)
 - Elasticsearch(version 5.0.0) container is added.
+
 ### Fixed
