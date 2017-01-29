@@ -24,7 +24,7 @@ docker tag dlemp_https rasodu/httpsnginx:1.10.<version_number>//Tag at layer bef
 docker push rasodu/httpsnginx:1.10.<version_number>
     //end push https
     //start push pusher service
-docker tag dlemp_pusherlaravel rasodu/pusherlaravel:4.4.<version_number>
+docker tag dlemp_pusher rasodu/pusherlaravel:4.4.<version_number>
 docker push rasodu/pusherlaravel:4.4.<version_number>
     //end push pusher service
     //start push broadcaster service

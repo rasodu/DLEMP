@@ -1,6 +1,6 @@
 FROM node:6.9.1-alpine
 ARG DLEMP_BASE_DIR
-EXPOSE 3000
+EXPOSE 7001
 
 COPY ${DLEMP_BASE_DIR}docker/docker-config/node-package.json /usr/src/app/package.json
 WORKDIR /usr/src/app

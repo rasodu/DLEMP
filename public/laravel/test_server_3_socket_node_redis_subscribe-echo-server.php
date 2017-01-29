@@ -2,7 +2,7 @@
     <head>
         <script src="https://webapp.dev:6001/socket.io/socket.io.js"></script>
         <script>
-            var socket= io(':6001');//"https://webapp.dev:3000/" (last '/' is optional)
+            var socket= io(':6001');//"https://webapp.dev:7001/" (last '/' is optional)
 
             socket.on('connect', function(){
                 console.log('connect');

@@ -1,17 +1,11 @@
 //Example from Laravel documentation
-var fs = require('fs');
-var options = {
-    key: fs.readFileSync('/etc/letsencrypt/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/fullchain.pem')
-}
-
-var app = require('https').createServer(options, handler);
+var app = require('http').createServer(handler);
 var io = require('socket.io')(app);
 
 var Redis = require('ioredis');
 var redis = new Redis(6379, 'redis');
 
-app.listen(3000, function() {
+app.listen(7001, function() {
     console.log('Server is running!');
 });
 
