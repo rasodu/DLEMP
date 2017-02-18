@@ -13,6 +13,12 @@ services:
         image: michielbdejong/mailtrap
         expose:
             - "25"
+    dynamodb:
+        image: deangiberson/aws-dynamodb-local
+        expose:
+            - "8000"
+        ports:
+            - "8000:8000"
 #end These services can be disabled without affecting any other services
     phpfpm:
         volumes:
