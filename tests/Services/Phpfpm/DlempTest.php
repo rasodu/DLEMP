@@ -56,4 +56,11 @@ class DlempTest extends TestCase
             "Curl not installed. A lot of unittest will be skipped."
         );
     }
+
+    public function testAccessLogIsOff()
+    {
+        $this->markTestIncomplete(
+            'Test that access log is off: access.log = /dev/null'
+        );
+    }
 }
