@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Changed
+- Turn off access log in PHPFPM(2017-02-18)
 - Pusher ports changed (2017-01-28)
 - Some of the service name changed (2016-12-10)
 - nginxhttps service is split into nginxhttps and httpbackend (2016-12-05)
