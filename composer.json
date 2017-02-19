@@ -17,6 +17,7 @@
         "league/flysystem-aws-s3-v3": "~1.0",
         "symfony/process": "~3.0",
         "sebastian/peek-and-poke": "dev-master",
+        "aws/aws-sdk-php": "~3.22",
         "elasticsearch/elasticsearch": "2.2.2"
     },
     "autoload-dev": {
