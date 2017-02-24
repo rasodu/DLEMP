@@ -24,7 +24,8 @@ COPY ${DLEMP_BASE_DIR}docker/docker-config/php.ini-common-delta /usr/local/etc/p
 
 WORKDIR /usr/share/nginx/WEBAPP
 
-CMD ["php-fpm"]
+ENTRYPOINT []
+CMD ["docker-php-entrypoint", "php-fpm"]
 #end common phpfpm instructions
 
 #start everything specific to phpfpmdev
