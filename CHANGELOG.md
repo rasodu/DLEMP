@@ -28,3 +28,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Elasticsearch(version 5.0.0) container is added.
 
 ### Fixed
+- DynamoDB unit test is complete (2017-02-26)

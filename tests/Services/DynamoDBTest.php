@@ -13,19 +13,19 @@ class DynamoDBTest extends TestCase
 
     private $table_name= 'errors';
     private $entry_id= '1201';
-    private $entry_time= null;
+    private $entry_time= '1488145917';//The number must be in string format
     private $entry_error= 'Executive overflow';
     private $entry_message= 'no vacant areas';
     public function setUp()
     {
         $this->client = DynamoDbClient::factory(array(
             'credentials' => [
-                'key' => 'asdkfhksdajh',
-                'secret' => 'dgjdasflkhd',
+                'key' => 'AKIAIOSFODNN7EXAMPLE',
+                'secret' => 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
             ],
             'region' => 'us-east-1',
             'endpoint' => 'http://dynamodb:8000',
-            'version' => '2012-08-10'
+            'version' => 'latest'
         ));
     }
 
@@ -55,8 +55,8 @@ class DynamoDBTest extends TestCase
                 )
             ),
             'ProvisionedThroughput' => array(
-                'ReadCapacityUnits'  => 1,
-                'WriteCapacityUnits' => 1
+                'ReadCapacityUnits'  => 25,
+                'WriteCapacityUnits' => 25
             )
         ));
 
@@ -68,7 +68,6 @@ class DynamoDBTest extends TestCase
         $this->assertContains($this->table_name, $result['TableNames']);
 
         //add information to table
-        $this->entry_time= time();
         $result = $this->client->putItem(array(
             'TableName' => $this->table_name,
             'Item' => array(
@@ -85,8 +84,6 @@ class DynamoDBTest extends TestCase
     */
     public function testReadFromDynamoDB()
     {
-        $this->markTestIncomplete('Currently failing to read the data back from local DynamoDB.');
-
         $result = $this->client->getItem(array(
             'ConsistentRead' => true,
             'TableName' => $this->table_name,
@@ -100,7 +97,7 @@ class DynamoDBTest extends TestCase
     }
 
     /**
-    *@depends testWrtieToDynamoDB
+    *@depends testReadFromDynamoDB
     */
     public function testDeleteFromDynamoDB()
     {
