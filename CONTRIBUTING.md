@@ -7,6 +7,7 @@
 - *Optional*
     - **make** : 3.81.1 or newer
     - **bash** : commands in Makefile may not work correctly on a shell other than bash.
+    - **node** and **npm** : required if you want to use ```make test-watch``` command. Gulp is used to watch file changes.
 
 #### Coding Style
 - **PHP** : We use PSR2 code for all PHP code in the project
