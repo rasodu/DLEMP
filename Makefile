@@ -27,6 +27,11 @@ test: vendor
 			&& docker exec --user=$$(id -u):$$(id -g) dlemp_phpfpm_1 vendor/bin/phpunit --exclude-group=cmd,prod;; \
 	esac
 
+	#same as 'make test' but tuns the command automatically every time a file is changed.
+PHONY += watch-test
+watch-test:
+	node node_modules/gulp/bin/gulp.js watch-test
+
 	#remove container, network and volumes
 PHONY += mostlyclean
 mostlyclean:
