@@ -28,9 +28,9 @@ test: vendor
 	esac
 
 	#same as 'make test' but tuns the command automatically every time a file is changed.
-PHONY += watch-test
-watch-test:
-	node node_modules/gulp/bin/gulp.js watch-test
+PHONY += test-watch
+test-watch:
+	node node_modules/gulp/bin/gulp.js test-watch
 
 	#remove container, network and volumes
 PHONY += mostlyclean
