@@ -6,11 +6,14 @@ var gulp = require('gulp'),
 gulp.task('watch-test', function() {
     return watch('**/*.*', batch(function(events, done) {
         console.log('Statring command: \`make test\`');
-        exec('make test', function (err, stdout, stderr) {
-            console.log(stdout);
-            console.log(stderr);
+
+        var makeProcess = exec('make test');
+        makeProcess.stdout.pipe(process.stdout);
+        makeProcess.stderr.pipe(process.stderr);
+        makeProcess.on('exit', function (code){
             console.log('Ending command: \`make test\`');
-            done(err);
+            done(code);
         });
+
     }));
 });
