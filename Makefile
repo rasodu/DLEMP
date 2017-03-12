@@ -10,9 +10,13 @@ PHONY =
 vendor: composer.json | all
 	docker exec --user=$$(id -u):$$(id -g) dlemp_cmd_1 composer install
 
+	#install npm dependency
+node_modules: package.json
+	-npm install
+
 	#build and start containers
 PHONY += all
-all:
+all: node_modules
 	$(COMPOSE) build
 	$(COMPOSE) up -d
 
@@ -27,6 +31,11 @@ test: vendor
 			&& docker exec --user=$$(id -u):$$(id -g) dlemp_phpfpm_1 vendor/bin/phpunit --exclude-group=cmd,prod;; \
 	esac
 
+	#same as 'make test' but tuns the command automatically every time a file is changed.
+PHONY += test-watch
+test-watch:
+	node node_modules/gulp/bin/gulp.js test-watch
+
 	#remove container, network and volumes
 PHONY += mostlyclean
 mostlyclean:
@@ -37,6 +46,7 @@ PHONY += clean
 clean:
 	$(COMPOSE) down -v --rmi local
 	-$(RM) -r vendor
+	-$(RM) -r node_modules
 	-$(RM) -r public/app-documentation
 	#-$(RM) -r public/phpunit-coverage
 
