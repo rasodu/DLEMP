@@ -55,7 +55,7 @@ services:
     nodejs:
         build:
             context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/6nodejs
+            dockerfile: ${DLEMP_BASE_DIR}docker/nodejs/6nodejs
             args:
                 DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         expose:
