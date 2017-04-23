@@ -1,4 +1,4 @@
-FROM quay.io/letsencrypt/letsencrypt:v0.9.3
+FROM quay.io/letsencrypt/letsencrypt:latest
 ARG DLEMP_BASE_DIR
 
 #start all operations for let's encrypt

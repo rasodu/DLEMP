@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Changed
+- Pull Letsencrypt latest image because tag no longer exist(2017-04-23)
 - Entry point for the PHPFPM image is cleared(because at this point AWS Elastic Beanstalk doesn't support clearing this field. So it is not possible to change command for the image if entrypoint for the image is not cleared.)(2017-02-23)
 - Add DynamoDB for local development(2017-02-18)
 - Turn off access log in PHPFPM(2017-02-18)
