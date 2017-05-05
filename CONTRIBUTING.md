@@ -26,3 +26,19 @@
         - Version of **Node.js** image used to build *pusher* : Only use LTS releases. LTS release is used after they enter 'Active LTS' state. https://github.com/nodejs/LTS
         - Version of **alpine** image used in *cron* : This service is not internet facing. So we will not update it frequently.
         - Version of **letsencypt** image used in *certbot* : This service is not internet facing. So we will not update it frequently.
+
+#### Goals of the project setup is to try to allow multiple developers to work on the project at a given time, developers should be able to understand internal of the project so they can contribute to the project, developers should be able to make changes with confidence that their changes didn't break other parts of the project and developers should be able to apply changes to the project at steady speed as project grows.
+- **Project Setup Milestones**
+    - Version Control
+    - Incode comments to explain code(PHPDoc)
+    - Unittest
+    - Build system
+    - Continuous Integration
+    - Design Patterns
+- **Important Project Files**
+    - README.md
+    - CONTRIBUTING.md
+    - CHANGELOG.md
+    - .github/PULL_REQUEST_TEMPLATE.md
+    - .github/ISSUE_TEMPLATE.md
+    - LICENSE.md
