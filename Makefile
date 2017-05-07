@@ -16,9 +16,13 @@ node_modules: package.json
 
 	#build and start containers
 PHONY += all
-all: node_modules
-	$(COMPOSE) build
+all: docker_build_images node_modules
 	$(COMPOSE) up -d
+
+PHONY += docker_build_images
+docker_build_images:
+	$(COMPOSE) build
+
 
 	#run unittests
 PHONY += test
