@@ -1,4 +1,4 @@
-FROM dlemp/phpfpm
+FROM rasodu/phpfpmdevlaravel:dev
 
 #start everything specific 'dlemp_cmd' file
     #start install node

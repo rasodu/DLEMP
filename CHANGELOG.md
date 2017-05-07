@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - nginxhttps service is split into nginxhttps and httpbackend (2016-12-05)
 
 ### Added
+- docker-compose no longer responsible for building images(2017-05-06)
 - PHP 7.1 support is added (2017-01-28)
 - Laravel Echo server support is added (2017-01-26)
 - Nodejs server support is added (2017-01-22)

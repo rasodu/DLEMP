@@ -37,12 +37,6 @@ services:
             - "6379"
 #end Disabling these services require that you also disable services that depends on the services that you are disabling.
     phpfpm:
-        build:
-            context: .
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
-                DLEMP_PHP_VERSION: ${DLEMP_PHP_VERSION}
-        image: dlemp/phpfpm
         expose:
             - "9000"
     httpbackend:
@@ -53,18 +47,10 @@ services:
         expose:
             - "80"
     nodejs:
-        build:
-            context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/6nodejs
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        image: rasodu/6nodejs:dev
         expose:
             - "8080"
     https:
-        build:
-            context: .
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
         depends_on:
             - httpbackend
         ports:

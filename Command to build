@@ -4,11 +4,11 @@ docker login
     //end login to docker hub
 
     //start push phpfpmdev service
-docker tag dlemp/phpfpm rasodu/phpfpmdevlaravel:5.6.<version_number>
+docker tag rasodu/phpfpmdevlaravel:dev rasodu/phpfpmdevlaravel:5.6.<version_number>
 docker push rasodu/phpfpmdevlaravel:5.6.<version_number>
     //end push phpfpmdev service
     //start push cmd service
-docker tag dlemp_cmd rasodu/cmdlaravel:5.6.<version_number>
+docker tag rasodu/cmdlaravel:dev rasodu/cmdlaravel:5.6.<version_number>
 docker push rasodu/cmdlaravel:5.6.<version_number>
     //end push cmd service
     //start push certbot service
@@ -35,13 +35,12 @@ docker push rasodu/broadcasterlaravelechoserver:<version_number>
 
     //start push phpfpm
 #put app in production mode by changing 'COMPOSE_FILE' in '.env' file
-docker-compose build phpfpm
-docker history dlemp/phpfpm
+docker history rasodu/phpfpmlaravel:dev
 docker tag <image-id-of-layer> rasodu/phpfpmlaravel:5.6.<version_number>//Tag at layer before installing xdebug
 docker push rasodu/phpfpmlaravel:5.6.<version_number>
     //end push phpfpm
     //start push httpbackend
-docker history dlemp_httpbackend
+docker history rasodu/httpbackendlaravelnginx:dev
 docker tag <image-id-of-layer> rasodu/httpbackendlaravelnginx:1.10.<version_number>//Tag at layer before copying 'public' directory to the image
 docker push rasodu/httpbackendlaravelnginx:1.10.<version_number>
     //end push httpbackend
