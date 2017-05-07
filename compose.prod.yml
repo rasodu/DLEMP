@@ -2,11 +2,7 @@ version: '2'
 services:
 #start These services can be disabled without affecting any other services
     cron:
-        build:
-            context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/cron
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        image: rasodu/cron:dev
     mysql:
         volumes:
             - var-lib-mysql:/var/lib/mysql
@@ -21,21 +17,13 @@ services:
             - data-redis:/data
 #end These services can be disabled without affecting any other services
     http:
-        build:
-            context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/httpnginx
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        image: rasodu/httpnginx:dev
         ports:
             - "80:80"
         volumes:
             - acme-challenge:/DLEMP/certbot/public/.well-known/acme-challenge
     certbot:
-        build:
-            context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/certbot
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        image: rasodu/certbot:dev
         depends_on:
             - https
         volumes_from:

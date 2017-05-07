@@ -2,11 +2,7 @@ version: '2'
 services:
 #start These services can be disabled without affecting any other services
     webapp.dev: #s3mock service is given this name for easy internal excess
-        build:
-            context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/s3mock
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        image: rasodu/s3mock:dev
         ports:
             - "4569:4569"
     smtp:
@@ -27,9 +23,7 @@ services:
         ports:
             - "80:80"
     cmd:
-        build:
-            context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/cmd
+        image: rasodu/cmdlaravel:dev
         ports:
             - "3002:3000"
             - "3001:3001"

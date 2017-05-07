@@ -2,27 +2,19 @@ version: '2'
 services:
 #start These services can be disabled without affecting any other services
     pusher:
-        build:
-            context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/pusherlaravel
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        image: rasodu/pusherlaravel:dev
         depends_on:
             - redis
         expose:
             - "7001"
     broadcaster:
-        build:
-            context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/broadcasterlaravelechoserver
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        image: rasodu/broadcasterlaravelechoserver:dev
         depends_on:
             - redis
         expose:
             - "6001"
     worker:
-        image: dlemp/phpfpm
+        image: rasodu/phpfpmlaravel:dev
         depends_on:
             - beanstalkd
             - phpfpm
@@ -31,14 +23,8 @@ services:
             - phpfpm
 #end These services can be disabled without affecting any other services
     phpfpm:
-        build:
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/${DLEMP_PHP_VERSION}phpfpmlaravel
+        image: rasodu/phpfpmlaravel:dev
     https:
-        build:
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/httpsnginx
+        image: rasodu/httpsnginx:dev
     httpbackend:
-        build:
-            context: .
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/httpbackendlaravelnginx
-            args:
-                DLEMP_BASE_DIR: ${DLEMP_BASE_DIR}
+        image: rasodu/httpbackendlaravelnginx:dev

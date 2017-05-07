@@ -16,9 +16,27 @@ node_modules: package.json
 
 	#build and start containers
 PHONY += all
-all: node_modules
-	$(COMPOSE) build
+all: docker_build_images node_modules
 	$(COMPOSE) up -d
+
+PHONY += docker_build_images
+docker_build_images:
+	#images pushed to docker hub
+	docker build --build-arg DLEMP_BASE_DIR=$(DLEMP_BASE_DIR) --build-arg DLEMP_PHP_VERSION=${DLEMP_PHP_VERSION} --tag rasodu/phpfpmdevlaravel:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/$(DLEMP_PHP_VERSION)phpfpmdevlaravel .
+	docker build --tag rasodu/cmdlaravel:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/cmd .
+	docker run --rm --user=$$(id -u):$$(id -g) -v $$(pwd):/usr/share/nginx/WEBAPP rasodu/cmdlaravel:dev composer install
+	docker build --build-arg DLEMP_BASE_DIR=$(DLEMP_BASE_DIR) --build-arg DLEMP_PHP_VERSION=${DLEMP_PHP_VERSION} --tag rasodu/phpfpmlaravel:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/$(DLEMP_PHP_VERSION)phpfpmlaravel .
+	docker build --build-arg DLEMP_BASE_DIR=$(DLEMP_BASE_DIR) --tag rasodu/httpbackendlaravelnginx:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/httpbackendlaravelnginx .
+	docker build --build-arg DLEMP_BASE_DIR=$(DLEMP_BASE_DIR) --tag rasodu/httpsnginx:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/httpsnginx .
+	docker build --build-arg DLEMP_BASE_DIR=$(DLEMP_BASE_DIR) --tag rasodu/httpnginx:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/httpnginx .
+	docker build --build-arg DLEMP_BASE_DIR=$(DLEMP_BASE_DIR) --tag rasodu/cron:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/cron .
+	docker build --build-arg DLEMP_BASE_DIR=$(DLEMP_BASE_DIR) --tag rasodu/broadcasterlaravelechoserver:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/broadcasterlaravelechoserver .
+	docker build --build-arg DLEMP_BASE_DIR=$(DLEMP_BASE_DIR) --tag rasodu/pusherlaravel:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/pusherlaravel .
+	docker build --build-arg DLEMP_BASE_DIR=$(DLEMP_BASE_DIR) --tag rasodu/s3mock:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/s3mock .
+	docker build --build-arg DLEMP_BASE_DIR=$(DLEMP_BASE_DIR) --tag rasodu/certbot:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/httpnginx .
+	#images not pushed to docker hub
+	docker build --build-arg DLEMP_BASE_DIR=$(DLEMP_BASE_DIR) --tag rasodu/6nodejs:dev -f $(DLEMP_BASE_DIR)docker/dockerfile/6nodejs .
+
 
 	#run unittests
 PHONY += test

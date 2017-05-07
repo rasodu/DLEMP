@@ -1,8 +1,7 @@
 version: '2'
 services:
     phpfpm:
-        build:
-            dockerfile: ${DLEMP_BASE_DIR}docker/dockerfile/${DLEMP_PHP_VERSION}phpfpmdevlaravel
+        image: rasodu/phpfpmdevlaravel:dev
     pusher:
         ports:
             - "7000:7001"
